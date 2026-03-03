@@ -14,8 +14,8 @@ export async function POST(req: NextRequest) {
 
     const { name, email, birthDate, birthTime, gender } = body;
 
-    if (!name || !email || !birthDate) {
-      return NextResponse.json({ error: "Missing required fields" }, { status: 400 });
+    if (!name || !email) {
+      return NextResponse.json({ error: "Name and email are required" }, { status: 400 });
     }
 
     // orderId: Toss requires 6–64 chars, alphanumeric + _ -
@@ -27,7 +27,7 @@ export async function POST(req: NextRequest) {
         ${orderId},
         ${name},
         ${email},
-        ${birthDate},
+        ${birthDate || "unknown"},
         ${birthTime ?? "unknown"},
         ${gender ?? "unknown"},
         35,

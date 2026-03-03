@@ -15,21 +15,23 @@ const PREMIUM_FEATURES = [
 export default function OrderClient() {
   const searchParams = useSearchParams();
 
-  const [name, setName] = useState(searchParams.get("name") ?? "");
-  const [email, setEmail] = useState("");
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState<string | null>(null);
+  const searchYear  = searchParams.get("year")   ?? "";
+  const searchMonth = searchParams.get("month")  ?? "";
+  const searchDay   = searchParams.get("day")    ?? "";
+  const searchHour  = searchParams.get("hour")   ?? "unknown";
+  const gender      = searchParams.get("gender") ?? "";
 
-  const year = searchParams.get("year") ?? "";
-  const month = searchParams.get("month") ?? "";
-  const day = searchParams.get("day") ?? "";
-  const hour = searchParams.get("hour") ?? "unknown";
-  const gender = searchParams.get("gender") ?? "";
-
-  const birthDate = year
-    ? `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
+  const prefillDate = searchYear
+    ? `${searchYear}-${searchMonth.padStart(2, "0")}-${searchDay.padStart(2, "0")}`
     : "";
-  const birthTime = hour === "unknown" ? "Unknown" : `${hour.padStart(2, "0")}:00`;
+
+  const [name, setName]           = useState(searchParams.get("name") ?? "");
+  const [email, setEmail]         = useState("");
+  const [birthDate, setBirthDate] = useState(prefillDate);
+  const [loading, setLoading]     = useState(false);
+  const [error, setError]         = useState<string | null>(null);
+
+  const birthTime = searchHour === "unknown" ? "Unknown" : `${searchHour.padStart(2, "0")}:00`;
 
   const handlePay = async () => {
     if (!name.trim()) {
@@ -38,6 +40,10 @@ export default function OrderClient() {
     }
     if (!email.trim() || !email.includes("@")) {
       setError("Please enter a valid email address.");
+      return;
+    }
+    if (!birthDate) {
+      setError("Please enter your date of birth.");
       return;
     }
 
@@ -135,7 +141,7 @@ export default function OrderClient() {
       {birthDate && (
         <div className="bg-[#0A0A0F] border border-[#2A2A4A] rounded-xl px-4 py-3 mb-6 flex flex-wrap gap-x-6 gap-y-1 text-sm">
           <span className="text-gray-500">Birth date: <span className="text-gray-300">{birthDate}</span></span>
-          {hour !== "unknown" && (
+          {searchHour !== "unknown" && (
             <span className="text-gray-500">Time: <span className="text-gray-300">{birthTime}</span></span>
           )}
           {gender && (
@@ -169,6 +175,19 @@ export default function OrderClient() {
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Report will be sent here"
             className="w-full bg-[#1A1A2E] border border-[#2A2A4A] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+          />
+        </div>
+
+        {/* Birth date — show as editable if not passed via URL */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+            Date of Birth <span className="text-[#F59E0B]">*</span>
+          </label>
+          <input
+            type="date"
+            value={birthDate}
+            onChange={(e) => setBirthDate(e.target.value)}
+            className="w-full bg-[#1A1A2E] border border-[#2A2A4A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7C3AED] transition-colors"
           />
         </div>
       </div>
