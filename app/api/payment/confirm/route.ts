@@ -126,7 +126,7 @@ function customerEmailHtml({
             <tr><td style="color:#6B7280;font-size:13px;">Name</td><td style="text-align:right;font-weight:600;">${name}</td></tr>
             <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Birth Date</td><td style="text-align:right;font-weight:600;border-top:1px solid #2A2A4A;">${birthDate}</td></tr>
             <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Birth Time</td><td style="text-align:right;font-weight:600;border-top:1px solid #2A2A4A;">${birthTime}</td></tr>
-            <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Amount</td><td style="text-align:right;font-weight:600;color:#F59E0B;border-top:1px solid #2A2A4A;">₩35,000</td></tr>
+            <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Amount</td><td style="text-align:right;font-weight:600;color:#F59E0B;border-top:1px solid #2A2A4A;">$35</td></tr>
           </table>
 
           <p style="color:#D1D5DB;font-size:14px;line-height:1.7;margin:0 0 24px;">

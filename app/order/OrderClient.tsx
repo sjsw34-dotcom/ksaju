@@ -66,10 +66,10 @@ export default function OrderClient() {
       const payment = tossPayments.payment({ customerKey: ANONYMOUS });
 
       await payment.requestPayment({
-        method: "CARD",
-        amount: { currency: "KRW", value: 35000 },
+        method: "PAYPAL" as "CARD",
+        amount: { currency: "USD", value: 35 },
         orderId,
-        orderName: "K-Fortune Premium Saju Report",
+        orderName: "Unmyung Therapy Premium Saju Report",
         successUrl: `${window.location.origin}/order/success`,
         failUrl: `${window.location.origin}/order/fail`,
         customerName: name,
@@ -119,9 +119,9 @@ export default function OrderClient() {
 
         <div className="border-t border-[#2A2A4A] mt-6 pt-5 flex items-end justify-between">
           <div>
-            <p className="text-xs text-gray-500 line-through mb-0.5">₩65,000</p>
+            <p className="text-xs text-gray-500 line-through mb-0.5">$65</p>
             <p className="text-3xl font-bold">
-              ₩35,000
+              $35
               <span className="text-base font-normal text-gray-400 ml-2">one-time</span>
             </p>
           </div>
@@ -184,11 +184,11 @@ export default function OrderClient() {
         disabled={loading}
         className="w-full py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-lg transition-colors"
       >
-        {loading ? "Redirecting to payment..." : "Pay ₩35,000 →"}
+        {loading ? "Redirecting to PayPal..." : "Pay $35 via PayPal →"}
       </button>
 
       <p className="text-center text-gray-600 text-xs mt-4">
-        Secure payment via Toss Payments · SSL encrypted
+        Secure payment via PayPal · SSL encrypted
       </p>
     </div>
   );

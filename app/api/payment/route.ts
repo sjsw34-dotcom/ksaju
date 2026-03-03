@@ -30,7 +30,7 @@ export async function POST(req: NextRequest) {
         ${birthDate},
         ${birthTime ?? "unknown"},
         ${gender ?? "unknown"},
-        35000,
+        35,
         'pending'
       )
     `;
