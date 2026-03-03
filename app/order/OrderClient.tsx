@@ -12,26 +12,54 @@ const PREMIUM_FEATURES = [
   "Personalized PDF report — delivered within 24h",
 ];
 
+function getDaysInMonth(year: string, month: string): number {
+  if (!year || !month) return 31;
+  return new Date(Number(year), Number(month), 0).getDate();
+}
+
 export default function OrderClient() {
   const searchParams = useSearchParams();
 
-  const searchYear  = searchParams.get("year")   ?? "";
-  const searchMonth = searchParams.get("month")  ?? "";
-  const searchDay   = searchParams.get("day")    ?? "";
-  const searchHour  = searchParams.get("hour")   ?? "unknown";
-  const gender      = searchParams.get("gender") ?? "";
+  const paramName   = searchParams.get("name")   ?? "";
+  const paramGender = searchParams.get("gender") ?? "";
+  const paramYear   = searchParams.get("year")   ?? "";
+  const paramMonth  = searchParams.get("month")  ?? "";
+  const paramDay    = searchParams.get("day")    ?? "";
+  const paramHour   = searchParams.get("hour")   ?? "unknown";
 
-  const prefillDate = searchYear
-    ? `${searchYear}-${searchMonth.padStart(2, "0")}-${searchDay.padStart(2, "0")}`
+  const [name, setName]     = useState(paramName);
+  const [email, setEmail]   = useState("");
+  const [gender, setGender] = useState(paramGender);
+  const [year, setYear]     = useState(paramYear);
+  const [month, setMonth]   = useState(paramMonth);
+  const [day, setDay]       = useState(paramDay);
+  const [loading, setLoading] = useState(false);
+  const [error, setError]     = useState<string | null>(null);
+
+  const birthTime =
+    paramHour === "unknown" ? "Unknown" : `${paramHour.padStart(2, "0")}:00`;
+
+  // Derived values
+  const currentYear = new Date().getFullYear();
+  const years  = Array.from({ length: currentYear - 1939 }, (_, i) => currentYear - i);
+  const months = Array.from({ length: 12 }, (_, i) => i + 1);
+  const maxDay = getDaysInMonth(year, month);
+  const days   = Array.from({ length: maxDay }, (_, i) => i + 1);
+
+  const handleMonthChange = (newMonth: string) => {
+    const max = getDaysInMonth(year, newMonth);
+    setMonth(newMonth);
+    if (Number(day) > max) setDay("");
+  };
+
+  const birthDate = year && month && day
+    ? `${year}-${month.padStart(2, "0")}-${day.padStart(2, "0")}`
     : "";
 
-  const [name, setName]           = useState(searchParams.get("name") ?? "");
-  const [email, setEmail]         = useState("");
-  const [birthDate, setBirthDate] = useState(prefillDate);
-  const [loading, setLoading]     = useState(false);
-  const [error, setError]         = useState<string | null>(null);
-
-  const birthTime = searchHour === "unknown" ? "Unknown" : `${searchHour.padStart(2, "0")}:00`;
+  const selectClass = (hasError: boolean) =>
+    `w-full bg-[#1A1A2E] border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7C3AED] transition-colors appearance-none ${
+      hasError ? "border-red-500" : "border-[#2A2A4A]"
+    }`;
 
   const handlePay = async () => {
     if (!name.trim()) {
@@ -42,7 +70,7 @@ export default function OrderClient() {
       setError("Please enter a valid email address.");
       return;
     }
-    if (!birthDate) {
+    if (!year || !month || !day) {
       setError("Please enter your date of birth.");
       return;
     }
@@ -82,7 +110,6 @@ export default function OrderClient() {
         customerEmail: email,
       });
     } catch (err) {
-      // User cancelled or payment failed
       if (err instanceof Error && err.message.includes("PAY_PROCESS_CANCELED")) {
         setError("Payment was cancelled.");
       } else {
@@ -137,24 +164,12 @@ export default function OrderClient() {
         </div>
       </div>
 
-      {/* Birth info summary (read-only) */}
-      {birthDate && (
-        <div className="bg-[#0A0A0F] border border-[#2A2A4A] rounded-xl px-4 py-3 mb-6 flex flex-wrap gap-x-6 gap-y-1 text-sm">
-          <span className="text-gray-500">Birth date: <span className="text-gray-300">{birthDate}</span></span>
-          {searchHour !== "unknown" && (
-            <span className="text-gray-500">Time: <span className="text-gray-300">{birthTime}</span></span>
-          )}
-          {gender && (
-            <span className="text-gray-500">Gender: <span className="text-gray-300 capitalize">{gender}</span></span>
-          )}
-        </div>
-      )}
-
       {/* Form */}
       <div className="space-y-4 mb-6">
+        {/* Name */}
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-1.5">
-            Name
+            Name <span className="text-[#F59E0B]">*</span>
           </label>
           <input
             type="text"
@@ -165,6 +180,7 @@ export default function OrderClient() {
           />
         </div>
 
+        {/* Email */}
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-1.5">
             Email <span className="text-[#F59E0B]">*</span>
@@ -178,18 +194,71 @@ export default function OrderClient() {
           />
         </div>
 
-        {/* Birth date — show as editable if not passed via URL */}
+        {/* Gender */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+            Gender <span className="text-[#F59E0B]">*</span>
+          </label>
+          <select
+            value={gender}
+            onChange={(e) => setGender(e.target.value)}
+            className={selectClass(false)}
+          >
+            <option value="">Select gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+          </select>
+        </div>
+
+        {/* Date of Birth — dropdowns */}
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-1.5">
             Date of Birth <span className="text-[#F59E0B]">*</span>
           </label>
-          <input
-            type="date"
-            value={birthDate}
-            onChange={(e) => setBirthDate(e.target.value)}
-            className="w-full bg-[#1A1A2E] border border-[#2A2A4A] rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7C3AED] transition-colors"
-          />
+          <div className="grid grid-cols-3 gap-2">
+            {/* Year */}
+            <select
+              value={year}
+              onChange={(e) => setYear(e.target.value)}
+              className={selectClass(false)}
+            >
+              <option value="">Year</option>
+              {years.map((y) => (
+                <option key={y} value={String(y)}>{y}</option>
+              ))}
+            </select>
+            {/* Month */}
+            <select
+              value={month}
+              onChange={(e) => handleMonthChange(e.target.value)}
+              className={selectClass(false)}
+            >
+              <option value="">Month</option>
+              {months.map((m) => (
+                <option key={m} value={String(m)}>{m}</option>
+              ))}
+            </select>
+            {/* Day */}
+            <select
+              value={day}
+              onChange={(e) => setDay(e.target.value)}
+              className={selectClass(false)}
+            >
+              <option value="">Day</option>
+              {days.map((d) => (
+                <option key={d} value={String(d)}>{d}</option>
+              ))}
+            </select>
+          </div>
         </div>
+
+        {/* Birth time — read-only info if provided */}
+        {paramHour !== "unknown" && (
+          <div className="bg-[#0A0A0F] border border-[#2A2A4A] rounded-xl px-4 py-3 text-sm">
+            <span className="text-gray-500">Birth time: </span>
+            <span className="text-gray-300">{birthTime}</span>
+          </div>
+        )}
       </div>
 
       {/* Error */}
