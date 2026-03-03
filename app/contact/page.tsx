@@ -16,10 +16,10 @@ export default function ContactPage() {
           <div>
             <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-1">Email</p>
             <a
-              href="mailto:support@unmyungtherapy.com"
+              href="mailto:unmyungtherapy@gmail.com"
               className="text-[#7C3AED] hover:underline text-lg"
             >
-              support@unmyungtherapy.com
+              unmyungtherapy@gmail.com
             </a>
           </div>
           <div>

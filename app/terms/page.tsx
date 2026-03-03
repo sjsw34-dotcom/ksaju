@@ -26,7 +26,7 @@ export default function TermsPage() {
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">5. Contact</h2>
-            <p>Questions? Reach us at <a href="mailto:support@unmyungtherapy.com" className="text-[#7C3AED] hover:underline">support@unmyungtherapy.com</a></p>
+            <p>Questions? Reach us at <a href="mailto:unmyungtherapy@gmail.com" className="text-[#7C3AED] hover:underline">unmyungtherapy@gmail.com</a></p>
           </section>
         </div>
       </div>

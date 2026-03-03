@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">4. Contact</h2>
-            <p>For any privacy-related questions, contact us at <a href="mailto:support@unmyungtherapy.com" className="text-[#7C3AED] hover:underline">support@unmyungtherapy.com</a></p>
+            <p>For any privacy-related questions, contact us at <a href="mailto:unmyungtherapy@gmail.com" className="text-[#7C3AED] hover:underline">unmyungtherapy@gmail.com</a></p>
           </section>
         </div>
       </div>

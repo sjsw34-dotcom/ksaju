@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
       await Promise.all([
         // Customer confirmation
         resend.emails.send({
-          from: "Unmyung Therapy <noreply@k-fortune.com>",
+          from: "Unmyung Therapy <onboarding@resend.dev>",
           to: order.email as string,
           subject: "Your Unmyung Therapy Premium Report is Confirmed ✦",
           html: customerEmailHtml({
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
         }),
         // Admin notification
         resend.emails.send({
-          from: "Unmyung Therapy <noreply@k-fortune.com>",
+          from: "Unmyung Therapy <onboarding@resend.dev>",
           to: process.env.MASTER_EMAIL!,
           subject: `✦ New Order — ${order.name}`,
           html: adminEmailHtml({
