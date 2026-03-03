@@ -5,7 +5,7 @@ import ResultClient from "./ResultClient";
 export const metadata: Metadata = {
   title: "Your Saju Reading | K-Fortune",
   description:
-    "Your personalized Saju (Korean Four Pillars) reading powered by ancient wisdom and AI.",
+    "Your personalized Saju (Korean Four Pillars) reading, rooted in over a thousand years of Eastern wisdom.",
 };
 
 function LoadingFallback() {

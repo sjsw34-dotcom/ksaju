@@ -7,7 +7,7 @@ const STEPS = [
   {
     number: "2",
     title: "Get Your Reading",
-    description: "AI analyzes your Four Pillars instantly",
+    description: "Your Four Pillars are calculated and interpreted instantly",
   },
   {
     number: "3",

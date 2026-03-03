@@ -49,7 +49,7 @@ export default function Hero() {
       {/* Content */}
       <div className="relative z-10 w-full max-w-xl mx-auto px-5 sm:px-6 text-center py-16 sm:py-20 md:py-24">
         <p className="text-[#F59E0B] text-xs sm:text-sm font-semibold tracking-widest uppercase mb-3 sm:mb-4">
-          Korean Fortune Telling · AI-Powered
+          Korean Four Pillars · Master Readers
         </p>
 
         <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-4 sm:mb-6 text-[#1A1A2E]">
@@ -67,7 +67,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-base sm:text-lg text-gray-600 mb-8 sm:mb-10 max-w-sm sm:max-w-xl mx-auto">
-          Ancient wisdom meets modern AI. Your birth data holds the blueprint of your life.
+          Over a thousand years of wisdom, now in your hands. Your birth data holds the blueprint of your life.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">

@@ -13,7 +13,7 @@ const pretendard = localFont({
 
 export const metadata: Metadata = {
   title: "K-Fortune — Saju Reading for Global GenZ",
-  description: "Discover your destiny through Korean Saju astrology. Free mini reading + premium AI-powered report.",
+  description: "Discover your destiny through Korean Saju astrology. Free mini reading + premium report crafted by master readers.",
 };
 
 export default function RootLayout({

@@ -27,7 +27,7 @@ const FAQS = [
   {
     question: "How long does the premium report take?",
     answer:
-      "Premium reports are delivered within 24 hours to your email. Our master readers craft each report personally, reviewing the AI-generated analysis and adding expert commentary. Most reports are delivered within a few hours during business hours.",
+      "Premium reports are delivered within 24 hours to your email. Our master readers craft each report personally, drawing on decades of Saju expertise to give you deep, meaningful insight. Most reports are delivered within a few hours during business hours.",
   },
 ];
 
