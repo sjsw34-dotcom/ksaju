@@ -14,7 +14,7 @@ export default function TermsPage() {
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">2. Payments & Refunds</h2>
-            <p>Premium reports are ₩35,000 (one-time). Due to the nature of digital content, refunds are not available once a report has been delivered. If you have not received your report within 24 hours, contact us for a full refund.</p>
+            <p>Premium reports are $35 USD (one-time). Due to the nature of digital content, refunds are not available once a report has been delivered. If you have not received your report within 24 hours, contact us for a full refund.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">3. Delivery</h2>

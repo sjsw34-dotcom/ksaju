@@ -13,8 +13,8 @@ Rules:
 - Length: 1500–2000 words
 - Use H2 and H3 markdown headings (no H1)
 - Tone: engaging, mystical, GenZ-friendly — not academic
-- Include exactly ONE internal link: [free reading](https://ksaju.vercel.app/free-reading)
-- End the post with this CTA link: [Get your full Saju report →](https://ksaju.vercel.app/order)
+- Include exactly ONE internal link to the free reading page
+- End the post with a CTA link to the order page
 - No disclaimer, no "as an AI" phrases
 
 Respond in this EXACT format (no extra text before or after):
@@ -77,10 +77,15 @@ export async function GET(req: NextRequest) {
     const pick = unused[Math.floor(Math.random() * unused.length)];
 
     // ── Generate with Claude ──
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://ksaju.vercel.app";
+    const systemWithUrls = SYSTEM_PROMPT
+      .replace("the free reading page", `[free reading](${baseUrl}/free-reading)`)
+      .replace("the order page", `[Get your full Saju report →](${baseUrl}/order)`);
+
     const message = await anthropic.messages.create({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 4096,
-      system: SYSTEM_PROMPT,
+      system: systemWithUrls,
       messages: [{ role: "user", content: `Write a blog post about: ${pick.topic}` }],
     });
 
@@ -114,7 +119,6 @@ export async function GET(req: NextRequest) {
     revalidatePath("/blog");
 
     // ── Notify Google (non-blocking) ──
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://ksaju.vercel.app";
     notifyGoogleIndexing(`${baseUrl}/blog/${slug}`).catch(() => {});
 
     return NextResponse.json({ success: true, slug, title: parsed.title });
