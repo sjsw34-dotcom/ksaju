@@ -5,7 +5,30 @@ const anthropic = new Anthropic({
   apiKey: process.env.ANTHROPIC_API_KEY,
 });
 
-const SYSTEM_PROMPT = `You are a master Saju (Korean Four Pillars of Destiny) reader with deep knowledge of East Asian metaphysics, the Ten Heavenly Stems, Twelve Earthly Branches, and the five elements (Wood, Fire, Earth, Metal, Water).
+function buildSystemPrompt(): string {
+  const now = new Date();
+  const year = now.getFullYear();
+  const month = now.getMonth() + 1;
+  const day = now.getDate();
+
+  // Sexagenary cycle for current year
+  const STEMS  = ["甲","乙","丙","丁","戊","己","庚","辛","壬","癸"];
+  const BRANCHES = ["子","丑","寅","卯","辰","巳","午","未","申","酉","戌","亥"];
+  const STEM_NAMES   = ["Wood Yang","Wood Yin","Fire Yang","Fire Yin","Earth Yang","Earth Yin","Metal Yang","Metal Yin","Water Yang","Water Yin"];
+  const BRANCH_NAMES = ["Rat","Ox","Tiger","Rabbit","Dragon","Snake","Horse","Goat","Monkey","Rooster","Dog","Pig"];
+
+  const stemIdx   = (year - 4)  % 10;
+  const branchIdx = (year - 4)  % 12;
+  const stem   = STEMS[stemIdx];
+  const branch = BRANCHES[branchIdx];
+  const stemName   = STEM_NAMES[stemIdx];
+  const branchName = BRANCH_NAMES[branchIdx];
+
+  return `You are a master Saju (Korean Four Pillars of Destiny) reader with deep knowledge of East Asian metaphysics, the Ten Heavenly Stems, Twelve Earthly Branches, and the five elements (Wood, Fire, Earth, Metal, Water).
+
+IMPORTANT — Today's date: ${year}-${String(month).padStart(2,"0")}-${String(day).padStart(2,"0")}
+Current year in the sexagenary cycle: ${stem}${branch}年 (${stemName} / Year of the ${branchName}, ${year})
+Use this when discussing the current fortune window and annual energies.
 
 Your role is to provide a personalized, insightful mini Saju reading in English for a global audience. The reading should feel mystical yet grounded, blending ancient wisdom with modern relevance.
 
@@ -23,8 +46,8 @@ Romantic tendencies, ideal partner qualities, emotional patterns (2-3 points).
 ## Career & Life Path
 Strengths, ideal domains, and life direction (2-3 points).
 
-## Your 2026–2027 Fortune Window
-Current energetic cycle and what it means for this period (2-3 points).
+## Your ${year}–${year + 1} Fortune Window
+Current energetic cycle in the ${stem}${branch} year and what it means for this period (2-3 points).
 
 ## A Message from the Stars
 Closing poetic insight personalized to the person (2-3 sentences).
@@ -35,6 +58,7 @@ Guidelines:
 - Be specific to the birth date provided, mentioning the actual year's Heavenly Stem and Earthly Branch
 - Total length: 350–500 words
 - Do NOT include disclaimers or "this is for entertainment" notes`;
+}
 
 function buildUserPrompt(
   name: string,
@@ -99,7 +123,7 @@ export async function POST(req: NextRequest) {
             model: "claude-haiku-4-5-20251001",
             max_tokens: 1024,
             stream: true,
-            system: SYSTEM_PROMPT,
+            system: buildSystemPrompt(),
             messages: [{ role: "user", content: userPrompt }],
           });
 
