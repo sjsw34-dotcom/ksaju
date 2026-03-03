@@ -30,7 +30,7 @@ export default async function BlogPreview() {
     `;
     posts = rows as Post[];
   } catch {
-    return null;
+    // show placeholder on DB error
   }
 
   const isEmpty = posts.length === 0;
