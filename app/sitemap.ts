@@ -2,7 +2,7 @@ import type { MetadataRoute } from "next";
 import { sql } from "@/lib/db";
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL ?? "https://ksaju.vercel.app";
+  process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.sajumuse.com";
 
 export const revalidate = 3600;
 

@@ -8,7 +8,7 @@ import type { Metadata } from "next";
 export const revalidate = 3600;
 
 const BASE_URL =
-  process.env.NEXT_PUBLIC_BASE_URL ?? "https://ksaju.vercel.app";
+  process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.sajumuse.com";
 
 interface Post {
   slug: string;

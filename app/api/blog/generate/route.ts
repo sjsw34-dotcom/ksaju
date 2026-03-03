@@ -77,7 +77,7 @@ export async function GET(req: NextRequest) {
     const pick = unused[Math.floor(Math.random() * unused.length)];
 
     // ── Generate with Claude ──
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://ksaju.vercel.app";
+    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.sajumuse.com";
     const systemWithUrls = SYSTEM_PROMPT
       .replace("the free reading page", `[free reading](${baseUrl}/free-reading)`)
       .replace("the order page", `[Get your full Saju report →](${baseUrl}/order)`);

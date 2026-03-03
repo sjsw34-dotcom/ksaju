@@ -127,7 +127,7 @@ export async function GET(req: NextRequest) {
           }}
         >
           <span style={{ color: "#6B7280", fontSize: "18px" }}>
-            ksaju.vercel.app
+            sajumuse.com
           </span>
         </div>
 
