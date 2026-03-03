@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { sql } from "@/lib/db";
 
 const CATEGORY_STYLE: Record<string, string> = {
@@ -15,6 +16,7 @@ interface Post {
   title: string;
   category: string;
   meta: string;
+  image_url: string | null;
   created_at: string;
 }
 
@@ -22,8 +24,10 @@ export default async function BlogPreview() {
   let posts: Post[] = [];
 
   try {
+    // Add image_url column if it doesn't exist yet
+    await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS image_url TEXT`;
     const { rows } = await sql`
-      SELECT id, slug, title, category, meta, created_at
+      SELECT id, slug, title, category, meta, image_url, created_at
       FROM blog_posts
       ORDER BY created_at DESC
       LIMIT 3
@@ -94,25 +98,46 @@ export default async function BlogPreview() {
                 <Link
                   key={post.id}
                   href={`/blog/${post.slug}`}
-                  className="group flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6 hover:border-[#7C3AED]/50 hover:-translate-y-1 transition-all duration-300"
+                  className="group flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl overflow-hidden hover:border-[#7C3AED]/50 hover:-translate-y-1 transition-all duration-300"
                 >
-                  <div className="flex items-center gap-2 mb-4">
-                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${catStyle}`}>
-                      {post.category}
-                    </span>
-                    <span className="text-gray-600 text-xs">{date}</span>
-                  </div>
-                  <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-[#C4B5FD] transition-colors duration-200 flex-1">
-                    {post.title}
-                  </h3>
-                  {post.meta && (
-                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
-                      {post.meta}
-                    </p>
+                  {/* Image or gradient banner */}
+                  {post.image_url ? (
+                    <div className="relative h-44 w-full overflow-hidden">
+                      <Image
+                        src={post.image_url}
+                        alt={post.title}
+                        fill
+                        className="object-cover group-hover:scale-105 transition-transform duration-500"
+                      />
+                    </div>
+                  ) : (
+                    <div className={`h-2 w-full ${
+                      post.category === "zodiac"    ? "bg-purple-600" :
+                      post.category === "education" ? "bg-blue-600" :
+                      post.category === "love"      ? "bg-pink-600" :
+                      post.category === "career"    ? "bg-green-600" :
+                                                      "bg-yellow-600"
+                    }`} />
                   )}
-                  <p className="text-[#7C3AED] text-sm font-semibold group-hover:text-[#A78BFA] transition-colors">
-                    Read more →
-                  </p>
+                  <div className="p-6 flex flex-col flex-1">
+                    <div className="flex items-center gap-2 mb-3">
+                      <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${catStyle}`}>
+                        {post.category}
+                      </span>
+                      <span className="text-gray-600 text-xs">{date}</span>
+                    </div>
+                    <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-[#C4B5FD] transition-colors duration-200 flex-1">
+                      {post.title}
+                    </h3>
+                    {post.meta && (
+                      <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
+                        {post.meta}
+                      </p>
+                    )}
+                    <p className="text-[#7C3AED] text-sm font-semibold group-hover:text-[#A78BFA] transition-colors">
+                      Read more →
+                    </p>
+                  </div>
                 </Link>
               );
             })}

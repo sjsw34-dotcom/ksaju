@@ -12,7 +12,7 @@ const UPSELL_FEATURES = [
   "Health tendencies to watch",
   "This year's fortune forecast",
   "Full 10-Year Fortune Cycle & yearly breakdown",
-  "60+ page personalized PDF — delivered within 24 hours",
+  "60+ page personalized PDF, delivered within 24 hours",
 ];
 
 function UpsellCard({ queryString }: { queryString: string }) {

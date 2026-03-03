@@ -14,7 +14,7 @@ const FEATURES = [
   {
     icon: "🎯",
     title: "Deeply Personal",
-    description: "Not generic horoscopes — unique to your exact birth moment",
+    description: "Not generic horoscopes. Unique to your exact birth moment.",
   },
 ];
 

@@ -76,7 +76,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
           </h1>
           <p className="text-gray-400 text-sm mb-8 leading-relaxed">
             Our master readers are preparing your full Four Pillars analysis.
-            Check your inbox — your personalized report will arrive within{" "}
+            Check your inbox. Your personalized report will arrive within{" "}
             <span className="text-white font-semibold">24 hours</span>.
           </p>
 

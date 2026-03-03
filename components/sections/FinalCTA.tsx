@@ -8,7 +8,7 @@ export default function FinalCTA() {
           Your destiny is written in the stars.
         </h2>
         <p className="text-base sm:text-lg text-gray-400 mb-7 sm:mb-10">
-          Start with a free reading — no credit card needed.
+          Start with a free reading. No credit card needed.
         </p>
         <Link
           href="/free-reading"

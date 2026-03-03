@@ -53,6 +53,7 @@ export default function AdminDashboard() {
   const [writeTitle, setWriteTitle] = useState("");
   const [writeCategory, setWriteCategory] = useState("education");
   const [writeMeta, setWriteMeta] = useState("");
+  const [writeImageUrl, setWriteImageUrl] = useState("");
   const [writeContent, setWriteContent] = useState("");
   const [publishing, setPublishing] = useState(false);
   const [publishMsg, setPublishMsg] = useState("");
@@ -148,6 +149,7 @@ export default function AdminDashboard() {
         title: writeTitle,
         category: writeCategory,
         meta: writeMeta,
+        imageUrl: writeImageUrl,
         content: writeContent,
       }),
     });
@@ -156,6 +158,7 @@ export default function AdminDashboard() {
       setPublishMsg(`✓ Published! /blog/${data.slug ?? ""}`);
       setWriteTitle("");
       setWriteMeta("");
+      setWriteImageUrl("");
       setWriteContent("");
     } else {
       setPublishMsg(data.error ?? "Failed to publish.");
@@ -407,6 +410,19 @@ export default function AdminDashboard() {
                   className="w-full bg-[#0A0A0F] border border-[#2A2A4A] rounded-xl px-4 py-3 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
                 />
               </div>
+            </div>
+
+            <div>
+              <label className="block text-xs text-gray-400 mb-1.5">
+                Image URL <span className="text-gray-600">(optional — shows at top of card)</span>
+              </label>
+              <input
+                type="url"
+                value={writeImageUrl}
+                onChange={(e) => setWriteImageUrl(e.target.value)}
+                placeholder="https://..."
+                className="w-full bg-[#0A0A0F] border border-[#2A2A4A] rounded-xl px-4 py-3 text-white text-sm placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+              />
             </div>
 
             <div>

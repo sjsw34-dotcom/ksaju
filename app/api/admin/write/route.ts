@@ -14,11 +14,12 @@ function toSlug(title: string): string {
 }
 
 export async function POST(req: NextRequest) {
-  const { title, category, meta, content } = (await req.json()) as {
+  const { title, category, meta, content, imageUrl } = (await req.json()) as {
     title: string;
     category: string;
     meta: string;
     content: string;
+    imageUrl?: string;
   };
 
   if (!title?.trim() || !content?.trim()) {
@@ -31,15 +32,17 @@ export async function POST(req: NextRequest) {
   const slug = toSlug(title);
 
   try {
+    await sql`ALTER TABLE blog_posts ADD COLUMN IF NOT EXISTS image_url TEXT`;
     await sql`
-      INSERT INTO blog_posts (slug, title, meta, content, category, topic)
+      INSERT INTO blog_posts (slug, title, meta, content, category, topic, image_url)
       VALUES (
         ${slug},
         ${title.trim()},
         ${meta?.trim() ?? ""},
         ${content.trim()},
         ${category ?? "education"},
-        ${"manual"}
+        ${"manual"},
+        ${imageUrl?.trim() || null}
       )
     `;
 

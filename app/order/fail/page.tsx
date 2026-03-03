@@ -27,7 +27,7 @@ export default async function FailPage({ searchParams }: PageProps) {
           </h1>
           <p className="text-gray-400 text-sm mb-8 leading-relaxed">
             {isCancelled
-              ? "No worries — you haven't been charged. Try again whenever you're ready."
+              ? "No worries, you haven't been charged. Try again whenever you're ready."
               : `${message} Please try again or contact support if the issue persists.`}
           </p>
 

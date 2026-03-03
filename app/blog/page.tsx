@@ -6,7 +6,7 @@ export const revalidate = 3600;
 
 export const metadata = {
   title: "Saju Blog | Sajumuse",
-  description: "Explore Korean Four Pillars of Destiny — zodiac insights, love compatibility, career luck, and more.",
+  description: "Explore Korean Four Pillars of Destiny: zodiac insights, love compatibility, career luck, and more.",
 };
 
 const CATEGORY_LABELS: Record<string, string> = {
@@ -67,7 +67,7 @@ export default async function BlogPage() {
               Destiny & Fortune Blog
             </h1>
             <p className="text-gray-400 text-sm max-w-md mx-auto">
-              Explore the ancient wisdom of Korean Four Pillars — decoded for the modern world.
+              Explore the ancient wisdom of Korean Four Pillars, decoded for the modern world.
             </p>
           </div>
 

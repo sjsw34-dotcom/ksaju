@@ -59,7 +59,7 @@ const ROW2: Testimonial[] = [
     location: "Seoul",
     initials: "RP",
     rating: 5,
-    text: "I've had readings done in Korea. This matches that quality — finally in English.",
+    text: "I've had readings done in Korea. This matches that quality. Finally in English.",
   },
 ];
 

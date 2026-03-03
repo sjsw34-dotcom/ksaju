@@ -18,7 +18,7 @@ const CREDENTIALS = [
   {
     icon: "✦",
     title: "Certified Myeongri Psychology Counselor",
-    desc: "Level 1 certified in Myeongri — the scholarly study of destiny science rooted in Korean metaphysics.",
+    desc: "Level 1 certified in Myeongri, the scholarly study of destiny science rooted in Korean metaphysics.",
   },
   {
     icon: "✦",
@@ -28,7 +28,7 @@ const CREDENTIALS = [
   {
     icon: "✦",
     title: "15+ Years of Real Consultations",
-    desc: "Thousands of real readings — not algorithms, not templates — every word written personally for you.",
+    desc: "Thousands of real readings. Not algorithms, not templates. Every word written personally for you.",
   },
 ];
 
@@ -72,8 +72,8 @@ export default function AboutPage() {
             </span>
           </h1>
           <p className="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
-            Saju reads the exact cosmic energy at your birth — year, month, day, and hour —
-            to reveal a life blueprint unique to <em>you</em>. Not a generic horoscope.
+            Saju reads the exact cosmic energy at your birth: year, month, day, and hour.
+            It reveals a life blueprint unique to <em>you</em>. Not a generic horoscope.
             Not a one-size-fits-all prediction. A map that was written the moment you arrived.
           </p>
         </section>
@@ -107,18 +107,18 @@ export default function AboutPage() {
             <div className="space-y-4 text-gray-300 leading-relaxed">
               <p>
                 While Western astrology uses your sun sign, <strong className="text-white">Saju (사주팔자)</strong> builds
-                a full chart from four pillars — your birth year, month, day, and hour — each carrying
+                a full chart from four pillars (your birth year, month, day, and hour), each carrying
                 a Heavenly Stem and an Earthly Branch. That's eight characters encoding the five
                 elements flowing through your entire life.
               </p>
               <p>
                 Saju shares roots with Chinese BaZi, but Korean masters have refined their own
-                interpretation system over <strong className="text-white">500+ years</strong> —
+                interpretation system over <strong className="text-white">500+ years</strong>,
                 one that's more nuanced in reading emotional patterns, family karma, and timing cycles.
               </p>
               <p>
-                The result? A reading that doesn't just tell you who you are —
-                it tells you <strong className="text-white">when to move, when to wait, and why certain patterns keep repeating.</strong>
+                The result? A reading that doesn't just tell you who you are.
+                It tells you <strong className="text-white">when to move, when to wait, and why certain patterns keep repeating.</strong>
               </p>
             </div>
           </div>
@@ -158,7 +158,7 @@ export default function AboutPage() {
               What Your 60-Page Report Covers
             </h2>
             <p className="text-gray-400 text-sm mb-8">
-              No birth time? No problem — a powerful reading is still possible with date alone.
+              No birth time? No problem. A powerful reading is still possible with date alone.
             </p>
             <ul className="grid sm:grid-cols-2 gap-3 mb-8">
               {WHAT_YOU_GET.map(({ label }) => (
@@ -173,7 +173,7 @@ export default function AboutPage() {
                 href="/order"
                 className="flex-1 text-center py-4 bg-[#7C3AED] hover:bg-[#6D28D9] rounded-full font-bold transition-colors"
               >
-                Get My Full Report — $35 ✦
+                Get My Full Report · $35 ✦
               </Link>
               <Link
                 href="/free-reading"
@@ -188,8 +188,8 @@ export default function AboutPage() {
         {/* ── Bottom quote ── */}
         <section className="py-16 px-4 sm:px-6 text-center max-w-2xl mx-auto">
           <p className="text-2xl sm:text-3xl font-bold leading-relaxed text-gray-200">
-            &ldquo;Your destiny is not a mystery to hide from —
-            it&apos;s a map to <span className="text-[#F59E0B]">navigate with confidence.</span>&rdquo;
+            &ldquo;Your destiny is not a mystery to hide from.
+            It&apos;s a map to <span className="text-[#F59E0B]">navigate with confidence.</span>&rdquo;
           </p>
         </section>
 

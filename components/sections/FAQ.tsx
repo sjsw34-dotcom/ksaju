@@ -17,12 +17,12 @@ const FAQS = [
   {
     question: "How accurate is a Saju reading?",
     answer:
-      "Saju reflects tendencies, patterns, and energies — not fixed outcomes. Many people find it remarkably resonant with their personality and life experiences. Think of it as a detailed map of your natural strengths and challenges, rather than a literal prediction. Accuracy improves significantly when your exact birth time is known.",
+      "Saju reflects tendencies, patterns, and energies, not fixed outcomes. Many people find it remarkably resonant with their personality and life experiences. Think of it as a detailed map of your natural strengths and challenges, rather than a literal prediction. Accuracy improves significantly when your exact birth time is known.",
   },
   {
     question: "What information do I need to provide?",
     answer:
-      "You'll need: your full name, date of birth (year, month, day), time of birth (as precise as possible — even AM/PM helps), and gender. If you don't know your exact birth time, we can still provide a reading, though some aspects will be less precise.",
+      "You'll need: your full name, date of birth (year, month, day), time of birth (as precise as possible, even AM/PM helps), and gender. If you don't know your exact birth time, we can still provide a reading, though some aspects will be less precise.",
   },
   {
     question: "How long does the premium report take?",
