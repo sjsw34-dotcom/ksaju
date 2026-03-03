@@ -1,5 +1,6 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
+import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { sql } from "@/lib/db";
 import type { Metadata } from "next";
@@ -134,14 +135,25 @@ export default async function BlogPostPage({
   };
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] py-16 px-4 sm:px-6">
+    <div className="relative min-h-screen bg-[#0A0A0F] py-16 px-4 sm:px-6">
+      {/* Background image */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <Image
+          src="/images/bg-1.jpg"
+          fill
+          className="object-cover object-center opacity-15"
+          alt=""
+        />
+        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/60 via-transparent to-[#0A0A0F]/80" />
+      </div>
+
       {/* JSON-LD */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="max-w-3xl mx-auto">
+      <article className="relative z-10 max-w-3xl mx-auto">
         {/* Back */}
         <Link
           href="/blog"
