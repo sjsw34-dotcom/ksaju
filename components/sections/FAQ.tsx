@@ -39,23 +39,25 @@ export default function FAQ() {
   };
 
   return (
-    <div className="py-20 px-4 sm:px-6">
+    <div className="py-16 sm:py-20 px-4 sm:px-6">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-3xl sm:text-4xl font-bold text-center mb-12">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12">
           Frequently Asked Questions
         </h2>
 
-        <div className="space-y-3">
+        <div className="space-y-2 sm:space-y-3">
           {FAQS.map((faq, index) => (
             <div
               key={index}
               className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-xl overflow-hidden"
             >
               <button
-                className="w-full flex items-center justify-between p-6 text-left hover:bg-[#2A2A4A]/30 transition-colors"
+                className="w-full flex items-center justify-between p-4 sm:p-6 text-left hover:bg-[#2A2A4A]/30 transition-colors"
                 onClick={() => toggle(index)}
               >
-                <span className="font-semibold text-lg pr-4">{faq.question}</span>
+                <span className="font-semibold text-base sm:text-lg pr-3 sm:pr-4">
+                  {faq.question}
+                </span>
                 <span
                   className="text-[#7C3AED] text-xl flex-shrink-0 transition-transform duration-300"
                   style={{ transform: openIndex === index ? "rotate(45deg)" : "rotate(0deg)" }}
@@ -74,7 +76,9 @@ export default function FAQ() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     style={{ overflow: "hidden" }}
                   >
-                    <p className="px-6 pb-6 text-gray-400 leading-relaxed">{faq.answer}</p>
+                    <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-400 text-sm sm:text-base leading-relaxed">
+                      {faq.answer}
+                    </p>
                   </motion.div>
                 )}
               </AnimatePresence>
