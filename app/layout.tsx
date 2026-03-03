@@ -13,7 +13,7 @@ const pretendard = localFont({
 });
 
 export const metadata: Metadata = {
-  title: "Unmyung Therapy — Saju Reading for Global GenZ",
+  title: "Sajumuse — Saju Reading for Global GenZ",
   description: "Discover your destiny through Korean Saju astrology. Free mini reading + premium report crafted by master readers.",
 };
 

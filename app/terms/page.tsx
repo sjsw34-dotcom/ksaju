@@ -1,4 +1,4 @@
-export const metadata = { title: "Terms of Service | Unmyung Therapy" };
+export const metadata = { title: "Terms of Service | Sajumuse" };
 
 export default function TermsPage() {
   return (
@@ -10,7 +10,7 @@ export default function TermsPage() {
         <div className="space-y-8 text-gray-300 leading-relaxed">
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">1. Service Description</h2>
-            <p>Unmyung Therapy provides Saju (Korean Four Pillars) readings for entertainment and self-reflection purposes. Readings are not a substitute for professional advice.</p>
+            <p>Sajumuse provides Saju (Korean Four Pillars) readings for entertainment and self-reflection purposes. Readings are not a substitute for professional advice.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">2. Payments & Refunds</h2>
@@ -22,11 +22,11 @@ export default function TermsPage() {
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">4. Limitation of Liability</h2>
-            <p>Unmyung Therapy is not liable for decisions made based on readings. All readings are for personal insight and entertainment purposes only.</p>
+            <p>Sajumuse is not liable for decisions made based on readings. All readings are for personal insight and entertainment purposes only.</p>
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">5. Contact</h2>
-            <p>Questions? Reach us at <a href="mailto:unmyungtherapy@gmail.com" className="text-[#7C3AED] hover:underline">unmyungtherapy@gmail.com</a></p>
+            <p>Questions? Reach us at <a href="mailto:sajumuse@gmail.com" className="text-[#7C3AED] hover:underline">sajumuse@gmail.com</a></p>
           </section>
         </div>
       </div>

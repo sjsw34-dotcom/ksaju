@@ -3,7 +3,7 @@ import { Suspense } from "react";
 import OrderClient from "./OrderClient";
 
 export const metadata = {
-  title: "Premium Report | Unmyung Therapy",
+  title: "Premium Report | Sajumuse",
   description: "Get your full Four Pillars Saju report delivered within 24 hours.",
 };
 

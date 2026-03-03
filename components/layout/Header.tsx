@@ -38,7 +38,7 @@ export default function Header() {
           <Link href="/" className="flex items-center">
             <Image
               src="/logo.svg"
-              alt="Unmyung Therapy"
+              alt="Sajumuse"
               width={180}
               height={37}
               priority

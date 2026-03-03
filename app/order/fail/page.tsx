@@ -49,8 +49,8 @@ export default async function FailPage({ searchParams }: PageProps) {
 
         <p className="text-center text-gray-600 text-xs mt-6">
           Need help?{" "}
-          <a href="mailto:unmyungtherapy@gmail.com" className="text-gray-400 hover:text-white">
-            unmyungtherapy@gmail.com
+          <a href="mailto:sajumuse@gmail.com" className="text-gray-400 hover:text-white">
+            sajumuse@gmail.com
           </a>
         </p>
       </div>

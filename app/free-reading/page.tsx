@@ -2,7 +2,7 @@ import Image from "next/image";
 import { ReadingForm } from "@/components/free-reading/ReadingForm";
 
 export const metadata = {
-  title: "Free Saju Reading | Unmyung Therapy",
+  title: "Free Saju Reading | Sajumuse",
   description: "Enter your birth details for a free personalized Saju reading.",
 };
 

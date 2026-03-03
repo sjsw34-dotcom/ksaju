@@ -116,7 +116,7 @@ export default function OrderClient() {
         method: "PAYPAL" as "CARD",
         amount: { currency: "USD", value: 35 },
         orderId,
-        orderName: "Unmyung Therapy Premium Saju Report",
+        orderName: "Sajumuse Premium Saju Report",
         successUrl: `${window.location.origin}/order/success`,
         failUrl: `${window.location.origin}/order/fail`,
         customerName: name,

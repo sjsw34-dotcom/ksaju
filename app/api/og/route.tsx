@@ -77,10 +77,10 @@ export async function GET(req: NextRequest) {
             ✦
           </div>
           <span style={{ color: "#ffffff", fontSize: "22px", fontWeight: 700, letterSpacing: "3px" }}>
-            UNMYUNG
+            SAJU
           </span>
           <span style={{ color: colorA, fontSize: "22px", fontWeight: 400, letterSpacing: "3px" }}>
-            THERAPY
+            MUSE
           </span>
         </div>
 

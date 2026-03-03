@@ -71,7 +71,7 @@ export async function generateMetadata({
   const ogImage = `${BASE_URL}/api/og?title=${encodeURIComponent(post.title)}&category=${post.category}`;
 
   return {
-    title: `${post.title} | Unmyung Therapy`,
+    title: `${post.title} | Sajumuse`,
     description: post.meta,
     openGraph: {
       title: post.title,
@@ -122,12 +122,12 @@ export default async function BlogPostPage({
     dateModified: post.created_at,
     author: {
       "@type": "Organization",
-      name: "Unmyung Therapy",
+      name: "Sajumuse",
       url: BASE_URL,
     },
     publisher: {
       "@type": "Organization",
-      name: "Unmyung Therapy",
+      name: "Sajumuse",
       url: BASE_URL,
     },
     url: `${BASE_URL}/blog/${post.slug}`,

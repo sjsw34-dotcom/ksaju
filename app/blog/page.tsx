@@ -5,7 +5,7 @@ import { sql } from "@/lib/db";
 export const revalidate = 3600;
 
 export const metadata = {
-  title: "Saju Blog | Unmyung Therapy",
+  title: "Saju Blog | Sajumuse",
   description: "Explore Korean Four Pillars of Destiny — zodiac insights, love compatibility, career luck, and more.",
 };
 

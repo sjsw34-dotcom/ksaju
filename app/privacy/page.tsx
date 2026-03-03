@@ -1,4 +1,4 @@
-export const metadata = { title: "Privacy Policy | Unmyung Therapy" };
+export const metadata = { title: "Privacy Policy | Sajumuse" };
 
 export default function PrivacyPage() {
   return (
@@ -22,7 +22,7 @@ export default function PrivacyPage() {
           </section>
           <section>
             <h2 className="text-lg font-semibold text-white mb-3">4. Contact</h2>
-            <p>For any privacy-related questions, contact us at <a href="mailto:unmyungtherapy@gmail.com" className="text-[#7C3AED] hover:underline">unmyungtherapy@gmail.com</a></p>
+            <p>For any privacy-related questions, contact us at <a href="mailto:sajumuse@gmail.com" className="text-[#7C3AED] hover:underline">sajumuse@gmail.com</a></p>
           </section>
         </div>
       </div>
