@@ -120,7 +120,7 @@ function Stars({ count }: { count: number }) {
 
 function TestimonialCard({ t }: { t: Testimonial }) {
   return (
-    <div className="w-80 shrink-0 bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6 flex flex-col gap-4">
+    <div className="w-[340px] shrink-0 bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-7 flex flex-col gap-4">
       {/* Header */}
       <div className="flex items-center gap-3">
         <div
@@ -169,8 +169,8 @@ export default function Testimonials() {
           0%   { transform: translateX(-50%); }
           100% { transform: translateX(0); }
         }
-        .row-left  { animation: scroll-left  60s linear infinite; }
-        .row-right { animation: scroll-right 60s linear infinite; }
+        .row-left  { animation: scroll-left  32s linear infinite; }
+        .row-right { animation: scroll-right 32s linear infinite; }
         .row-left:hover,
         .row-right:hover { animation-play-state: paused; }
       `}</style>
@@ -189,8 +189,8 @@ export default function Testimonials() {
       </div>
 
       {/* Row 1 — scroll left */}
-      <div className="overflow-hidden mb-4">
-        <div className="row-left flex gap-4 w-max px-4">
+      <div className="overflow-hidden mb-5">
+        <div className="row-left flex gap-6 w-max px-6">
           {[...ROW1, ...ROW1].map((t, i) => (
             <TestimonialCard key={i} t={t} />
           ))}
@@ -199,7 +199,7 @@ export default function Testimonials() {
 
       {/* Row 2 — scroll right */}
       <div className="overflow-hidden">
-        <div className="row-right flex gap-4 w-max px-4">
+        <div className="row-right flex gap-6 w-max px-6">
           {[...ROW2, ...ROW2].map((t, i) => (
             <TestimonialCard key={i} t={t} />
           ))}

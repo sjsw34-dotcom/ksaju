@@ -33,7 +33,7 @@ export default async function BlogPreview() {
     return null;
   }
 
-  if (posts.length === 0) return null;
+  const isEmpty = posts.length === 0;
 
   return (
     <section className="py-16 sm:py-20 px-4 sm:px-6">
@@ -58,53 +58,66 @@ export default async function BlogPreview() {
         </div>
 
         {/* Cards */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {posts.map((post) => {
-            const catStyle =
-              CATEGORY_STYLE[post.category] ??
-              "bg-gray-900/40 text-gray-300 border-gray-700/30";
-            const date = new Date(post.created_at).toLocaleDateString("en-US", {
-              month: "short",
-              day: "numeric",
-              year: "numeric",
-            });
-
-            return (
-              <Link
-                key={post.id}
-                href={`/blog/${post.slug}`}
-                className="group flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6 hover:border-[#7C3AED]/50 hover:-translate-y-1 transition-all duration-300"
+        {isEmpty ? (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {[
+              { cat: "education", title: "What Is Saju? A Beginner's Guide to Korean Four Pillars" },
+              { cat: "love",      title: "Saju Compatibility: Which Elements Make the Best Partners" },
+              { cat: "career",    title: "Career Luck in Saju: How Your Birth Chart Reveals Your Path" },
+            ].map((p) => (
+              <div
+                key={p.title}
+                className="flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6 opacity-50"
               >
-                {/* Category + date */}
                 <div className="flex items-center gap-2 mb-4">
-                  <span
-                    className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${catStyle}`}
-                  >
-                    {post.category}
+                  <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${CATEGORY_STYLE[p.cat] ?? ""}`}>
+                    {p.cat}
                   </span>
-                  <span className="text-gray-600 text-xs">{date}</span>
                 </div>
-
-                {/* Title */}
-                <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-[#C4B5FD] transition-colors duration-200 flex-1">
-                  {post.title}
-                </h3>
-
-                {/* Meta */}
-                {post.meta && (
-                  <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
-                    {post.meta}
+                <h3 className="text-base font-bold text-white mb-2 flex-1">{p.title}</h3>
+                <p className="text-gray-600 text-sm">Coming soon...</p>
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+            {posts.map((post) => {
+              const catStyle =
+                CATEGORY_STYLE[post.category] ??
+                "bg-gray-900/40 text-gray-300 border-gray-700/30";
+              const date = new Date(post.created_at).toLocaleDateString("en-US", {
+                month: "short",
+                day: "numeric",
+                year: "numeric",
+              });
+              return (
+                <Link
+                  key={post.id}
+                  href={`/blog/${post.slug}`}
+                  className="group flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6 hover:border-[#7C3AED]/50 hover:-translate-y-1 transition-all duration-300"
+                >
+                  <div className="flex items-center gap-2 mb-4">
+                    <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${catStyle}`}>
+                      {post.category}
+                    </span>
+                    <span className="text-gray-600 text-xs">{date}</span>
+                  </div>
+                  <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-[#C4B5FD] transition-colors duration-200 flex-1">
+                    {post.title}
+                  </h3>
+                  {post.meta && (
+                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
+                      {post.meta}
+                    </p>
+                  )}
+                  <p className="text-[#7C3AED] text-sm font-semibold group-hover:text-[#A78BFA] transition-colors">
+                    Read more →
                   </p>
-                )}
-
-                {/* Read more */}
-                <p className="text-[#7C3AED] text-sm font-semibold group-hover:text-[#A78BFA] transition-colors">
-                  Read more →
-                </p>
-              </Link>
-            );
-          })}
-        </div>
+                </Link>
+              );
+            })}
+          </div>
+        )}
 
         {/* Mobile view all */}
         <div className="sm:hidden text-center mt-6">
