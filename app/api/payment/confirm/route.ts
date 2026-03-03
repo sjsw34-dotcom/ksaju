@@ -2,8 +2,6 @@ import { NextRequest, NextResponse } from "next/server";
 import { sql } from "@/lib/db";
 import { Resend } from "resend";
 
-const resend = new Resend(process.env.RESEND_API_KEY);
-
 export async function POST(req: NextRequest) {
   try {
     const body = (await req.json()) as {
@@ -60,6 +58,9 @@ export async function POST(req: NextRequest) {
 
     // Send emails (non-blocking — don't fail if email fails)
     try {
+      if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY not set");
+      const resend = new Resend(process.env.RESEND_API_KEY);
+
       await Promise.all([
         // Customer confirmation
         resend.emails.send({
