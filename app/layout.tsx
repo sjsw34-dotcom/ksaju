@@ -3,6 +3,7 @@ import localFont from "next/font/local";
 import "./globals.css";
 import Header from "@/components/layout/Header";
 import Footer from "@/components/layout/Footer";
+import LiveOrderToast from "@/components/ui/LiveOrderToast";
 
 const pretendard = localFont({
   src: "../public/fonts/Pretendard-1.3.9/web/variable/woff2/PretendardVariable.woff2",
@@ -29,6 +30,7 @@ export default function RootLayout({
           {children}
         </main>
         <Footer />
+        <LiveOrderToast />
       </body>
     </html>
   );
