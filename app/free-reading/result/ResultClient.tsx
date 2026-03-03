@@ -8,7 +8,7 @@ const UPSELL_FEATURES = [
   "Complete 10-year fortune cycle analysis",
   "Detailed compatibility & relationship guidance",
   "Career timing & wealth luck periods",
-  "Monthly fortune calendar for 2025–2026",
+  "Monthly fortune calendar for 2026–2027",
   "Personalized PDF report delivered within 24 hours",
 ];
 

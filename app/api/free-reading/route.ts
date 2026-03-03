@@ -23,7 +23,7 @@ Romantic tendencies, ideal partner qualities, emotional patterns (2-3 points).
 ## Career & Life Path
 Strengths, ideal domains, and life direction (2-3 points).
 
-## Your 2025–2026 Fortune Window
+## Your 2026–2027 Fortune Window
 Current energetic cycle and what it means for this period (2-3 points).
 
 ## A Message from the Stars
