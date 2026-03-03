@@ -6,6 +6,11 @@ import { notifyGoogleIndexing } from "@/lib/google-indexing";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
 
+function pickModel(): string {
+  // 20% Opus 4.6, 80% Sonnet 4.6
+  return Math.random() < 0.2 ? "claude-opus-4-6" : "claude-sonnet-4-6";
+}
+
 const SYSTEM_PROMPT = `You are a Korean Saju (Four Pillars of Destiny) expert writing SEO-optimised blog posts for a global English-speaking audience.
 
 Rules:
@@ -69,8 +74,11 @@ export async function POST() {
       `[Get your full Saju report →](${baseUrl}/order)`
     );
 
+    const model = pickModel();
+    console.log(`[admin/generate] Using model: ${model}`);
+
     const message = await anthropic.messages.create({
-      model: "claude-haiku-4-5-20251001",
+      model,
       max_tokens: 4096,
       system: systemWithUrls,
       messages: [
@@ -108,7 +116,7 @@ export async function POST() {
     revalidatePath("/blog");
     notifyGoogleIndexing(`${baseUrl}/blog/${slug}`).catch(() => {});
 
-    return NextResponse.json({ success: true, slug, title: parsed.title });
+    return NextResponse.json({ success: true, slug, title: parsed.title, model });
   } catch (err) {
     console.error("[admin/generate] error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
