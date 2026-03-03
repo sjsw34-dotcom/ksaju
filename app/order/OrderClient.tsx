@@ -33,11 +33,9 @@ export default function OrderClient() {
   const [year, setYear]     = useState(paramYear);
   const [month, setMonth]   = useState(paramMonth);
   const [day, setDay]       = useState(paramDay);
+  const [hour, setHour]     = useState(paramHour);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState<string | null>(null);
-
-  const birthTime =
-    paramHour === "unknown" ? "Unknown" : `${paramHour.padStart(2, "0")}:00`;
 
   // Derived values
   const currentYear = new Date().getFullYear();
@@ -45,6 +43,15 @@ export default function OrderClient() {
   const months = Array.from({ length: 12 }, (_, i) => i + 1);
   const maxDay = getDaysInMonth(year, month);
   const days   = Array.from({ length: maxDay }, (_, i) => i + 1);
+  const hours  = ["unknown", ...Array.from({ length: 24 }, (_, i) => String(i))];
+
+  const getHourLabel = (h: string) => {
+    if (h === "unknown") return "I don't know";
+    const n = Number(h);
+    if (n === 0) return "0:00 (Midnight)";
+    if (n === 12) return "12:00 (Noon)";
+    return `${String(n).padStart(2, "0")}:00`;
+  };
 
   const handleMonthChange = (newMonth: string) => {
     const max = getDaysInMonth(year, newMonth);
@@ -83,7 +90,13 @@ export default function OrderClient() {
       const orderRes = await fetch("/api/payment", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, birthDate, birthTime, gender }),
+        body: JSON.stringify({
+          name,
+          email,
+          birthDate,
+          birthTime: hour === "unknown" ? "Unknown" : `${hour.padStart(2, "0")}:00`,
+          gender,
+        }),
       });
 
       if (!orderRes.ok) {
@@ -252,13 +265,24 @@ export default function OrderClient() {
           </div>
         </div>
 
-        {/* Birth time — read-only info if provided */}
-        {paramHour !== "unknown" && (
-          <div className="bg-[#0A0A0F] border border-[#2A2A4A] rounded-xl px-4 py-3 text-sm">
-            <span className="text-gray-500">Birth time: </span>
-            <span className="text-gray-300">{birthTime}</span>
-          </div>
-        )}
+        {/* Birth hour */}
+        <div>
+          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+            Birth Hour{" "}
+            <span className="text-gray-500 font-normal">(optional)</span>
+          </label>
+          <select
+            value={hour}
+            onChange={(e) => setHour(e.target.value)}
+            className={selectClass(false)}
+          >
+            {hours.map((h) => (
+              <option key={h} value={h}>
+                {getHourLabel(h)}
+              </option>
+            ))}
+          </select>
+        </div>
       </div>
 
       {/* Error */}
