@@ -34,11 +34,11 @@
 
   <!-- MUSE -->
   <text
-    x="47.5" y="32"
+    x="46" y="33"
     font-family="Pretendard, Inter, -apple-system, sans-serif"
-    font-size="9"
-    font-weight="500"
+    font-size="15"
+    font-weight="800"
     fill="#F59E0B"
-    letter-spacing="4.5"
+    letter-spacing="0.8"
   >MUSE</text>
 </svg>

@@ -9,11 +9,11 @@ const FREE_FEATURES = [
 
 const PREMIUM_FEATURES = [
   "Everything in Free",
-  "Relationship compatibility",
-  "5-year roadmap",
-  "Lucky dates & timing",
-  "Career pivot guidance",
-  "Personal element analysis",
+  "Love & relationship patterns",
+  "Wealth & financial fortune",
+  "Health tendencies to watch",
+  "10-Year Fortune Cycle",
+  "60+ page personalized PDF",
 ];
 
 export default function Pricing() {

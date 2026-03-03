@@ -5,11 +5,14 @@ import { useSearchParams } from "next/navigation";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 
 const PREMIUM_FEATURES = [
-  "Complete 10-year fortune cycle analysis",
-  "Detailed compatibility & relationship guidance",
-  "Career timing & wealth luck periods",
-  "Monthly fortune calendar for 2026–2027",
-  "Personalized PDF report — delivered within 24h",
+  "Core personality & natural talents",
+  "Career path and best timing for success",
+  "Love life & relationship patterns",
+  "Wealth potential & financial fortune",
+  "Health tendencies to watch",
+  "This year's fortune forecast",
+  "Full 10-Year Fortune Cycle & yearly breakdown",
+  "60+ page personalized PDF report",
 ];
 
 function getDaysInMonth(year: string, month: string): number {
@@ -145,7 +148,7 @@ export default function OrderClient() {
           Your Full Destiny Report
         </h1>
         <p className="text-gray-400 text-sm">
-          Crafted by master readers · Delivered within 24 hours
+          Certified Myeongri Master · 15+ Years Experience · Delivered within 24h
         </p>
       </div>
 

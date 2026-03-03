@@ -5,11 +5,14 @@ import { useSearchParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
 const UPSELL_FEATURES = [
-  "Complete 10-year fortune cycle analysis",
-  "Detailed compatibility & relationship guidance",
-  "Career timing & wealth luck periods",
-  "Monthly fortune calendar for 2026–2027",
-  "Personalized PDF report delivered within 24 hours",
+  "Core personality & natural talents",
+  "Career path and best timing for success",
+  "Love life & relationship patterns",
+  "Wealth potential & financial fortune",
+  "Health tendencies to watch",
+  "This year's fortune forecast",
+  "Full 10-Year Fortune Cycle & yearly breakdown",
+  "60+ page personalized PDF — delivered within 24 hours",
 ];
 
 function UpsellCard({ queryString }: { queryString: string }) {
@@ -26,7 +29,7 @@ function UpsellCard({ queryString }: { queryString: string }) {
           Premium Saju Report
         </h2>
         <p className="text-gray-400 text-sm">
-          Go deeper with a full Four Pillars analysis from our master readers.
+          A certified Korean Saju master with 15+ years of experience reveals your full destiny blueprint.
         </p>
       </div>
 
