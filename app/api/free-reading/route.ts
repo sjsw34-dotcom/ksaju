@@ -91,33 +91,55 @@ export async function POST(req: NextRequest) {
 
   const stream = new ReadableStream({
     async start(controller) {
-      try {
-        const claudeStream = await anthropic.messages.create({
-          model: "claude-opus-4-6",
-          max_tokens: 1024,
-          stream: true,
-          system: SYSTEM_PROMPT,
-          messages: [{ role: "user", content: userPrompt }],
-        });
+      const MAX_RETRIES = 3;
 
-        for await (const event of claudeStream) {
-          if (
-            event.type === "content_block_delta" &&
-            event.delta.type === "text_delta"
-          ) {
-            const data = `data: ${JSON.stringify({ text: event.delta.text })}\n\n`;
-            controller.enqueue(encoder.encode(data));
+      for (let attempt = 0; attempt < MAX_RETRIES; attempt++) {
+        try {
+          const claudeStream = await anthropic.messages.create({
+            model: "claude-haiku-4-5-20251001",
+            max_tokens: 1024,
+            stream: true,
+            system: SYSTEM_PROMPT,
+            messages: [{ role: "user", content: userPrompt }],
+          });
+
+          for await (const event of claudeStream) {
+            if (
+              event.type === "content_block_delta" &&
+              event.delta.type === "text_delta"
+            ) {
+              const data = `data: ${JSON.stringify({ text: event.delta.text })}\n\n`;
+              controller.enqueue(encoder.encode(data));
+            }
           }
-        }
 
-        controller.enqueue(encoder.encode("data: [DONE]\n\n"));
-        controller.close();
-      } catch (err) {
-        const message = err instanceof Error ? err.message : "Unknown error";
-        controller.enqueue(
-          encoder.encode(`data: ${JSON.stringify({ error: message })}\n\n`)
-        );
-        controller.close();
+          controller.enqueue(encoder.encode("data: [DONE]\n\n"));
+          controller.close();
+          return;
+        } catch (err) {
+          const isOverloaded =
+            err instanceof Error &&
+            (err.message.includes("overloaded") || err.message.includes("529"));
+
+          if (isOverloaded && attempt < MAX_RETRIES - 1) {
+            // Wait 2s, 4s before retrying
+            await new Promise((r) => setTimeout(r, 2000 * (attempt + 1)));
+            continue;
+          }
+
+          const message =
+            isOverloaded
+              ? "Our servers are busy right now. Please try again in a moment."
+              : err instanceof Error
+              ? err.message
+              : "Unknown error";
+
+          controller.enqueue(
+            encoder.encode(`data: ${JSON.stringify({ error: message })}\n\n`)
+          );
+          controller.close();
+          return;
+        }
       }
     },
   });
