@@ -1,6 +1,7 @@
 "use client";
 
 import Link from "next/link";
+import Image from "next/image";
 import { useState } from "react";
 
 const navLinks = [
@@ -16,8 +17,14 @@ export default function Header() {
     <header className="sticky top-0 z-50 backdrop-blur-md bg-[#0A0A0F]/80 border-b border-[#2A2A4A]">
       <div className="max-w-[1280px] mx-auto px-4 h-16 flex items-center justify-between">
         {/* Logo */}
-        <Link href="/" className="text-xl font-bold bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] bg-clip-text text-transparent">
-          ✦ K-Fortune
+        <Link href="/" className="flex items-center">
+          <Image
+            src="/logo.svg"
+            alt="Unmyung Therapy"
+            width={147}
+            height={30}
+            priority
+          />
         </Link>
 
         {/* Desktop nav */}

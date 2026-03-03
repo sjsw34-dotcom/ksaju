@@ -64,9 +64,9 @@ export async function POST(req: NextRequest) {
       await Promise.all([
         // Customer confirmation
         resend.emails.send({
-          from: "K-Fortune <noreply@k-fortune.com>",
+          from: "Unmyung Therapy <noreply@k-fortune.com>",
           to: order.email as string,
-          subject: "Your K-Fortune Premium Report is Confirmed ✦",
+          subject: "Your Unmyung Therapy Premium Report is Confirmed ✦",
           html: customerEmailHtml({
             name: order.name as string,
             birthDate: order.birth_date as string,
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
         }),
         // Admin notification
         resend.emails.send({
-          from: "K-Fortune <noreply@k-fortune.com>",
+          from: "Unmyung Therapy <noreply@k-fortune.com>",
           to: process.env.MASTER_EMAIL!,
           subject: `✦ New Order — ${order.name}`,
           html: adminEmailHtml({
@@ -118,7 +118,7 @@ function customerEmailHtml({
       <table width="560" cellpadding="0" cellspacing="0" style="background:#1A1A2E;border-radius:16px;overflow:hidden;">
         <tr><td style="background:linear-gradient(135deg,#7C3AED,#F59E0B);padding:4px;"></td></tr>
         <tr><td style="padding:40px;">
-          <p style="color:#F59E0B;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin:0 0 12px;">K-Fortune</p>
+          <p style="color:#F59E0B;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin:0 0 12px;">Unmyung Therapy</p>
           <h1 style="font-size:24px;font-weight:700;margin:0 0 8px;">Your order is confirmed ✦</h1>
           <p style="color:#9CA3AF;margin:0 0 32px;">Hi ${name}, your premium Saju report is on its way.</p>
 
