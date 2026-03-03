@@ -1,7 +1,7 @@
-import { NextRequest, NextResponse } from "next/server";
+import { NextResponse } from "next/server";
+import { sql } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import Anthropic from "@anthropic-ai/sdk";
-import { sql } from "@/lib/db";
 import { notifyGoogleIndexing } from "@/lib/google-indexing";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -32,58 +32,53 @@ function toSlug(title: string): string {
     .slice(0, 80);
 }
 
-function parseResponse(raw: string): {
-  title: string;
-  meta: string;
-  content: string;
-} | null {
+function parseResponse(raw: string) {
   const titleMatch = raw.match(/^TITLE:\s*(.+)$/m);
-  const metaMatch  = raw.match(/^META:\s*(.+)$/m);
+  const metaMatch = raw.match(/^META:\s*(.+)$/m);
   const contentMatch = raw.match(/^CONTENT:\n([\s\S]+)$/m);
-
   if (!titleMatch || !metaMatch || !contentMatch) return null;
-
   return {
-    title:   titleMatch[1].trim(),
-    meta:    metaMatch[1].trim(),
+    title: titleMatch[1].trim(),
+    meta: metaMatch[1].trim(),
     content: contentMatch[1].trim(),
   };
 }
 
-export async function GET(req: NextRequest) {
-  // ── Auth: Accept header OR query param (for manual testing) ──
-  const authHeader = req.headers.get("authorization") ?? "";
-  const querySecret = req.nextUrl.searchParams.get("secret") ?? "";
-  const cronSecret  = process.env.CRON_SECRET ?? "";
-
-  const validHeader = cronSecret && authHeader === `Bearer ${cronSecret}`;
-  const validQuery  = cronSecret && querySecret === cronSecret;
-
-  if (!validHeader && !validQuery) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-  }
-
+export async function POST() {
   try {
-    // ── Pick first pending topic from DB ──
+    // Pick first pending topic from DB
     const { rows: topicRows } = await sql`
       SELECT * FROM blog_topics WHERE status = 'pending' ORDER BY created_at ASC LIMIT 1
     `;
-    if (topicRows.length === 0) {
-      return NextResponse.json({ success: false, message: "All topics already generated" });
-    }
-    const pick = topicRows[0] as { id: number; topic: string; category: string };
 
-    // ── Generate with Claude ──
-    const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.sajumuse.com";
-    const systemWithUrls = SYSTEM_PROMPT
-      .replace("the free reading page", `[free reading](${baseUrl}/free-reading)`)
-      .replace("the order page", `[Get your full Saju report →](${baseUrl}/order)`);
+    if (topicRows.length === 0) {
+      return NextResponse.json({
+        success: false,
+        message: "No pending topics. Add more topics first.",
+      });
+    }
+
+    const pick = topicRows[0];
+    const baseUrl =
+      process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.sajumuse.com";
+    const systemWithUrls = SYSTEM_PROMPT.replace(
+      "the free reading page",
+      `[free reading](${baseUrl}/free-reading)`
+    ).replace(
+      "the order page",
+      `[Get your full Saju report →](${baseUrl}/order)`
+    );
 
     const message = await anthropic.messages.create({
       model: "claude-haiku-4-5-20251001",
       max_tokens: 4096,
       system: systemWithUrls,
-      messages: [{ role: "user", content: `Write a blog post about: ${pick.topic}` }],
+      messages: [
+        {
+          role: "user",
+          content: `Write a blog post about: ${pick.topic as string}`,
+        },
+      ],
     });
 
     const raw = message.content
@@ -93,37 +88,29 @@ export async function GET(req: NextRequest) {
 
     const parsed = parseResponse(raw);
     if (!parsed) {
-      console.error("[blog/generate] Failed to parse Claude response:\n", raw);
-      return NextResponse.json({ error: "Failed to parse AI response" }, { status: 500 });
+      return NextResponse.json(
+        { error: "Failed to parse AI response" },
+        { status: 500 }
+      );
     }
 
     const slug = toSlug(parsed.title);
 
-    // ── Insert into DB ──
     await sql`
       INSERT INTO blog_posts (slug, title, meta, content, category, topic)
-      VALUES (
-        ${slug},
-        ${parsed.title},
-        ${parsed.meta},
-        ${parsed.content},
-        ${pick.category},
-        ${pick.topic}
-      )
+      VALUES (${slug}, ${parsed.title}, ${parsed.meta}, ${parsed.content}, ${pick.category as string}, ${pick.topic as string})
     `;
 
-    // ── Mark topic as generated ──
-    await sql`UPDATE blog_topics SET status = 'generated' WHERE id = ${pick.id}`;
+    await sql`
+      UPDATE blog_topics SET status = 'generated' WHERE id = ${pick.id as number}
+    `;
 
-    // ── Invalidate blog list cache immediately ──
     revalidatePath("/blog");
-
-    // ── Notify Google (non-blocking) ──
     notifyGoogleIndexing(`${baseUrl}/blog/${slug}`).catch(() => {});
 
     return NextResponse.json({ success: true, slug, title: parsed.title });
   } catch (err) {
-    console.error("[blog/generate] error:", err);
+    console.error("[admin/generate] error:", err);
     return NextResponse.json({ error: "Internal server error" }, { status: 500 });
   }
 }

@@ -19,6 +19,14 @@ export { sql };
  *   updated_at   TIMESTAMPTZ  DEFAULT NOW()
  * );
  *
+ * CREATE TABLE IF NOT EXISTS blog_topics (
+ *   id         SERIAL PRIMARY KEY,
+ *   topic      TEXT        NOT NULL,
+ *   category   VARCHAR(50) NOT NULL DEFAULT 'education',
+ *   status     VARCHAR(20) NOT NULL DEFAULT 'pending',
+ *   created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
+ * );
+ *
  * CREATE TABLE IF NOT EXISTS blog_posts (
  *   id         SERIAL PRIMARY KEY,
  *   slug       VARCHAR(100) UNIQUE NOT NULL,
