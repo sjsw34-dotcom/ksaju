@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
+import { revalidatePath } from "next/cache";
 import Anthropic from "@anthropic-ai/sdk";
 import { sql } from "@/lib/db";
 import { BLOG_TOPICS } from "@/lib/blog-topics";
@@ -108,6 +109,9 @@ export async function GET(req: NextRequest) {
         ${pick.topic}
       )
     `;
+
+    // ── Invalidate blog list cache immediately ──
+    revalidatePath("/blog");
 
     // ── Notify Google (non-blocking) ──
     const baseUrl = process.env.NEXT_PUBLIC_BASE_URL ?? "https://ksaju.vercel.app";
