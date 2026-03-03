@@ -64,7 +64,7 @@ export async function POST(req: NextRequest) {
       await Promise.all([
         // Customer confirmation
         resend.emails.send({
-          from: "Sajumuse <onboarding@resend.dev>",
+          from: "Sajumuse <noreply@sajumuse.com>",
           to: order.email as string,
           subject: "Your Sajumuse Premium Report is Confirmed ✦",
           html: customerEmailHtml({
@@ -75,7 +75,7 @@ export async function POST(req: NextRequest) {
         }),
         // Admin notification
         resend.emails.send({
-          from: "Sajumuse <onboarding@resend.dev>",
+          from: "Sajumuse <noreply@sajumuse.com>",
           to: process.env.MASTER_EMAIL!,
           subject: `✦ New Order — ${order.name}`,
           html: adminEmailHtml({
