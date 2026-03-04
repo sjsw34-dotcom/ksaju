@@ -14,6 +14,13 @@ function toSlug(title: string): string {
 }
 
 export async function POST(req: NextRequest) {
+  // ── Auth ──
+  const authHeader = req.headers.get("authorization") ?? "";
+  const cronSecret = process.env.CRON_SECRET ?? "";
+  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  }
+
   const { title, category, meta, content, imageUrl } = (await req.json()) as {
     title: string;
     category: string;
