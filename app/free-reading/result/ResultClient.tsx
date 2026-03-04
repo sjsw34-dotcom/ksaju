@@ -15,12 +15,20 @@ const UPSELL_FEATURES = [
   "60+ page personalized PDF, delivered within 24 hours",
 ];
 
+const LOADING_MESSAGES = [
+  "Mapping your Four Pillars...",
+  "Reading the Heavenly Stems...",
+  "Aligning the Earthly Branches...",
+  "Calculating elemental balance...",
+  "Consulting the cosmic energies...",
+  "Interpreting your destiny chart...",
+  "Weaving your fortune tapestry...",
+  "Finalizing your reading...",
+];
+
 function UpsellCard({ queryString }: { queryString: string }) {
   return (
-    <div
-      className="mt-12 bg-[#1A1A2E] border border-[#7C3AED] rounded-2xl p-8"
-      style={{ animation: "fadeIn 0.6s ease forwards" }}
-    >
+    <div className="mt-12 bg-[#1A1A2E] border border-[#7C3AED] rounded-2xl p-8 animate-[fadeUp_0.6s_ease_forwards]">
       <div className="text-center mb-6">
         <p className="text-[#F59E0B] text-sm font-semibold tracking-widest uppercase mb-2">
           Unlock Your Full Destiny
@@ -29,7 +37,8 @@ function UpsellCard({ queryString }: { queryString: string }) {
           Premium Saju Report
         </h2>
         <p className="text-gray-400 text-sm">
-          A certified Korean Saju master with 15+ years of experience reveals your full destiny blueprint.
+          A certified Korean Saju master with 15+ years of experience reveals
+          your full destiny blueprint.
         </p>
       </div>
 
@@ -64,14 +73,60 @@ function UpsellCard({ queryString }: { queryString: string }) {
   );
 }
 
+function LoadingScreen({ message }: { message: string }) {
+  return (
+    <div className="flex flex-col items-center justify-center py-20">
+      {/* Mystical orb animation */}
+      <div className="relative w-28 h-28 mb-8">
+        {/* Outer ring */}
+        <div className="absolute inset-0 rounded-full border-2 border-[#7C3AED]/30 animate-[spin_8s_linear_infinite]" />
+        {/* Mid ring */}
+        <div className="absolute inset-2 rounded-full border-2 border-dashed border-[#F59E0B]/20 animate-[spin_6s_linear_infinite_reverse]" />
+        {/* Inner glow */}
+        <div className="absolute inset-4 rounded-full bg-[#7C3AED]/10 animate-[pulse_2s_ease-in-out_infinite]" />
+        {/* Center symbol */}
+        <div className="absolute inset-0 flex items-center justify-center">
+          <span className="text-3xl animate-[pulse_2s_ease-in-out_infinite]">
+            ✦
+          </span>
+        </div>
+        {/* Floating dots */}
+        <div className="absolute -top-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#7C3AED] animate-[pulse_1.5s_ease-in-out_infinite]" />
+        <div className="absolute -bottom-1 left-1/2 -translate-x-1/2 w-2 h-2 rounded-full bg-[#F59E0B] animate-[pulse_1.5s_ease-in-out_0.5s_infinite]" />
+        <div className="absolute top-1/2 -left-1 -translate-y-1/2 w-2 h-2 rounded-full bg-[#C4B5FD] animate-[pulse_1.5s_ease-in-out_1s_infinite]" />
+        <div className="absolute top-1/2 -right-1 -translate-y-1/2 w-2 h-2 rounded-full bg-[#A78BFA] animate-[pulse_1.5s_ease-in-out_0.75s_infinite]" />
+      </div>
+
+      {/* Message */}
+      <p
+        key={message}
+        className="text-gray-200 text-lg font-medium text-center animate-[fadeUp_0.4s_ease_forwards]"
+      >
+        {message}
+      </p>
+      <p className="text-gray-500 text-sm mt-3">
+        This usually takes 10–15 seconds
+      </p>
+
+      {/* Progress bar */}
+      <div className="w-48 h-1 bg-[#2A2A4A] rounded-full mt-6 overflow-hidden">
+        <div className="h-full bg-gradient-to-r from-[#7C3AED] to-[#F59E0B] rounded-full animate-[loading_2s_ease-in-out_infinite]" />
+      </div>
+    </div>
+  );
+}
+
 export default function ResultClient() {
   const searchParams = useSearchParams();
   const [content, setContent] = useState("");
-  const [isLoading, setIsLoading] = useState(true);
-  const [isComplete, setIsComplete] = useState(false);
+  const [phase, setPhase] = useState<"loading" | "reveal" | "error">(
+    "loading"
+  );
   const [showUpsell, setShowUpsell] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [loadingMsg, setLoadingMsg] = useState(LOADING_MESSAGES[0]);
   const abortRef = useRef<AbortController | null>(null);
+  const contentRef = useRef("");
 
   const name = searchParams.get("name") ?? "";
   const gender = searchParams.get("gender") ?? "";
@@ -88,17 +143,30 @@ export default function ResultClient() {
   const birthTime =
     hour === "unknown" ? "Unknown" : `${hour.padStart(2, "0")}:00`;
 
+  // Rotate loading messages
+  useEffect(() => {
+    if (phase !== "loading") return;
+    let i = 0;
+    const interval = setInterval(() => {
+      i = (i + 1) % LOADING_MESSAGES.length;
+      setLoadingMsg(LOADING_MESSAGES[i]);
+    }, 2500);
+    return () => clearInterval(interval);
+  }, [phase]);
+
   const fetchReading = async () => {
     if (!name || !gender || !birthDate) {
-      setError("Missing birth information. Please go back and fill in the form.");
-      setIsLoading(false);
+      setError(
+        "Missing birth information. Please go back and fill in the form."
+      );
+      setPhase("error");
       return;
     }
 
     abortRef.current = new AbortController();
+    contentRef.current = "";
     setContent("");
-    setIsLoading(true);
-    setIsComplete(false);
+    setPhase("loading");
     setShowUpsell(false);
     setError(null);
 
@@ -117,7 +185,6 @@ export default function ResultClient() {
       const reader = res.body.getReader();
       const decoder = new TextDecoder();
       let buffer = "";
-      setIsLoading(false);
 
       while (true) {
         const { done, value } = await reader.read();
@@ -131,18 +198,24 @@ export default function ResultClient() {
           if (!line.startsWith("data: ")) continue;
           const raw = line.slice(6).trim();
           if (raw === "[DONE]") {
-            setIsComplete(true);
-            setTimeout(() => setShowUpsell(true), 500);
+            // All content received — reveal!
+            setContent(contentRef.current);
+            setPhase("reveal");
+            setTimeout(() => setShowUpsell(true), 800);
             return;
           }
           try {
-            const parsed = JSON.parse(raw) as { text?: string; error?: string };
+            const parsed = JSON.parse(raw) as {
+              text?: string;
+              error?: string;
+            };
             if (parsed.error) {
               setError(parsed.error);
+              setPhase("error");
               return;
             }
             if (parsed.text) {
-              setContent((prev) => prev + parsed.text);
+              contentRef.current += parsed.text;
             }
           } catch {
             // skip malformed line
@@ -152,7 +225,7 @@ export default function ResultClient() {
     } catch (err) {
       if (err instanceof Error && err.name === "AbortError") return;
       setError("Something went wrong. Please try again.");
-      setIsLoading(false);
+      setPhase("error");
     }
   };
 
@@ -172,11 +245,14 @@ export default function ResultClient() {
   return (
     <div className="min-h-screen bg-[#0A0A0F] py-16 px-4 sm:px-6">
       <style>{`
-        @keyframes spin { to { transform: rotate(360deg); } }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-        @keyframes fadeIn {
+        @keyframes fadeUp {
           from { opacity: 0; transform: translateY(16px); }
           to   { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes loading {
+          0%   { width: 0%; }
+          50%  { width: 80%; }
+          100% { width: 0%; }
         }
       `}</style>
 
@@ -197,30 +273,10 @@ export default function ResultClient() {
         </div>
 
         {/* Loading state */}
-        {isLoading && (
-          <div className="text-center py-20">
-            <div
-              style={{
-                width: 56,
-                height: 56,
-                border: "3px solid #2A2A4A",
-                borderTopColor: "#7C3AED",
-                borderRadius: "50%",
-                animation: "spin 1s linear infinite",
-                margin: "0 auto 20px",
-              }}
-            />
-            <p className="text-gray-300 text-lg font-medium">
-              Consulting the ancient wisdom...
-            </p>
-            <p className="text-gray-400 text-sm mt-2">
-              Calculating your Four Pillars
-            </p>
-          </div>
-        )}
+        {phase === "loading" && <LoadingScreen message={loadingMsg} />}
 
         {/* Error state */}
-        {error && (
+        {phase === "error" && error && (
           <div className="bg-red-950/40 border border-red-700/50 rounded-2xl p-8 text-center">
             <p className="text-red-300 mb-4">{error}</p>
             <button
@@ -232,9 +288,9 @@ export default function ResultClient() {
           </div>
         )}
 
-        {/* Reading content */}
-        {!isLoading && !error && content && (
-          <div className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-8">
+        {/* Reading content — revealed all at once */}
+        {phase === "reveal" && content && (
+          <div className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-8 animate-[fadeUp_0.6s_ease_forwards]">
             <ReactMarkdown
               components={{
                 h2: ({ children }) => (
@@ -310,21 +366,6 @@ export default function ResultClient() {
             >
               {content}
             </ReactMarkdown>
-
-            {/* Blinking cursor while streaming */}
-            {!isComplete && (
-              <span
-                style={{
-                  display: "inline-block",
-                  width: 2,
-                  height: "1em",
-                  background: "#7C3AED",
-                  marginLeft: 2,
-                  verticalAlign: "text-bottom",
-                  animation: "blink 1s step-end infinite",
-                }}
-              />
-            )}
           </div>
         )}
 
