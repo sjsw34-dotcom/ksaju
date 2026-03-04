@@ -4,6 +4,15 @@ import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { sql } from "@/lib/db";
 import type { Metadata } from "next";
+import {
+  CATEGORY_STYLE,
+  CATEGORY_LABELS,
+  CATEGORY_BAR_COLOR,
+  formatDate,
+  calcReadTime,
+  extractHeadings,
+} from "@/lib/blog-utils";
+import ShareButtons from "@/components/blog/ShareButtons";
 
 export const revalidate = 3600;
 
@@ -33,10 +42,13 @@ async function getPost(slug: string): Promise<Post | null> {
   }
 }
 
-async function getRelatedPosts(category: string, excludeSlug: string): Promise<Post[]> {
+async function getRelatedPosts(
+  category: string,
+  excludeSlug: string
+): Promise<Post[]> {
   try {
     const { rows } = await sql`
-      SELECT slug, title, meta, category, created_at
+      SELECT slug, title, meta, content, category, created_at
       FROM blog_posts
       WHERE category = ${category}
         AND slug != ${excludeSlug}
@@ -90,14 +102,6 @@ export async function generateMetadata({
   };
 }
 
-const CATEGORY_LABELS: Record<string, string> = {
-  zodiac: "Zodiac",
-  education: "Learn Saju",
-  love: "Love",
-  career: "Career",
-  kculture: "K-Culture",
-};
-
 export default async function BlogPostPage({
   params,
 }: {
@@ -106,12 +110,17 @@ export default async function BlogPostPage({
   const { slug } = await params;
   const [post, related] = await Promise.all([
     getPost(slug),
-    getPost(slug).then((p) =>
-      p ? getRelatedPosts(p.category, slug) : []
-    ),
+    getPost(slug).then((p) => (p ? getRelatedPosts(p.category, slug) : [])),
   ]);
 
   if (!post) notFound();
+
+  const readTime = calcReadTime(post.content);
+  const headings = extractHeadings(post.content);
+  const postUrl = `${BASE_URL}/blog/${post.slug}`;
+  const catStyle =
+    CATEGORY_STYLE[post.category] ??
+    "bg-gray-900/40 text-gray-300 border-gray-700/30";
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -130,7 +139,7 @@ export default async function BlogPostPage({
       name: "Sajumuse",
       url: BASE_URL,
     },
-    url: `${BASE_URL}/blog/${post.slug}`,
+    url: postUrl,
     image: `${BASE_URL}/api/og?title=${encodeURIComponent(post.title)}&category=${post.category}`,
   };
 
@@ -163,31 +172,68 @@ export default async function BlogPostPage({
         </Link>
 
         {/* Header */}
-        <header className="mb-10">
-          <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-3">
-            {CATEGORY_LABELS[post.category] ?? post.category}
-          </p>
-          <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-4">
+        <header className="mb-8">
+          <div className="flex items-center gap-3 mb-4 flex-wrap">
+            <span
+              className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${catStyle}`}
+            >
+              {CATEGORY_LABELS[post.category] ?? post.category}
+            </span>
+            <span className="text-gray-500 text-sm">
+              {formatDate(post.created_at)}
+            </span>
+            <span className="text-gray-600">·</span>
+            <span className="text-gray-500 text-sm">{readTime} min read</span>
+          </div>
+
+          <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-5">
             {post.title}
           </h1>
-          <p className="text-gray-400 text-sm">
-            {new Date(post.created_at).toLocaleDateString("en-US", {
-              year: "numeric",
-              month: "long",
-              day: "numeric",
-            })}
-          </p>
+
+          {/* Share buttons */}
+          <ShareButtons url={postUrl} title={post.title} />
         </header>
+
+        {/* Table of Contents */}
+        {headings.length >= 3 && (
+          <nav className="mb-10 bg-[#1A1A2E]/80 border border-[#2A2A4A] rounded-2xl p-5">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
+              In this article
+            </p>
+            <ul className="space-y-2">
+              {headings.map((h) => (
+                <li key={h.id}>
+                  <a
+                    href={`#${h.id}`}
+                    className="text-sm text-gray-300 hover:text-[#C4B5FD] transition-colors"
+                  >
+                    {h.text}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </nav>
+        )}
 
         {/* Content */}
         <div>
           <ReactMarkdown
             components={{
-              h2: ({ children }) => (
-                <h2 className="text-xl font-bold text-[#C4B5FD] mt-8 mb-3">
-                  {children}
-                </h2>
-              ),
+              h2: ({ children }) => {
+                const text = String(children);
+                const id = text
+                  .toLowerCase()
+                  .replace(/[^a-z0-9]+/g, "-")
+                  .replace(/(^-|-$)/g, "");
+                return (
+                  <h2
+                    id={id}
+                    className="text-xl font-bold text-[#C4B5FD] mt-8 mb-3 scroll-mt-24"
+                  >
+                    {children}
+                  </h2>
+                );
+              },
               h3: ({ children }) => (
                 <h3 className="text-lg font-semibold text-[#A78BFA] mt-6 mb-2">
                   {children}
@@ -200,7 +246,9 @@ export default async function BlogPostPage({
                 <ul className="list-disc pl-5 mb-4 space-y-1">{children}</ul>
               ),
               ol: ({ children }) => (
-                <ol className="list-decimal pl-5 mb-4 space-y-1">{children}</ol>
+                <ol className="list-decimal pl-5 mb-4 space-y-1">
+                  {children}
+                </ol>
               ),
               li: ({ children }) => (
                 <li className="text-gray-300 leading-7">{children}</li>
@@ -268,26 +316,44 @@ export default async function BlogPostPage({
         {/* Related posts */}
         {related.length > 0 && (
           <div className="mt-12">
-            <h2 className="text-lg font-bold text-gray-300 mb-4">
+            <h2 className="text-lg font-bold text-gray-300 mb-5">
               Related posts
             </h2>
-            <ul className="space-y-3">
-              {related.map((r) => (
-                <li key={r.slug}>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
+              {related.map((r) => {
+                const rCatStyle =
+                  CATEGORY_STYLE[r.category] ??
+                  "bg-gray-900/40 text-gray-300 border-gray-700/30";
+                const rBarColor =
+                  CATEGORY_BAR_COLOR[r.category] ?? "bg-gray-600";
+                const rReadTime = calcReadTime(r.content);
+
+                return (
                   <Link
+                    key={r.slug}
                     href={`/blog/${r.slug}`}
-                    className="block bg-[#1A1A2E] border border-[#2A2A4A] hover:border-[#7C3AED] rounded-xl px-5 py-4 transition-colors group"
+                    className="group flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl overflow-hidden hover:border-[#7C3AED]/50 hover:-translate-y-1 transition-all duration-300"
                   >
-                    <p className="text-xs text-[#F59E0B] font-semibold uppercase tracking-wider mb-1">
-                      {CATEGORY_LABELS[r.category] ?? r.category}
-                    </p>
-                    <p className="text-sm font-semibold text-white group-hover:text-[#C4B5FD] transition-colors">
-                      {r.title}
-                    </p>
+                    <div className={`h-2 w-full ${rBarColor}`} />
+                    <div className="p-5 flex flex-col flex-1">
+                      <div className="flex items-center gap-2 mb-2 flex-wrap">
+                        <span
+                          className={`text-xs font-semibold px-2 py-0.5 rounded-full border ${rCatStyle}`}
+                        >
+                          {CATEGORY_LABELS[r.category] ?? r.category}
+                        </span>
+                        <span className="text-gray-500 text-xs">
+                          {rReadTime} min read
+                        </span>
+                      </div>
+                      <h3 className="text-sm font-bold text-white group-hover:text-[#C4B5FD] transition-colors line-clamp-2 flex-1">
+                        {r.title}
+                      </h3>
+                    </div>
                   </Link>
-                </li>
-              ))}
-            </ul>
+                );
+              })}
+            </div>
           </div>
         )}
 

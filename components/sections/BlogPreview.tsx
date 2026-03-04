@@ -1,14 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { sql } from "@/lib/db";
-
-const CATEGORY_STYLE: Record<string, string> = {
-  zodiac:    "bg-purple-900/40 text-purple-300 border-purple-700/30",
-  education: "bg-blue-900/40 text-blue-300 border-blue-700/30",
-  love:      "bg-pink-900/40 text-pink-300 border-pink-700/30",
-  career:    "bg-green-900/40 text-green-300 border-green-700/30",
-  kculture:  "bg-yellow-900/40 text-yellow-300 border-yellow-700/30",
-};
+import { CATEGORY_STYLE, CATEGORY_BAR_COLOR, formatDate } from "@/lib/blog-utils";
 
 interface Post {
   id: number;
@@ -89,11 +82,7 @@ export default async function BlogPreview() {
               const catStyle =
                 CATEGORY_STYLE[post.category] ??
                 "bg-gray-900/40 text-gray-300 border-gray-700/30";
-              const date = new Date(post.created_at).toLocaleDateString("en-US", {
-                month: "short",
-                day: "numeric",
-                year: "numeric",
-              });
+              const date = formatDate(post.created_at);
               return (
                 <Link
                   key={post.id}
@@ -111,13 +100,7 @@ export default async function BlogPreview() {
                       />
                     </div>
                   ) : (
-                    <div className={`h-2 w-full ${
-                      post.category === "zodiac"    ? "bg-purple-600" :
-                      post.category === "education" ? "bg-blue-600" :
-                      post.category === "love"      ? "bg-pink-600" :
-                      post.category === "career"    ? "bg-green-600" :
-                                                      "bg-yellow-600"
-                    }`} />
+                    <div className={`h-2 w-full ${CATEGORY_BAR_COLOR[post.category] ?? "bg-gray-600"}`} />
                   )}
                   <div className="p-6 flex flex-col flex-1">
                     <div className="flex items-center gap-2 mb-3">
