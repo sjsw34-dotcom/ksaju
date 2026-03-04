@@ -22,6 +22,7 @@ export default async function BlogPreview() {
     const { rows } = await sql`
       SELECT id, slug, title, category, meta, image_url, created_at
       FROM blog_posts
+      WHERE published = true
       ORDER BY created_at DESC
       LIMIT 3
     `;

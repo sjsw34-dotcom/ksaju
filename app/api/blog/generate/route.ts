@@ -114,6 +114,7 @@ export async function GET(req: NextRequest) {
     // ── Only invalidate cache & notify Google if published ──
     if (quality.published) {
       revalidatePath("/blog");
+      revalidatePath("/");
       notifyGoogleIndexing(`${baseUrl}/blog/${slug}`).catch(() => {});
     }
 
