@@ -52,11 +52,21 @@ Current energetic cycle in the ${stem}${branch} year and what it means for this 
 ## A Message from the Stars
 Closing poetic insight personalized to the person (2-3 sentences).
 
+## What Lies Deeper
+End with exactly 3 brief, specific observations about intriguing deeper patterns you can see in their chart. Each must:
+- Reference a specific element interaction, pillar clash, or timing cycle from their actual birth data
+- Frame it as an unresolved mystery — hint at the pattern but do NOT reveal the answer
+- Be exactly 1 sentence, starting with "→"
+These should feel like a master noticing something important but choosing not to elaborate yet.
+Example style:
+→ The tension between your *Wood* Day Master and the *Metal* in your Year Pillar suggests a complex wealth dynamic that typically peaks in your late 30s...
+→ Your Month Pillar carries an unusual *Fire-Water* clash that shapes your deepest relationship patterns in ways most surface readings miss...
+
 Guidelines:
 - Use **bold** for key concepts and *italics* for element names
 - Keep the tone warm, empowering, and mystical — not fatalistic
 - Be specific to the birth date provided, mentioning the actual year's Heavenly Stem and Earthly Branch
-- Total length: 350–500 words
+- Total length: 400–550 words
 - Do NOT include disclaimers or "this is for entertainment" notes`;
 }
 
@@ -121,7 +131,7 @@ export async function POST(req: NextRequest) {
         try {
           const claudeStream = await anthropic.messages.create({
             model: "claude-haiku-4-5-20251001",
-            max_tokens: 1024,
+            max_tokens: 1280,
             stream: true,
             system: buildSystemPrompt(),
             messages: [{ role: "user", content: userPrompt }],

@@ -4,15 +4,40 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "next/navigation";
 import ReactMarkdown from "react-markdown";
 
-const UPSELL_FEATURES = [
-  "Core personality & natural talents",
-  "Career path and best timing for success",
-  "Love life & relationship patterns",
-  "Wealth potential & financial fortune",
+const FREE_COVERED = [
+  "Basic personality overview",
+  "Surface love insights",
+  "General career direction",
+  "This year's snapshot",
+];
+
+const PREMIUM_LOCKED = [
+  "Deep personality & hidden talents",
+  "Love compatibility patterns",
+  "Career timing & best moves",
+  "Wealth & financial fortune",
   "Health tendencies to watch",
-  "This year's fortune forecast",
-  "Full 10-Year Fortune Cycle & yearly breakdown",
-  "60+ page personalized PDF, delivered within 24 hours",
+  "Full 10-Year Fortune Cycle",
+  "3 personal questions answered",
+  "60+ page personalized PDF",
+];
+
+const TESTIMONIALS = [
+  {
+    text: "I didn't expect to be this moved. It felt like someone finally understood the patterns I've been living through.",
+    author: "J.K., 29",
+    detail: "Career & Relationship Reading",
+  },
+  {
+    text: "The 10-year cycle section was scary accurate. It predicted my career change timing almost to the month.",
+    author: "S.M., 34",
+    detail: "Premium Report Client",
+  },
+  {
+    text: "60 pages of insights I keep coming back to whenever I face a big decision. Worth every penny.",
+    author: "A.R., 27",
+    detail: "Repeat Client",
+  },
 ];
 
 const LOADING_MESSAGES = [
@@ -26,49 +51,155 @@ const LOADING_MESSAGES = [
   "Finalizing your reading...",
 ];
 
-function UpsellCard({ queryString }: { queryString: string }) {
+function UpsellSection({ queryString }: { queryString: string }) {
   return (
-    <div className="mt-12 bg-[#1A1A2E] border border-[#7C3AED] rounded-2xl p-8 animate-[fadeUp_0.6s_ease_forwards]">
-      <div className="text-center mb-6">
-        <p className="text-[#F59E0B] text-sm font-semibold tracking-widest uppercase mb-2">
-          Unlock Your Full Destiny
-        </p>
-        <h2 className="text-2xl sm:text-3xl font-bold mb-2">
-          Premium Saju Report
-        </h2>
-        <p className="text-gray-400 text-sm">
-          A certified Korean Saju master with 15+ years of experience reveals
-          your full destiny blueprint.
+    <div className="mt-12 space-y-6 animate-[fadeUp_0.6s_ease_forwards]">
+      {/* 1. Emotional Bridge */}
+      <div className="text-center px-2">
+        <p className="text-gray-300 text-sm leading-relaxed">
+          What you just read was an{" "}
+          <span className="text-white font-semibold">AI-generated surface glimpse</span>.
+          <br />
+          Your Four Pillars contain patterns that take a certified master
+          <br />
+          <span className="text-[#F59E0B] font-semibold">15+ years of training</span> to fully decode.
         </p>
       </div>
 
-      <ul className="space-y-3 mb-8">
-        {UPSELL_FEATURES.map((feature) => (
-          <li key={feature} className="flex items-start gap-3">
-            <span className="text-[#7C3AED] mt-0.5 flex-shrink-0">✦</span>
-            <span className="text-gray-300 text-sm">{feature}</span>
-          </li>
+      {/* 2. Free vs Premium Comparison */}
+      <div className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6">
+        <h3 className="text-center font-bold text-lg mb-5">
+          What You Got vs What You&apos;re Missing
+        </h3>
+        <div className="grid grid-cols-2 gap-4">
+          {/* Free column */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-gray-500 mb-3">
+              Free Reading
+            </p>
+            <ul className="space-y-2.5">
+              {FREE_COVERED.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="text-green-400 text-xs mt-0.5 shrink-0">✓</span>
+                  <span className="text-gray-400 text-sm">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+          {/* Premium column */}
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-wider text-[#F59E0B] mb-3">
+              Premium Report
+            </p>
+            <ul className="space-y-2.5">
+              {PREMIUM_LOCKED.map((item) => (
+                <li key={item} className="flex items-start gap-2">
+                  <span className="text-[#7C3AED] text-xs mt-0.5 shrink-0">✦</span>
+                  <span className="text-gray-200 text-sm">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* 3. Master Credibility */}
+      <div className="bg-[#1A1A2E] border border-[#7C3AED]/50 rounded-2xl p-6">
+        <div className="flex items-start gap-4">
+          <div className="w-12 h-12 rounded-full bg-[#7C3AED]/20 border border-[#7C3AED]/40 flex items-center justify-center shrink-0">
+            <span className="text-lg">✦</span>
+          </div>
+          <div>
+            <p className="font-bold text-white mb-1">
+              Analyzed by a Certified Saju Master
+            </p>
+            <p className="text-gray-400 text-sm leading-relaxed">
+              Level 1 Myeongri Psychology Counselor · Level 1 Family Psychology Counselor
+              · 15+ years of classical training · 138+ verified client reviews
+            </p>
+          </div>
+        </div>
+        <div className="mt-4 pt-4 border-t border-[#2A2A4A]">
+          <p className="text-gray-300 text-sm leading-relaxed">
+            This free reading was AI-generated in seconds. Your Premium Report is{" "}
+            <span className="text-white font-semibold">personally analyzed by a human master</span> who
+            examines every elemental interaction, every timing cycle, every hidden
+            pattern — the same care as a face-to-face consultation.
+          </p>
+        </div>
+      </div>
+
+      {/* 4. Testimonials */}
+      <div className="space-y-3">
+        {TESTIMONIALS.map((t) => (
+          <div
+            key={t.author}
+            className="bg-[#1A1A2E]/60 border border-[#2A2A4A] rounded-xl p-5"
+          >
+            <p className="text-gray-200 text-sm leading-relaxed mb-3 italic">
+              &ldquo;{t.text}&rdquo;
+            </p>
+            <div className="flex items-center gap-2">
+              <span className="text-[#F59E0B] text-xs">★★★★★</span>
+              <span className="text-gray-400 text-xs">
+                {t.author} · {t.detail}
+              </span>
+            </div>
+          </div>
         ))}
-      </ul>
-
-      <div className="text-center mb-6">
-        <p className="text-gray-400 text-sm line-through mb-1">$65</p>
-        <p className="text-4xl font-bold">
-          $29{" "}
-          <span className="text-lg text-gray-400 font-normal">one-time</span>
-        </p>
       </div>
 
+      {/* 5. Sample Report Preview */}
       <a
-        href={`/order?${queryString}`}
-        className="block w-full py-4 bg-[#7C3AED] hover:bg-[#6D28D9] rounded-full font-bold text-lg text-center transition-colors"
+        href="/sample.pdf"
+        target="_blank"
+        rel="noopener noreferrer"
+        className="flex items-center gap-4 p-4 bg-[#1A1A2E] border border-[#F59E0B]/30 rounded-xl hover:border-[#F59E0B]/60 transition-colors group"
       >
-        Get My Full Report ✦
+        <div className="w-11 h-13 bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-lg flex items-center justify-center shrink-0">
+          <span className="text-[#F59E0B] text-xs font-bold">PDF</span>
+        </div>
+        <div>
+          <p className="text-sm font-semibold text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors">
+            Preview a Sample Report →
+          </p>
+          <p className="text-xs text-gray-400">
+            See what 60+ pages of master analysis looks like
+          </p>
+        </div>
       </a>
 
-      <p className="text-center text-gray-400 text-xs mt-4">
-        Secure payment · Delivered within 24h · 100% satisfaction guarantee
-      </p>
+      {/* 6. Price + CTA */}
+      <div className="bg-[#1A1A2E] border border-[#7C3AED] rounded-2xl p-8 text-center">
+        <p className="text-[#F59E0B] text-sm font-semibold tracking-widest uppercase mb-3">
+          Unlock Your Full Destiny
+        </p>
+        <h2 className="text-2xl sm:text-3xl font-bold mb-1">
+          Premium Saju Report
+        </h2>
+        <p className="text-gray-400 text-sm mb-5">
+          Delivered to your inbox within 24 hours
+        </p>
+
+        <div className="mb-6">
+          <p className="text-gray-500 text-sm line-through">$65</p>
+          <p className="text-4xl font-bold">
+            $29{" "}
+            <span className="text-lg text-gray-400 font-normal">one-time</span>
+          </p>
+        </div>
+
+        <a
+          href={`/order?${queryString}`}
+          className="block w-full py-4 bg-[#7C3AED] hover:bg-[#6D28D9] rounded-full font-bold text-lg text-center transition-colors"
+        >
+          Get My Full Report ✦
+        </a>
+
+        <p className="text-gray-500 text-xs mt-4">
+          Secure PayPal payment · Delivered within 24h · Personally analyzed, not AI-generated
+        </p>
+      </div>
     </div>
   );
 }
@@ -370,7 +501,7 @@ export default function ResultClient() {
         )}
 
         {/* Upsell card */}
-        {showUpsell && <UpsellCard queryString={queryString} />}
+        {showUpsell && <UpsellSection queryString={queryString} />}
 
         {/* Back link */}
         <div className="text-center mt-8">
