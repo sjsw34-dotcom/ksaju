@@ -1,5 +1,15 @@
 @import "tailwindcss";
 
+:root {
+  color-scheme: only dark;
+}
+
+@media (forced-colors: active) {
+  :root {
+    forced-color-adjust: none;
+  }
+}
+
 @theme inline {
   --color-bg: #0A0A0F;
   --color-surface: #1A1A2E;
