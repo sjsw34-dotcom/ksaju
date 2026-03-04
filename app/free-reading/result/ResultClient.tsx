@@ -18,7 +18,7 @@ const PREMIUM_LOCKED = [
   "Wealth & financial fortune",
   "Health tendencies to watch",
   "Full 10-Year Fortune Cycle",
-  "3 personal questions answered",
+  "1 personal question answered",
   "60+ page personalized PDF",
 ];
 

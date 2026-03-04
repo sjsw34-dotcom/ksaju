@@ -13,7 +13,7 @@ const PREMIUM_FEATURES = [
   "This year's fortune forecast",
   "Full 10-Year Fortune Cycle & yearly breakdown",
   "60+ page personalized PDF report",
-  "3 personal questions answered",
+  "1 personal question answered",
 ];
 
 function getDaysInMonth(year: string, month: string): number {

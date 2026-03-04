@@ -14,7 +14,7 @@ const PREMIUM_FEATURES = [
   "Health tendencies to watch",
   "10-Year Fortune Cycle",
   "60+ page personalized PDF",
-  "3 personal questions answered",
+  "1 personal question answered",
 ];
 
 export default function Pricing() {
