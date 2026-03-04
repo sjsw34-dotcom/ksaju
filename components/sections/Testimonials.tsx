@@ -40,7 +40,7 @@ const ROW2: Testimonial[] = [
   {
     name: "Lucas M.",
     role: "Analyst",
-    location: "Paris",
+    location: "Chicago",
     initials: "LM",
     rating: 5,
     text: "I went in skeptical. Came out genuinely unsettled. It knew things I'd never said out loud.",
@@ -56,7 +56,7 @@ const ROW2: Testimonial[] = [
   {
     name: "Ryan P.",
     role: "Designer",
-    location: "Seoul",
+    location: "Sydney",
     initials: "RP",
     rating: 5,
     text: "I've had readings done in Korea. This matches that quality. Finally in English.",
@@ -120,6 +120,9 @@ export default function Testimonials() {
         <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold">
           Real People. Real Readings.
         </h2>
+        <p className="text-sm text-gray-400 mt-3">
+          138+ verified client reviews in Korea · Now serving clients worldwide
+        </p>
       </div>
 
       <div className="overflow-hidden mb-5">

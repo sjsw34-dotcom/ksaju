@@ -14,6 +14,7 @@ const PREMIUM_FEATURES = [
   "Health tendencies to watch",
   "10-Year Fortune Cycle",
   "60+ page personalized PDF",
+  "3 personal questions answered",
 ];
 
 export default function Pricing() {
@@ -74,6 +75,26 @@ export default function Pricing() {
               ))}
             </ul>
 
+            <p className="text-xs text-gray-400 text-center mb-3">
+              Personally analyzed by a certified master — not auto-generated
+            </p>
+            <a
+              href="/sample.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center gap-3 p-3 mb-4 bg-[#0A0A0F]/40 border border-[#F59E0B]/30 rounded-xl hover:border-[#F59E0B]/60 transition-colors group"
+            >
+              <div className="w-9 h-11 bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-lg flex items-center justify-center shrink-0">
+                <span className="text-[#F59E0B] text-[10px] font-bold">PDF</span>
+              </div>
+              <div>
+                <p className="text-xs font-semibold text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors">
+                  Preview Sample Report →
+                </p>
+                <p className="text-[10px] text-gray-500">Excerpt from a 60+ page report</p>
+              </div>
+            </a>
+
             <Link
               href="/order"
               className="block text-center py-3 px-6 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold text-sm sm:text-base transition-colors"
@@ -82,7 +103,7 @@ export default function Pricing() {
             </Link>
 
             <p className="text-center text-xs sm:text-sm text-gray-400 mt-3">
-              Delivered within 24 hours
+              Delivered within 48 hours — because real analysis takes time
             </p>
           </div>
         </div>

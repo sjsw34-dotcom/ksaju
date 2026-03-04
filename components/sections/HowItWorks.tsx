@@ -7,12 +7,12 @@ const STEPS = [
   {
     number: "2",
     title: "Get Your Reading",
-    description: "Your Four Pillars are calculated and interpreted instantly",
+    description: "Your Four Pillars are carefully analyzed by a certified Saju master",
   },
   {
     number: "3",
     title: "Transform Your Life",
-    description: "Use ancient wisdom to navigate modern challenges",
+    description: "Receive your 60+ page personalized report and navigate life with clarity",
   },
 ];
 

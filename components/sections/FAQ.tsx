@@ -7,27 +7,37 @@ const FAQS = [
   {
     question: "What exactly is Saju?",
     answer:
-      "Saju (사주) means 'Four Pillars' in Korean. It's a traditional East Asian system of fortune-telling based on your birth year, month, day, and hour. Each pillar corresponds to a Heavenly Stem and Earthly Branch, creating a unique cosmic map that reveals your personality, strengths, challenges, and life trajectory.",
+      "Saju (\uC0AC\uC8FC) means 'Four Pillars' in Korean. It's a traditional destiny analysis system that uses your birth year, month, day, and hour to map the cosmic energies present at your exact moment of birth. Unlike Western astrology which focuses primarily on your birth month, Saju creates a unique chart from all four time pillars \u2014 making it deeply personal to you.",
   },
   {
-    question: "How is Saju different from Western astrology?",
+    question: "How is Sajumuse different from other online Saju sites?",
     answer:
-      "Western astrology primarily focuses on your sun sign based on your birth month. Saju uses all four time dimensions of your birth (year, month, day, hour) plus a system of Five Elements (Wood, Fire, Earth, Metal, Water) and 60-year cycles. This makes it far more granular and personal than a typical horoscope.",
+      "Most online Saju services generate reports automatically using algorithms. At Sajumuse, every Premium Report is personally analyzed by a certified Saju master with 15+ years of experience and credentials in both Myeongri Psychology and Family Psychology. This means your reading captures nuances that automated systems miss. It's also why our reports reach 60+ pages.",
   },
   {
     question: "How accurate is a Saju reading?",
     answer:
-      "Saju reflects tendencies, patterns, and energies, not fixed outcomes. Many people find it remarkably resonant with their personality and life experiences. Think of it as a detailed map of your natural strengths and challenges, rather than a literal prediction. Accuracy improves significantly when your exact birth time is known.",
+      "Saju has been refined over centuries using the Manseryeok (\uB9CC\uC138\uB825), Korea's astronomical calendar system. While no system can predict the future with certainty, Saju provides remarkably detailed insights into personality patterns, relationship dynamics, career timing, and life cycles. Many clients are surprised by how precisely their reading reflects their actual experiences.",
   },
   {
     question: "What information do I need to provide?",
     answer:
-      "You'll need: your full name, date of birth (year, month, day), time of birth (as precise as possible, even AM/PM helps), and gender. If you don't know your exact birth time, we can still provide a reading, though some aspects will be less precise.",
+      "You'll need your birth date (year, month, day), birth time (as exact as possible), and gender. If you don't know your exact birth time, we can still provide a reading based on your date alone \u2014 though having the time makes the analysis significantly more detailed.",
   },
   {
-    question: "How long does the premium report take?",
+    question: "How long does the Premium Report take?",
     answer:
-      "Premium reports are delivered within 24 hours to your email. Our master readers craft each report personally, drawing on decades of Saju expertise to give you deep, meaningful insight. Most reports are delivered within a few hours during business hours.",
+      "Premium Reports are delivered within 48 hours. Because each report is personally analyzed \u2014 not auto-generated \u2014 we take the time to thoroughly examine every aspect of your chart. The result is a 60+ page PDF covering personality, career, love, wealth, health, and your 10-year fortune cycle.",
+  },
+  {
+    question: "Can I ask personal questions?",
+    answer:
+      "Yes. The Premium Report includes 3 personal questions. You can ask about career timing, relationship compatibility, health, or anything else you'd like deeper insight on.",
+  },
+  {
+    question: "Is Saju the same as Chinese BaZi?",
+    answer:
+      "They share the same historical origin, but Korean masters have developed distinct interpretation methods refined over 500+ years. Korean Saju places particular emphasis on psychological patterns, relationship dynamics, and practical life guidance \u2014 making it especially relevant for modern decisions.",
   },
 ];
 

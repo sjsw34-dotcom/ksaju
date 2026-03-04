@@ -13,6 +13,7 @@ const PREMIUM_FEATURES = [
   "This year's fortune forecast",
   "Full 10-Year Fortune Cycle & yearly breakdown",
   "60+ page personalized PDF report",
+  "3 personal questions answered",
 ];
 
 function getDaysInMonth(year: string, month: string): number {
@@ -148,7 +149,7 @@ export default function OrderClient() {
           Your Full Destiny Report
         </h1>
         <p className="text-gray-400 text-sm">
-          Certified Myeongri Master · 15+ Years Experience · Delivered within 24h
+          Certified Myeongri Master · 15+ Years Experience · Delivered within 48h
         </p>
       </div>
 
@@ -165,6 +166,26 @@ export default function OrderClient() {
             </li>
           ))}
         </ul>
+
+        <p className="text-xs text-gray-400 mt-4">
+          Personally analyzed by a certified master — not auto-generated
+        </p>
+        <a
+          href="/sample.pdf"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center gap-3 mt-4 p-3 bg-[#0A0A0F]/60 border border-[#F59E0B]/30 rounded-xl hover:border-[#F59E0B]/60 transition-colors group"
+        >
+          <div className="w-10 h-12 bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-lg flex items-center justify-center shrink-0">
+            <span className="text-[#F59E0B] text-xs font-bold">PDF</span>
+          </div>
+          <div>
+            <p className="text-sm font-semibold text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors">
+              Preview Sample Report →
+            </p>
+            <p className="text-xs text-gray-500">Excerpt from a 60+ page report</p>
+          </div>
+        </a>
 
         <div className="border-t border-[#2A2A4A] mt-6 pt-5 flex items-end justify-between">
           <div>
