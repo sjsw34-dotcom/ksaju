@@ -19,27 +19,27 @@ const PREMIUM_FEATURES = [
 
 export default function Pricing() {
   return (
-    <div className="py-16 sm:py-20 px-4 sm:px-6 bg-[#1A1A2E]/30">
+    <div className="py-16 sm:py-20 px-4 sm:px-6 bg-[#FAF9F6]">
       <div className="max-w-[1280px] mx-auto">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-3 sm:mb-4">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-3 sm:mb-4 text-gray-900">
           Choose Your Path
         </h2>
-        <p className="text-gray-400 text-center text-sm sm:text-base mb-8 sm:mb-12">
+        <p className="text-gray-600 text-center text-sm sm:text-base mb-8 sm:mb-12">
           Start free, upgrade when you&apos;re ready for deeper insight.
         </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6 max-w-3xl mx-auto">
           {/* Free card */}
-          <div className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6 sm:p-8 flex flex-col">
-            <h3 className="text-xl sm:text-2xl font-bold mb-2">Free Mini Reading</h3>
-            <p className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6">
+          <div className="bg-white shadow-sm border border-gray-200 rounded-2xl p-6 sm:p-8 flex flex-col">
+            <h3 className="text-xl sm:text-2xl font-bold mb-2 text-gray-900">Free Mini Reading</h3>
+            <p className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6 text-gray-900">
               $0{" "}
-              <span className="text-sm sm:text-base font-normal text-gray-400">forever</span>
+              <span className="text-sm sm:text-base font-normal text-gray-500">forever</span>
             </p>
 
             <ul className="space-y-2.5 sm:space-y-3 mb-6 sm:mb-8 flex-1">
               {FREE_FEATURES.map((feature) => (
-                <li key={feature} className="flex items-center gap-2 text-gray-300 text-sm sm:text-base">
+                <li key={feature} className="flex items-center gap-2 text-gray-700 text-sm sm:text-base">
                   <span className="text-[#7C3AED] font-bold shrink-0">✓</span>
                   {feature}
                 </li>

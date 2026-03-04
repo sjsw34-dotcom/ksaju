@@ -42,11 +42,11 @@ export default async function SuccessPage({ searchParams }: PageProps) {
 
   if (errorMessage) {
     return (
-      <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center px-4">
+      <div className="min-h-screen bg-[#FAF9F6] flex items-center justify-center px-4">
         <div className="max-w-md w-full text-center">
           <div className="text-4xl mb-4">⚠️</div>
-          <h1 className="text-2xl font-bold mb-3">Something went wrong</h1>
-          <p className="text-gray-400 mb-8 text-sm">{errorMessage}</p>
+          <h1 className="text-2xl font-bold mb-3 text-gray-900">Something went wrong</h1>
+          <p className="text-gray-500 mb-8 text-sm">{errorMessage}</p>
           <Link
             href="/"
             className="inline-flex items-center px-6 py-3 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] text-white font-semibold transition-colors"
@@ -59,10 +59,10 @@ export default async function SuccessPage({ searchParams }: PageProps) {
   }
 
   return (
-    <div className="min-h-screen bg-[#0A0A0F] flex items-center justify-center px-4 py-16">
+    <div className="min-h-screen bg-[#FAF9F6] flex items-center justify-center px-4 py-16">
       <div className="max-w-md w-full">
         {/* Success card */}
-        <div className="bg-[#1A1A2E] border border-[#7C3AED]/50 rounded-2xl p-8 text-center">
+        <div className="bg-white shadow-sm border border-[#7C3AED]/50 rounded-2xl p-8 text-center">
           {/* Icon */}
           <div className="w-16 h-16 rounded-full bg-[#7C3AED]/20 border border-[#7C3AED]/40 flex items-center justify-center mx-auto mb-6">
             <span className="text-2xl">✦</span>
@@ -71,17 +71,17 @@ export default async function SuccessPage({ searchParams }: PageProps) {
           <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-3">
             Payment Confirmed
           </p>
-          <h1 className="text-2xl sm:text-3xl font-bold mb-3">
+          <h1 className="text-2xl sm:text-3xl font-bold mb-3 text-gray-900">
             Your Report is on its Way
           </h1>
-          <p className="text-gray-400 text-sm mb-8 leading-relaxed">
+          <p className="text-gray-500 text-sm mb-8 leading-relaxed">
             Our master readers are preparing your full Four Pillars analysis.
             Check your inbox. Your personalized report will arrive within{" "}
-            <span className="text-white font-semibold">24 hours</span>.
+            <span className="text-gray-900 font-semibold">24 hours</span>.
           </p>
 
           {/* What happens next */}
-          <div className="bg-[#0A0A0F] rounded-xl p-5 text-left mb-8 space-y-3">
+          <div className="bg-[#FAF9F6] rounded-xl p-5 text-left mb-8 space-y-3">
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
               What happens next
             </p>
@@ -94,14 +94,14 @@ export default async function SuccessPage({ searchParams }: PageProps) {
                 <span className="w-5 h-5 rounded-full bg-[#7C3AED]/30 text-[#7C3AED] text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">
                   {i + 1}
                 </span>
-                <p className="text-gray-300 text-sm">{step}</p>
+                <p className="text-gray-700 text-sm">{step}</p>
               </div>
             ))}
           </div>
 
           <Link
             href="/free-reading"
-            className="block w-full py-3 rounded-full border border-[#2A2A4A] text-gray-400 hover:text-white hover:border-[#7C3AED] text-sm font-medium transition-colors"
+            className="block w-full py-3 rounded-full border border-gray-200 text-gray-500 hover:text-gray-900 hover:border-[#7C3AED] text-sm font-medium transition-colors"
           >
             Try Another Free Reading
           </Link>
@@ -109,7 +109,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
 
         <p className="text-center text-gray-500 text-xs mt-6">
           Questions? Contact us at{" "}
-          <a href="mailto:sajumuse@gmail.com" className="text-gray-400 hover:text-white">
+          <a href="mailto:sajumuse@gmail.com" className="text-gray-600 hover:text-gray-900">
             sajumuse@gmail.com
           </a>
         </p>

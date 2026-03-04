@@ -1,4 +1,3 @@
-import Image from "next/image";
 import Link from "next/link";
 import { sql } from "@/lib/db";
 import BlogListClient from "@/components/blog/BlogListClient";
@@ -38,30 +37,19 @@ export default async function BlogPage() {
   const posts = await getPosts();
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0F]">
-      {/* Background image */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <Image
-          src="/images/bg-2.jpg"
-          fill
-          className="object-cover object-center opacity-15"
-          alt=""
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/60 via-transparent to-[#0A0A0F]/80" />
-      </div>
-
+    <div className="min-h-screen bg-[#FAF9F6]">
       {/* Content */}
-      <div className="relative z-10 py-16 px-4 sm:px-6">
+      <div className="py-16 px-4 sm:px-6">
         <div className="max-w-[1280px] mx-auto">
           {/* Header */}
           <div className="text-center mb-10">
             <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-3">
               Saju Insights
             </p>
-            <h1 className="text-3xl sm:text-4xl font-bold mb-3">
+            <h1 className="text-3xl sm:text-4xl font-bold mb-3 text-gray-900">
               Destiny & Fortune Blog
             </h1>
-            <p className="text-gray-400 text-sm max-w-md mx-auto">
+            <p className="text-gray-500 text-sm max-w-md mx-auto">
               Explore the ancient wisdom of Korean Four Pillars, decoded for the
               modern world.
             </p>
@@ -72,7 +60,7 @@ export default async function BlogPage() {
 
           {/* CTA */}
           <div className="mt-14 text-center">
-            <p className="text-gray-400 text-sm mb-4">
+            <p className="text-gray-500 text-sm mb-4">
               Ready to discover your own destiny?
             </p>
             <Link

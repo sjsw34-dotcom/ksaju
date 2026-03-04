@@ -45,7 +45,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
               className={`px-4 py-2 rounded-full text-sm font-semibold transition-all duration-200 ${
                 isActive
                   ? "bg-[#7C3AED] text-white shadow-lg shadow-purple-900/30"
-                  : "bg-[#1A1A2E] text-gray-400 border border-[#2A2A4A] hover:border-[#7C3AED]/50 hover:text-gray-200"
+                  : "bg-white text-gray-500 border border-gray-200 hover:border-[#7C3AED] hover:text-gray-700"
               }`}
             >
               {TAB_LABELS[tab]}
@@ -61,17 +61,17 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
           {[0, 1, 2].map((i) => (
             <div
               key={i}
-              className="flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl overflow-hidden animate-pulse"
+              className="flex flex-col bg-white border border-gray-200 rounded-2xl overflow-hidden animate-pulse"
             >
-              <div className="h-2 w-full bg-[#2A2A4A]" />
+              <div className="h-2 w-full bg-gray-200" />
               <div className="p-6 space-y-3">
                 <div className="flex gap-2">
-                  <div className="h-6 w-16 rounded-full bg-[#2A2A4A]" />
-                  <div className="h-6 w-20 rounded bg-[#2A2A4A]" />
+                  <div className="h-6 w-16 rounded-full bg-gray-200" />
+                  <div className="h-6 w-20 rounded bg-gray-200" />
                 </div>
-                <div className="h-5 w-3/4 rounded bg-[#2A2A4A]" />
-                <div className="h-4 w-full rounded bg-[#2A2A4A]" />
-                <div className="h-4 w-2/3 rounded bg-[#2A2A4A]" />
+                <div className="h-5 w-3/4 rounded bg-gray-200" />
+                <div className="h-4 w-full rounded bg-gray-200" />
+                <div className="h-4 w-2/3 rounded bg-gray-200" />
               </div>
             </div>
           ))}
@@ -90,7 +90,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
               <Link
                 key={post.slug}
                 href={`/blog/${post.slug}`}
-                className="group flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl overflow-hidden hover:border-[#7C3AED]/50 hover:-translate-y-1 transition-all duration-300"
+                className="group flex flex-col bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden hover:border-[#7C3AED] hover:-translate-y-1 transition-all duration-300"
               >
                 {/* Color bar */}
                 <div className={`h-2 w-full ${barColor}`} />
@@ -113,13 +113,13 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
                   </div>
 
                   {/* Title */}
-                  <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-[#C4B5FD] transition-colors duration-200 flex-1">
+                  <h3 className="text-base font-bold text-gray-900 mb-2 line-clamp-2 group-hover:text-[#7C3AED] transition-colors duration-200 flex-1">
                     {post.title}
                   </h3>
 
                   {/* Description */}
                   {post.meta && (
-                    <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4">
+                    <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
                       {post.meta}
                     </p>
                   )}

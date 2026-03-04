@@ -18,9 +18,9 @@ const STEPS = [
 
 export default function HowItWorks() {
   return (
-    <div className="py-16 sm:py-20 px-4 sm:px-6">
+    <div className="py-16 sm:py-20 px-4 sm:px-6 bg-[#FAF9F6]">
       <div className="max-w-[1280px] mx-auto">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-10 sm:mb-12">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-10 sm:mb-12 text-gray-900">
           How It Works
         </h2>
 
@@ -30,17 +30,17 @@ export default function HowItWorks() {
             <div key={step.number} className="flex gap-4">
               {/* Left: circle + line */}
               <div className="flex flex-col items-center">
-                <div className="w-12 h-12 rounded-full bg-[#7C3AED] flex items-center justify-center text-lg font-bold shrink-0">
+                <div className="w-12 h-12 rounded-full bg-[#7C3AED] flex items-center justify-center text-lg font-bold shrink-0 text-white">
                   {step.number}
                 </div>
                 {index < STEPS.length - 1 && (
-                  <div className="w-px flex-1 bg-[#2A2A4A] my-1" />
+                  <div className="w-px flex-1 bg-gray-300 my-1" />
                 )}
               </div>
               {/* Right: text */}
               <div className={`pb-8 ${index === STEPS.length - 1 ? "pb-0" : ""}`}>
-                <h3 className="text-lg font-bold mb-1 mt-2.5">{step.title}</h3>
-                <p className="text-gray-400 text-sm">{step.description}</p>
+                <h3 className="text-lg font-bold mb-1 mt-2.5 text-gray-900">{step.title}</h3>
+                <p className="text-gray-600 text-sm">{step.description}</p>
               </div>
             </div>
           ))}
@@ -52,21 +52,21 @@ export default function HowItWorks() {
             <div key={step.number} className="flex flex-col items-center text-center relative">
               {/* Connector line */}
               {index < STEPS.length - 1 && (
-                <div className="absolute top-6 left-[calc(50%+2.5rem)] right-[calc(-50%+2.5rem)] h-px bg-[#2A2A4A]">
+                <div className="absolute top-6 left-[calc(50%+2.5rem)] right-[calc(-50%+2.5rem)] h-px bg-gray-300">
                   <span className="absolute right-0 top-1/2 -translate-y-1/2 text-[#7C3AED] text-sm">
                     →
                   </span>
                 </div>
               )}
 
-              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-[#7C3AED] flex items-center justify-center text-xl sm:text-2xl font-bold mb-3 sm:mb-4 z-10">
+              <div className="w-12 h-12 sm:w-14 sm:h-14 lg:w-16 lg:h-16 rounded-full bg-[#7C3AED] flex items-center justify-center text-xl sm:text-2xl font-bold mb-3 sm:mb-4 z-10 text-white">
                 {step.number}
               </div>
 
-              <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-1 sm:mb-2">
+              <h3 className="text-base sm:text-lg lg:text-xl font-bold mb-1 sm:mb-2 text-gray-900">
                 {step.title}
               </h3>
-              <p className="text-gray-400 text-sm sm:text-base">{step.description}</p>
+              <p className="text-gray-600 text-sm sm:text-base">{step.description}</p>
             </div>
           ))}
         </div>

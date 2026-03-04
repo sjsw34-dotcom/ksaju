@@ -84,19 +84,19 @@ export function ReadingForm() {
   };
 
   const inputClass = (field: string) =>
-    `w-full bg-[#0A0A0F] border rounded-lg px-4 py-3 text-white focus:outline-none focus:border-[#7C3AED] transition-colors ${
-      errors[field] ? "border-red-500" : "border-[#2A2A4A]"
+    `w-full bg-white border rounded-lg px-4 py-3 text-gray-900 focus:outline-none focus:border-[#7C3AED] transition-colors ${
+      errors[field] ? "border-red-500" : "border-gray-200"
     }`;
 
   return (
     <form
       onSubmit={handleSubmit}
       noValidate
-      className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-8 space-y-6"
+      className="bg-white shadow-sm border border-gray-200 rounded-2xl p-8 space-y-6"
     >
       {/* Name */}
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           Full Name
         </label>
         <input
@@ -111,7 +111,7 @@ export function ReadingForm() {
 
       {/* Gender */}
       <div>
-        <label className="block text-sm font-medium text-gray-300 mb-1">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
           Gender
         </label>
         <select
@@ -129,7 +129,7 @@ export function ReadingForm() {
       {/* Year + Hour */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Birth Year
           </label>
           <select
@@ -147,7 +147,7 @@ export function ReadingForm() {
           {errors.year && <p className="text-red-400 text-sm mt-1">{errors.year}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Birth Hour <span className="text-gray-400 font-normal">(optional)</span>
           </label>
           <select
@@ -168,7 +168,7 @@ export function ReadingForm() {
       {/* Month + Day */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Birth Month
           </label>
           <select
@@ -186,7 +186,7 @@ export function ReadingForm() {
           {errors.month && <p className="text-red-400 text-sm mt-1">{errors.month}</p>}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1">
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Birth Day
           </label>
           <select

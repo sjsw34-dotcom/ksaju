@@ -49,9 +49,9 @@ export default function FAQ() {
   };
 
   return (
-    <div className="py-16 sm:py-20 px-4 sm:px-6">
+    <div className="py-16 sm:py-20 px-4 sm:px-6 bg-[#FAF9F6]">
       <div className="max-w-3xl mx-auto">
-        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12">
+        <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-center mb-8 sm:mb-12 text-gray-900">
           Frequently Asked Questions
         </h2>
 
@@ -59,13 +59,13 @@ export default function FAQ() {
           {FAQS.map((faq, index) => (
             <div
               key={index}
-              className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-xl overflow-hidden"
+              className="bg-white shadow-sm border border-gray-200 rounded-xl overflow-hidden"
             >
               <button
-                className="w-full flex items-center justify-between p-4 sm:p-6 text-left hover:bg-[#2A2A4A]/30 transition-colors"
+                className="w-full flex items-center justify-between p-4 sm:p-6 text-left hover:bg-gray-100 transition-colors"
                 onClick={() => toggle(index)}
               >
-                <span className="font-semibold text-base sm:text-lg pr-3 sm:pr-4">
+                <span className="font-semibold text-base sm:text-lg pr-3 sm:pr-4 text-gray-900">
                   {faq.question}
                 </span>
                 <span
@@ -86,7 +86,7 @@ export default function FAQ() {
                     transition={{ duration: 0.3, ease: "easeInOut" }}
                     style={{ overflow: "hidden" }}
                   >
-                    <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-400 text-sm sm:text-base leading-relaxed">
+                    <p className="px-4 sm:px-6 pb-4 sm:pb-6 text-gray-500 text-sm sm:text-base leading-relaxed">
                       {faq.answer}
                     </p>
                   </motion.div>

@@ -1,6 +1,5 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
-import Image from "next/image";
 import ReactMarkdown from "react-markdown";
 import { sql } from "@/lib/db";
 import type { Metadata } from "next";
@@ -144,17 +143,7 @@ export default async function BlogPostPage({
   };
 
   return (
-    <div className="relative min-h-screen bg-[#0A0A0F] py-16 px-4 sm:px-6">
-      {/* Background image */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <Image
-          src="/images/bg-1.jpg"
-          fill
-          className="object-cover object-center opacity-15"
-          alt=""
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/60 via-transparent to-[#0A0A0F]/80" />
-      </div>
+    <div className="min-h-screen bg-[#FAF9F6] py-16 px-4 sm:px-6">
 
       {/* JSON-LD */}
       <script
@@ -162,11 +151,11 @@ export default async function BlogPostPage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
 
-      <article className="relative z-10 max-w-3xl mx-auto">
+      <article className="max-w-3xl mx-auto">
         {/* Back */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1 text-gray-400 hover:text-gray-300 text-sm mb-8 transition-colors"
+          className="inline-flex items-center gap-1 text-gray-500 hover:text-gray-700 text-sm mb-8 transition-colors"
         >
           ← All posts
         </Link>
@@ -186,7 +175,7 @@ export default async function BlogPostPage({
             <span className="text-gray-500 text-sm">{readTime} min read</span>
           </div>
 
-          <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-5">
+          <h1 className="text-3xl sm:text-4xl font-bold leading-tight mb-5 text-gray-900">
             {post.title}
           </h1>
 
@@ -196,7 +185,7 @@ export default async function BlogPostPage({
 
         {/* Table of Contents */}
         {headings.length >= 3 && (
-          <nav className="mb-10 bg-[#1A1A2E]/80 border border-[#2A2A4A] rounded-2xl p-5">
+          <nav className="mb-10 bg-white shadow-sm border border-gray-200 rounded-2xl p-5">
             <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
               In this article
             </p>
@@ -205,7 +194,7 @@ export default async function BlogPostPage({
                 <li key={h.id}>
                   <a
                     href={`#${h.id}`}
-                    className="text-sm text-gray-300 hover:text-[#C4B5FD] transition-colors"
+                    className="text-sm text-gray-600 hover:text-[#7C3AED] transition-colors"
                   >
                     {h.text}
                   </a>
@@ -228,19 +217,19 @@ export default async function BlogPostPage({
                 return (
                   <h2
                     id={id}
-                    className="text-xl font-bold text-[#C4B5FD] mt-8 mb-3 scroll-mt-24"
+                    className="text-xl font-bold text-[#7C3AED] mt-8 mb-3 scroll-mt-24"
                   >
                     {children}
                   </h2>
                 );
               },
               h3: ({ children }) => (
-                <h3 className="text-lg font-semibold text-[#A78BFA] mt-6 mb-2">
+                <h3 className="text-lg font-semibold text-[#6D28D9] mt-6 mb-2">
                   {children}
                 </h3>
               ),
               p: ({ children }) => (
-                <p className="text-gray-300 leading-7 mb-4">{children}</p>
+                <p className="text-gray-700 leading-7 mb-4">{children}</p>
               ),
               ul: ({ children }) => (
                 <ul className="list-disc pl-5 mb-4 space-y-1">{children}</ul>
@@ -251,7 +240,7 @@ export default async function BlogPostPage({
                 </ol>
               ),
               li: ({ children }) => (
-                <li className="text-gray-300 leading-7">{children}</li>
+                <li className="text-gray-700 leading-7">{children}</li>
               ),
               strong: ({ children }) => (
                 <strong className="text-[#F59E0B] font-semibold">
@@ -259,7 +248,7 @@ export default async function BlogPostPage({
                 </strong>
               ),
               em: ({ children }) => (
-                <em className="text-[#A78BFA] italic">{children}</em>
+                <em className="text-[#7C3AED] italic">{children}</em>
               ),
               a: ({ href, children }) => (
                 <a
@@ -276,7 +265,7 @@ export default async function BlogPostPage({
                 </a>
               ),
               blockquote: ({ children }) => (
-                <blockquote className="border-l-4 border-[#7C3AED] pl-4 my-4 text-gray-400 italic">
+                <blockquote className="border-l-4 border-[#7C3AED] pl-4 my-4 text-gray-500 italic">
                   {children}
                 </blockquote>
               ),
@@ -287,14 +276,14 @@ export default async function BlogPostPage({
         </div>
 
         {/* CTA */}
-        <div className="mt-14 bg-[#1A1A2E] border border-[#7C3AED] rounded-2xl p-8 text-center">
+        <div className="mt-14 bg-white shadow-sm border border-[#7C3AED] rounded-2xl p-8 text-center">
           <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-2">
             Discover Your Destiny
           </p>
-          <h2 className="text-2xl font-bold mb-3">
+          <h2 className="text-2xl font-bold mb-3 text-gray-900">
             Curious about your own chart?
           </h2>
-          <p className="text-gray-400 text-sm mb-6">
+          <p className="text-gray-500 text-sm mb-6">
             Get a free mini reading, then unlock your full Four Pillars report.
           </p>
           <div className="flex flex-col sm:flex-row gap-3 justify-center">
@@ -316,7 +305,7 @@ export default async function BlogPostPage({
         {/* Related posts */}
         {related.length > 0 && (
           <div className="mt-12">
-            <h2 className="text-lg font-bold text-gray-300 mb-5">
+            <h2 className="text-lg font-bold text-gray-700 mb-5">
               Related posts
             </h2>
             <div className="grid grid-cols-1 sm:grid-cols-3 gap-4">
@@ -332,7 +321,7 @@ export default async function BlogPostPage({
                   <Link
                     key={r.slug}
                     href={`/blog/${r.slug}`}
-                    className="group flex flex-col bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl overflow-hidden hover:border-[#7C3AED]/50 hover:-translate-y-1 transition-all duration-300"
+                    className="group flex flex-col bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden hover:border-[#7C3AED] hover:-translate-y-1 transition-all duration-300"
                   >
                     <div className={`h-2 w-full ${rBarColor}`} />
                     <div className="p-5 flex flex-col flex-1">
@@ -346,7 +335,7 @@ export default async function BlogPostPage({
                           {rReadTime} min read
                         </span>
                       </div>
-                      <h3 className="text-sm font-bold text-white group-hover:text-[#C4B5FD] transition-colors line-clamp-2 flex-1">
+                      <h3 className="text-sm font-bold text-gray-900 group-hover:text-[#7C3AED] transition-colors line-clamp-2 flex-1">
                         {r.title}
                       </h3>
                     </div>
@@ -361,7 +350,7 @@ export default async function BlogPostPage({
         <div className="mt-10 text-center">
           <Link
             href="/blog"
-            className="text-gray-400 hover:text-gray-300 text-sm transition-colors"
+            className="text-gray-500 hover:text-gray-700 text-sm transition-colors"
           >
             ← Back to all posts
           </Link>

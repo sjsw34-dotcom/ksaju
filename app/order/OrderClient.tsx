@@ -68,8 +68,8 @@ export default function OrderClient() {
     : "";
 
   const selectClass = (hasError: boolean) =>
-    `w-full bg-[#1A1A2E] border rounded-xl px-4 py-3 text-white focus:outline-none focus:border-[#7C3AED] transition-colors appearance-none ${
-      hasError ? "border-red-500" : "border-[#2A2A4A]"
+    `w-full bg-white border rounded-xl px-4 py-3 text-gray-900 focus:outline-none focus:border-[#7C3AED] transition-colors appearance-none ${
+      hasError ? "border-red-500" : "border-gray-200"
     }`;
 
   const handlePay = async () => {
@@ -145,22 +145,22 @@ export default function OrderClient() {
         <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-3">
           Premium Report
         </p>
-        <h1 className="text-3xl sm:text-4xl font-bold mb-2">
+        <h1 className="text-3xl sm:text-4xl font-bold mb-2 text-gray-900">
           Your Full Destiny Report
         </h1>
-        <p className="text-gray-400 text-sm">
+        <p className="text-gray-500 text-sm">
           Certified Myeongri Master · 15+ Years Experience · Delivered within 48h
         </p>
       </div>
 
       {/* Features */}
-      <div className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-6 mb-6">
+      <div className="bg-white shadow-sm border border-gray-200 rounded-2xl p-6 mb-6">
         <p className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-4">
           What&apos;s included
         </p>
         <ul className="space-y-3">
           {PREMIUM_FEATURES.map((f) => (
-            <li key={f} className="flex items-start gap-3 text-sm text-gray-300">
+            <li key={f} className="flex items-start gap-3 text-sm text-gray-700">
               <span className="text-[#7C3AED] mt-0.5 shrink-0">✦</span>
               {f}
             </li>
@@ -174,7 +174,7 @@ export default function OrderClient() {
           href="/sample.pdf"
           target="_blank"
           rel="noopener noreferrer"
-          className="flex items-center gap-3 mt-4 p-3 bg-[#0A0A0F]/60 border border-[#F59E0B]/30 rounded-xl hover:border-[#F59E0B]/60 transition-colors group"
+          className="flex items-center gap-3 mt-4 p-3 bg-[#FAF9F6] border border-[#F59E0B]/30 rounded-xl hover:border-[#F59E0B]/60 transition-colors group"
         >
           <div className="w-10 h-12 bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-lg flex items-center justify-center shrink-0">
             <span className="text-[#F59E0B] text-xs font-bold">PDF</span>
@@ -187,10 +187,10 @@ export default function OrderClient() {
           </div>
         </a>
 
-        <div className="border-t border-[#2A2A4A] mt-6 pt-5 flex items-end justify-between">
+        <div className="border-t border-gray-200 mt-6 pt-5 flex items-end justify-between">
           <div>
             <p className="text-xs text-gray-400 line-through mb-0.5">$65</p>
-            <p className="text-3xl font-bold">
+            <p className="text-3xl font-bold text-gray-900">
               $29
               <span className="text-base font-normal text-gray-400 ml-2">one-time</span>
             </p>
@@ -205,7 +205,7 @@ export default function OrderClient() {
       <div className="space-y-4 mb-6">
         {/* Name */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">
             Name <span className="text-[#F59E0B]">*</span>
           </label>
           <input
@@ -213,13 +213,13 @@ export default function OrderClient() {
             value={name}
             onChange={(e) => setName(e.target.value)}
             placeholder="Your full name"
-            className="w-full bg-[#1A1A2E] border border-[#2A2A4A] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+            className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7C3AED] transition-colors"
           />
         </div>
 
         {/* Email */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">
             Email <span className="text-[#F59E0B]">*</span>
           </label>
           <input
@@ -227,13 +227,13 @@ export default function OrderClient() {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             placeholder="Report will be sent here"
-            className="w-full bg-[#1A1A2E] border border-[#2A2A4A] rounded-xl px-4 py-3 text-white placeholder-gray-600 focus:outline-none focus:border-[#7C3AED] transition-colors"
+            className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7C3AED] transition-colors"
           />
         </div>
 
         {/* Gender */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">
             Gender <span className="text-[#F59E0B]">*</span>
           </label>
           <select
@@ -249,7 +249,7 @@ export default function OrderClient() {
 
         {/* Date of Birth — dropdowns */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">
             Date of Birth <span className="text-[#F59E0B]">*</span>
           </label>
           <div className="grid grid-cols-3 gap-2">
@@ -291,7 +291,7 @@ export default function OrderClient() {
 
         {/* Birth hour */}
         <div>
-          <label className="block text-sm font-medium text-gray-300 mb-1.5">
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">
             Birth Hour{" "}
             <span className="text-gray-400 font-normal">(optional)</span>
           </label>

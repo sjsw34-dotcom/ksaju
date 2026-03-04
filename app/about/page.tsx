@@ -32,33 +32,21 @@ const CREDENTIALS = [
 
 export default function AboutPage() {
   return (
-    <div className="relative min-h-screen bg-[#0A0A0F] text-white">
-      {/* Background image */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <Image
-          src="/images/bg-2.jpg"
-          fill
-          className="object-cover object-center opacity-15"
-          alt=""
-          priority
-        />
-        <div className="absolute inset-0 bg-gradient-to-b from-[#0A0A0F]/50 via-transparent to-[#0A0A0F]" />
-      </div>
-
-      <div className="relative z-10">
+    <div className="min-h-screen bg-[#FAF9F6]">
+      <div>
 
         {/* ── Section 1: Hero ── */}
         <section className="pt-24 pb-16 px-4 sm:px-6 text-center max-w-3xl mx-auto">
           <p className="text-[#F59E0B] text-xs font-semibold tracking-[0.2em] uppercase mb-4">
             About Sajumuse
           </p>
-          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6">
+          <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold leading-tight mb-6 text-gray-900">
             The Master Behind{" "}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-[#7C3AED] to-[#F59E0B]">
               Your Reading
             </span>
           </h1>
-          <p className="text-gray-300 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
+          <p className="text-gray-600 text-lg sm:text-xl leading-relaxed max-w-2xl mx-auto">
             Certified. Experienced. Dedicated to accuracy.
           </p>
         </section>
@@ -68,7 +56,7 @@ export default function AboutPage() {
           <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-3 text-center">
             Credentials & Experience
           </p>
-          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10">
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-10 text-gray-900">
             Why You Can Trust This Reading
           </h2>
 
@@ -77,12 +65,12 @@ export default function AboutPage() {
             {CREDENTIALS.map(({ icon, title, desc }) => (
               <div
                 key={title}
-                className="flex gap-4 bg-[#1A1A2E]/60 border border-[#2A2A4A] rounded-2xl p-6 backdrop-blur-sm"
+                className="flex gap-4 bg-white shadow-sm border border-gray-200 rounded-2xl p-6"
               >
                 <span className="text-2xl mt-0.5 shrink-0">{icon}</span>
                 <div>
-                  <p className="font-semibold text-white mb-1">{title}</p>
-                  <p className="text-gray-400 text-sm leading-relaxed">{desc}</p>
+                  <p className="font-semibold text-gray-900 mb-1">{title}</p>
+                  <p className="text-gray-500 text-sm leading-relaxed">{desc}</p>
                 </div>
               </div>
             ))}
@@ -90,8 +78,8 @@ export default function AboutPage() {
 
           {/* Certificate image placeholder */}
           <div className="max-w-lg mx-auto">
-            <div className="relative bg-gradient-to-br from-[#2D1B69]/40 to-[#1A1A2E]/60 border-2 border-[#7C3AED]/30 rounded-2xl p-3 backdrop-blur-sm">
-              <div className="relative aspect-[4/3] bg-[#0A0A0F]/50 rounded-xl border border-[#2A2A4A] overflow-hidden">
+            <div className="relative bg-white shadow-sm border-2 border-[#7C3AED]/30 rounded-2xl p-3">
+              <div className="relative aspect-[4/3] bg-[#FAF9F6] rounded-xl border border-gray-200 overflow-hidden">
                 <Image
                   src="/images/certificate.jpg"
                   fill
@@ -108,14 +96,14 @@ export default function AboutPage() {
 
         {/* ── Section 3: Philosophy ── */}
         <section className="py-16 px-4 sm:px-6 max-w-3xl mx-auto">
-          <div className="bg-[#1A1A2E]/60 border border-[#2A2A4A] rounded-2xl p-8 sm:p-10 backdrop-blur-sm">
+          <div className="bg-white shadow-sm border border-gray-200 rounded-2xl p-8 sm:p-10">
             <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-3">
               Philosophy
             </p>
-            <h2 className="text-2xl sm:text-3xl font-bold mb-6">
+            <h2 className="text-2xl sm:text-3xl font-bold mb-6 text-gray-900">
               How I Read Your Chart
             </h2>
-            <div className="space-y-5 text-gray-300 leading-relaxed">
+            <div className="space-y-5 text-gray-700 leading-relaxed">
               <p>
                 This is not psychic guessing. Every reading is grounded in classical Saju methodology
                 using the Manseryeok ({"\uB9CC\uC138\uB825"}) -- Korea&apos;s thousand-year astronomical calendar
@@ -132,7 +120,7 @@ export default function AboutPage() {
                 and emotional patterns to every reading. This combination of traditional Saju wisdom
                 and modern psychological insight is what sets each report apart.
               </p>
-              <p className="font-semibold text-white">
+              <p className="font-semibold text-gray-900">
                 That&apos;s why your Premium Report reaches 60+ pages. Real depth requires real time and care.
               </p>
             </div>
@@ -140,7 +128,7 @@ export default function AboutPage() {
               href="/sample.pdf"
               target="_blank"
               rel="noopener noreferrer"
-              className="flex items-center gap-4 mt-6 p-4 bg-[#0A0A0F]/40 border border-[#F59E0B]/30 rounded-xl hover:border-[#F59E0B]/60 transition-colors group"
+              className="flex items-center gap-4 mt-6 p-4 bg-[#FAF9F6] border border-[#F59E0B]/30 rounded-xl hover:border-[#F59E0B]/60 transition-colors group"
             >
               <div className="w-12 h-14 bg-[#F59E0B]/10 border border-[#F59E0B]/30 rounded-lg flex items-center justify-center shrink-0">
                 <span className="text-[#F59E0B] text-sm font-bold">PDF</span>
@@ -157,7 +145,7 @@ export default function AboutPage() {
 
         {/* ── Section 4: CTA ── */}
         <section className="py-16 px-4 sm:px-6 text-center max-w-2xl mx-auto">
-          <h2 className="text-2xl sm:text-3xl font-bold mb-8">
+          <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-gray-900">
             Ready to discover what your birth chart reveals?
           </h2>
           <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">

@@ -20,7 +20,7 @@ export default function ShareButtons({ url, title }: ShareButtonsProps) {
   };
 
   const btnClass =
-    "inline-flex items-center justify-center w-9 h-9 rounded-full border border-[#2A2A4A] bg-[#1A1A2E] hover:border-[#7C3AED]/50 hover:bg-[#7C3AED]/10 transition-all duration-200 text-gray-400 hover:text-white";
+    "inline-flex items-center justify-center w-9 h-9 rounded-full border border-gray-200 bg-white hover:border-[#7C3AED] hover:bg-[#7C3AED]/10 transition-all duration-200 text-gray-400 hover:text-[#7C3AED]";
 
   return (
     <div className="flex items-center gap-2">
