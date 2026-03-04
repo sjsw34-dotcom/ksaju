@@ -19,7 +19,7 @@ export default async function FailPage({ searchParams }: PageProps) {
         <div className="bg-[#1A1A2E] border border-[#2A2A4A] rounded-2xl p-8 text-center">
           <div className="text-4xl mb-5">{isCancelled ? "🚫" : "⚠️"}</div>
 
-          <p className="text-gray-500 text-xs font-semibold tracking-widest uppercase mb-3">
+          <p className="text-gray-400 text-xs font-semibold tracking-widest uppercase mb-3">
             {isCancelled ? "Payment Cancelled" : "Payment Failed"}
           </p>
           <h1 className="text-2xl font-bold mb-3">
@@ -47,7 +47,7 @@ export default async function FailPage({ searchParams }: PageProps) {
           </div>
         </div>
 
-        <p className="text-center text-gray-600 text-xs mt-6">
+        <p className="text-center text-gray-500 text-xs mt-6">
           Need help?{" "}
           <a href="mailto:sajumuse@gmail.com" className="text-gray-400 hover:text-white">
             sajumuse@gmail.com

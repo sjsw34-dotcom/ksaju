@@ -91,7 +91,7 @@ export default function Pricing() {
                 <p className="text-xs font-semibold text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors">
                   Preview Sample Report →
                 </p>
-                <p className="text-[10px] text-gray-500">Excerpt from a 60+ page report</p>
+                <p className="text-[10px] text-gray-400">Excerpt from a 60+ page report</p>
               </div>
             </a>
 

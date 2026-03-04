@@ -148,7 +148,7 @@ export function ReadingForm() {
         </div>
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-1">
-            Birth Hour <span className="text-gray-500 font-normal">(optional)</span>
+            Birth Hour <span className="text-gray-400 font-normal">(optional)</span>
           </label>
           <select
             value={values.hour}

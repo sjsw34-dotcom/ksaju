@@ -157,7 +157,7 @@ export default async function BlogPostPage({
         {/* Back */}
         <Link
           href="/blog"
-          className="inline-flex items-center gap-1 text-gray-500 hover:text-gray-300 text-sm mb-8 transition-colors"
+          className="inline-flex items-center gap-1 text-gray-400 hover:text-gray-300 text-sm mb-8 transition-colors"
         >
           ← All posts
         </Link>
@@ -295,7 +295,7 @@ export default async function BlogPostPage({
         <div className="mt-10 text-center">
           <Link
             href="/blog"
-            className="text-gray-500 hover:text-gray-300 text-sm transition-colors"
+            className="text-gray-400 hover:text-gray-300 text-sm transition-colors"
           >
             ← Back to all posts
           </Link>

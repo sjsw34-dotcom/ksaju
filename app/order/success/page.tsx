@@ -82,7 +82,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
 
           {/* What happens next */}
           <div className="bg-[#0A0A0F] rounded-xl p-5 text-left mb-8 space-y-3">
-            <p className="text-xs font-semibold text-gray-500 uppercase tracking-wider mb-3">
+            <p className="text-xs font-semibold text-gray-400 uppercase tracking-wider mb-3">
               What happens next
             </p>
             {[
@@ -107,7 +107,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
           </Link>
         </div>
 
-        <p className="text-center text-gray-600 text-xs mt-6">
+        <p className="text-center text-gray-500 text-xs mt-6">
           Questions? Contact us at{" "}
           <a href="mailto:sajumuse@gmail.com" className="text-gray-400 hover:text-white">
             sajumuse@gmail.com

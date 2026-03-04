@@ -57,7 +57,7 @@ function UpsellCard({ queryString }: { queryString: string }) {
         Get My Full Report ✦
       </a>
 
-      <p className="text-center text-gray-500 text-xs mt-4">
+      <p className="text-center text-gray-400 text-xs mt-4">
         Secure payment · Delivered within 24h · 100% satisfaction guarantee
       </p>
     </div>
@@ -213,7 +213,7 @@ export default function ResultClient() {
             <p className="text-gray-300 text-lg font-medium">
               Consulting the ancient wisdom...
             </p>
-            <p className="text-gray-500 text-sm mt-2">
+            <p className="text-gray-400 text-sm mt-2">
               Calculating your Four Pillars
             </p>
           </div>
@@ -335,7 +335,7 @@ export default function ResultClient() {
         <div className="text-center mt-8">
           <a
             href="/free-reading"
-            className="text-gray-500 hover:text-gray-300 text-sm transition-colors"
+            className="text-gray-400 hover:text-gray-300 text-sm transition-colors"
           >
             ← Try a different birth date
           </a>

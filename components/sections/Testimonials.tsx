@@ -88,7 +88,7 @@ function Card({ t }: { t: Testimonial }) {
         </div>
         <div>
           <p className="text-sm font-semibold text-white">{t.name}</p>
-          <p className="text-xs text-gray-500">{t.role} · {t.location}</p>
+          <p className="text-xs text-gray-400">{t.role} · {t.location}</p>
         </div>
       </div>
     </div>

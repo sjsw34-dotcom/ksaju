@@ -79,7 +79,7 @@ export default async function BlogPreview() {
                   </span>
                 </div>
                 <h3 className="text-base font-bold text-white mb-2 flex-1">{p.title}</h3>
-                <p className="text-gray-600 text-sm">Coming soon...</p>
+                <p className="text-gray-500 text-sm">Coming soon...</p>
               </div>
             ))}
           </div>
@@ -124,13 +124,13 @@ export default async function BlogPreview() {
                       <span className={`text-xs font-semibold px-2.5 py-1 rounded-full border ${catStyle}`}>
                         {post.category}
                       </span>
-                      <span className="text-gray-600 text-xs">{date}</span>
+                      <span className="text-gray-500 text-xs">{date}</span>
                     </div>
                     <h3 className="text-base font-bold text-white mb-2 line-clamp-2 group-hover:text-[#C4B5FD] transition-colors duration-200 flex-1">
                       {post.title}
                     </h3>
                     {post.meta && (
-                      <p className="text-gray-500 text-sm leading-relaxed line-clamp-2 mb-4">
+                      <p className="text-gray-400 text-sm leading-relaxed line-clamp-2 mb-4">
                         {post.meta}
                       </p>
                     )}

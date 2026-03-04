@@ -73,7 +73,7 @@ export default async function BlogPage() {
 
           {/* Posts */}
           {posts.length === 0 ? (
-            <div className="text-center py-20 text-gray-500">
+            <div className="text-center py-20 text-gray-400">
               <p className="text-lg mb-2">First posts are being crafted...</p>
               <p className="text-sm">Check back soon.</p>
             </div>
@@ -89,8 +89,8 @@ export default async function BlogPage() {
                       <span className="text-xs font-semibold text-[#F59E0B] uppercase tracking-wider">
                         {CATEGORY_LABELS[post.category] ?? post.category}
                       </span>
-                      <span className="text-gray-600 text-xs">·</span>
-                      <span className="text-gray-500 text-xs">
+                      <span className="text-gray-500 text-xs">·</span>
+                      <span className="text-gray-400 text-xs">
                         {new Date(post.created_at).toLocaleDateString("en-US", {
                           year: "numeric", month: "short", day: "numeric",
                         })}
@@ -108,7 +108,7 @@ export default async function BlogPage() {
 
           {/* CTA */}
           <div className="mt-12 text-center">
-            <p className="text-gray-500 text-sm mb-4">Ready to discover your own destiny?</p>
+            <p className="text-gray-400 text-sm mb-4">Ready to discover your own destiny?</p>
             <Link
               href="/free-reading"
               className="inline-block px-8 py-3 bg-[#7C3AED] hover:bg-[#6D28D9] rounded-full font-bold transition-colors"

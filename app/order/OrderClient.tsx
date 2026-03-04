@@ -183,13 +183,13 @@ export default function OrderClient() {
             <p className="text-sm font-semibold text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors">
               Preview Sample Report →
             </p>
-            <p className="text-xs text-gray-500">Excerpt from a 60+ page report</p>
+            <p className="text-xs text-gray-400">Excerpt from a 60+ page report</p>
           </div>
         </a>
 
         <div className="border-t border-[#2A2A4A] mt-6 pt-5 flex items-end justify-between">
           <div>
-            <p className="text-xs text-gray-500 line-through mb-0.5">$65</p>
+            <p className="text-xs text-gray-400 line-through mb-0.5">$65</p>
             <p className="text-3xl font-bold">
               $35
               <span className="text-base font-normal text-gray-400 ml-2">one-time</span>
@@ -293,7 +293,7 @@ export default function OrderClient() {
         <div>
           <label className="block text-sm font-medium text-gray-300 mb-1.5">
             Birth Hour{" "}
-            <span className="text-gray-500 font-normal">(optional)</span>
+            <span className="text-gray-400 font-normal">(optional)</span>
           </label>
           <select
             value={hour}
@@ -323,7 +323,7 @@ export default function OrderClient() {
         {loading ? "Redirecting to PayPal..." : "Pay $35 via PayPal →"}
       </button>
 
-      <p className="text-center text-gray-600 text-xs mt-4">
+      <p className="text-center text-gray-500 text-xs mt-4">
         Secure payment via PayPal · SSL encrypted
       </p>
     </div>

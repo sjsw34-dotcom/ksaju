@@ -99,7 +99,7 @@ export default function AboutPage() {
                   alt="Official certification documents — Myeongri Psychology Counselor and Family Psychology Counselor"
                 />
               </div>
-              <p className="text-center text-xs text-gray-500 mt-2">
+              <p className="text-center text-xs text-gray-400 mt-2">
                 Nationally recognized certifications issued by Korea&apos;s Education & Certification Authority
               </p>
             </div>
@@ -149,7 +149,7 @@ export default function AboutPage() {
                 <p className="text-sm font-semibold text-[#F59E0B] group-hover:text-[#FBBF24] transition-colors">
                   Preview a Sample Report →
                 </p>
-                <p className="text-xs text-gray-500">Excerpt from a 60+ page report</p>
+                <p className="text-xs text-gray-400">Excerpt from a 60+ page report</p>
               </div>
             </a>
           </div>
