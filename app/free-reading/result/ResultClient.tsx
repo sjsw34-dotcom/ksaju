@@ -274,6 +274,8 @@ export default function ResultClient() {
   const birthTime =
     hour === "unknown" ? "Unknown" : `${hour.padStart(2, "0")}:00`;
 
+  const cacheKey = `saju-reading-${name}-${gender}-${birthDate}-${birthTime}`;
+
   // Rotate loading messages
   useEffect(() => {
     if (phase !== "loading") return;
@@ -329,7 +331,8 @@ export default function ResultClient() {
           if (!line.startsWith("data: ")) continue;
           const raw = line.slice(6).trim();
           if (raw === "[DONE]") {
-            // All content received — reveal!
+            // All content received — cache & reveal!
+            try { sessionStorage.setItem(cacheKey, contentRef.current); } catch {}
             setContent(contentRef.current);
             setPhase("reveal");
             setTimeout(() => setShowUpsell(true), 800);
@@ -366,6 +369,16 @@ export default function ResultClient() {
   };
 
   useEffect(() => {
+    // Restore cached result on refresh
+    try {
+      const cached = sessionStorage.getItem(cacheKey);
+      if (cached) {
+        setContent(cached);
+        setPhase("reveal");
+        setTimeout(() => setShowUpsell(true), 800);
+        return;
+      }
+    } catch {}
     fetchReading();
     return () => {
       abortRef.current?.abort();

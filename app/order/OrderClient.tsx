@@ -41,6 +41,11 @@ export default function OrderClient() {
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState<string | null>(null);
 
+  // If all birth info came via query params (from free reading), show compact form
+  const hasParams = !!(paramName && paramGender && paramYear && paramMonth && paramDay);
+  const [showFullForm, setShowFullForm] = useState(false);
+  const compactMode = hasParams && !showFullForm;
+
   // Derived values
   const currentYear = new Date().getFullYear();
   const years  = Array.from({ length: currentYear - 1939 }, (_, i) => currentYear - i);
@@ -202,112 +207,156 @@ export default function OrderClient() {
       </div>
 
       {/* Form */}
-      <div className="space-y-4 mb-6">
-        {/* Name */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Name <span className="text-[#F59E0B]">*</span>
-          </label>
-          <input
-            type="text"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-            placeholder="Your full name"
-            className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7C3AED] transition-colors"
-          />
-        </div>
+      {compactMode ? (
+        /* Compact: summary card + email only (from free reading) */
+        <div className="space-y-4 mb-6">
+          <div className="bg-white shadow-sm border border-gray-200 rounded-xl p-5">
+            <div className="flex items-center justify-between mb-3">
+              <p className="text-sm font-semibold text-gray-700">Your Info</p>
+              <button
+                type="button"
+                onClick={() => setShowFullForm(true)}
+                className="text-xs text-[#7C3AED] hover:underline"
+              >
+                Edit
+              </button>
+            </div>
+            <div className="grid grid-cols-[auto_1fr] gap-x-4 gap-y-1.5 text-sm">
+              <span className="text-gray-400">Name</span>
+              <span className="text-gray-900">{name}</span>
+              <span className="text-gray-400">Born</span>
+              <span className="text-gray-900">
+                {birthDate}
+                {hour !== "unknown" ? ` · ${getHourLabel(hour)}` : ""}
+              </span>
+              <span className="text-gray-400">Gender</span>
+              <span className="text-gray-900 capitalize">{gender}</span>
+            </div>
+          </div>
 
-        {/* Email */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Email <span className="text-[#F59E0B]">*</span>
-          </label>
-          <input
-            type="email"
-            value={email}
-            onChange={(e) => setEmail(e.target.value)}
-            placeholder="Report will be sent here"
-            className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7C3AED] transition-colors"
-          />
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Email <span className="text-[#F59E0B]">*</span>
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Report will be sent to this email"
+              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7C3AED] transition-colors"
+              autoFocus
+            />
+          </div>
         </div>
+      ) : (
+        /* Full form (direct visitors or after clicking Edit) */
+        <div className="space-y-4 mb-6">
+          {/* Name */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Name <span className="text-[#F59E0B]">*</span>
+            </label>
+            <input
+              type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
+              placeholder="Your full name"
+              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7C3AED] transition-colors"
+            />
+          </div>
 
-        {/* Gender */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Gender <span className="text-[#F59E0B]">*</span>
-          </label>
-          <select
-            value={gender}
-            onChange={(e) => setGender(e.target.value)}
-            className={selectClass(false)}
-          >
-            <option value="">Select gender</option>
-            <option value="male">Male</option>
-            <option value="female">Female</option>
-          </select>
-        </div>
+          {/* Email */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Email <span className="text-[#F59E0B]">*</span>
+            </label>
+            <input
+              type="email"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              placeholder="Report will be sent here"
+              className="w-full bg-white border border-gray-200 rounded-xl px-4 py-3 text-gray-900 placeholder-gray-400 focus:outline-none focus:border-[#7C3AED] transition-colors"
+            />
+          </div>
 
-        {/* Date of Birth — dropdowns */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Date of Birth <span className="text-[#F59E0B]">*</span>
-          </label>
-          <div className="grid grid-cols-3 gap-2">
-            {/* Year */}
+          {/* Gender */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Gender <span className="text-[#F59E0B]">*</span>
+            </label>
             <select
-              value={year}
-              onChange={(e) => setYear(e.target.value)}
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
               className={selectClass(false)}
             >
-              <option value="">Year</option>
-              {years.map((y) => (
-                <option key={y} value={String(y)}>{y}</option>
-              ))}
+              <option value="">Select gender</option>
+              <option value="male">Male</option>
+              <option value="female">Female</option>
             </select>
-            {/* Month */}
+          </div>
+
+          {/* Date of Birth — dropdowns */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Date of Birth <span className="text-[#F59E0B]">*</span>
+            </label>
+            <div className="grid grid-cols-3 gap-2">
+              {/* Year */}
+              <select
+                value={year}
+                onChange={(e) => setYear(e.target.value)}
+                className={selectClass(false)}
+              >
+                <option value="">Year</option>
+                {years.map((y) => (
+                  <option key={y} value={String(y)}>{y}</option>
+                ))}
+              </select>
+              {/* Month */}
+              <select
+                value={month}
+                onChange={(e) => handleMonthChange(e.target.value)}
+                className={selectClass(false)}
+              >
+                <option value="">Month</option>
+                {months.map((m) => (
+                  <option key={m} value={String(m)}>{m}</option>
+                ))}
+              </select>
+              {/* Day */}
+              <select
+                value={day}
+                onChange={(e) => setDay(e.target.value)}
+                className={selectClass(false)}
+              >
+                <option value="">Day</option>
+                {days.map((d) => (
+                  <option key={d} value={String(d)}>{d}</option>
+                ))}
+              </select>
+            </div>
+          </div>
+
+          {/* Birth hour */}
+          <div>
+            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+              Birth Hour{" "}
+              <span className="text-gray-400 font-normal">(optional)</span>
+            </label>
             <select
-              value={month}
-              onChange={(e) => handleMonthChange(e.target.value)}
+              value={hour}
+              onChange={(e) => setHour(e.target.value)}
               className={selectClass(false)}
             >
-              <option value="">Month</option>
-              {months.map((m) => (
-                <option key={m} value={String(m)}>{m}</option>
-              ))}
-            </select>
-            {/* Day */}
-            <select
-              value={day}
-              onChange={(e) => setDay(e.target.value)}
-              className={selectClass(false)}
-            >
-              <option value="">Day</option>
-              {days.map((d) => (
-                <option key={d} value={String(d)}>{d}</option>
+              {hours.map((h) => (
+                <option key={h} value={h}>
+                  {getHourLabel(h)}
+                </option>
               ))}
             </select>
           </div>
         </div>
-
-        {/* Birth hour */}
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Birth Hour{" "}
-            <span className="text-gray-400 font-normal">(optional)</span>
-          </label>
-          <select
-            value={hour}
-            onChange={(e) => setHour(e.target.value)}
-            className={selectClass(false)}
-          >
-            {hours.map((h) => (
-              <option key={h} value={h}>
-                {getHourLabel(h)}
-              </option>
-            ))}
-          </select>
-        </div>
-      </div>
+      )}
 
       {/* Error */}
       {error && (
