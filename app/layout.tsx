@@ -33,7 +33,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className={pretendard.variable}>
+    <html lang="en" className={pretendard.variable} style={{ colorScheme: "dark" }}>
       <body className="bg-[#0A0A0F] text-white min-h-screen flex flex-col antialiased">
         <GoogleAnalytics />
         <Header />
