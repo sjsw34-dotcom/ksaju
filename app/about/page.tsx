@@ -171,7 +171,7 @@ export default function AboutPage() {
               href="/order"
               className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-8 py-3.5 sm:py-4 rounded-full border-2 border-[#F59E0B] text-[#7C3AED] hover:bg-[#F59E0B]/10 font-semibold text-base sm:text-lg transition-colors"
             >
-              Get Premium Report · $35
+              Get Premium Report · $29
             </Link>
           </div>
         </section>

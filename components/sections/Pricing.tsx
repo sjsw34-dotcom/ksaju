@@ -62,7 +62,7 @@ export default function Pricing() {
 
             <h3 className="text-xl sm:text-2xl font-bold mb-2">Premium Report</h3>
             <p className="text-3xl sm:text-4xl font-bold mb-5 sm:mb-6">
-              $35{" "}
+              $29{" "}
               <span className="text-sm sm:text-base font-normal text-gray-400">one-time</span>
             </p>
 

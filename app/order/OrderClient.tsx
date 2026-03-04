@@ -118,7 +118,7 @@ export default function OrderClient() {
 
       await payment.requestPayment({
         method: "PAYPAL" as "CARD",
-        amount: { currency: "USD", value: 35 },
+        amount: { currency: "USD", value: 29 },
         orderId,
         orderName: "Sajumuse Premium Saju Report",
         successUrl: `${window.location.origin}/order/success`,
@@ -191,7 +191,7 @@ export default function OrderClient() {
           <div>
             <p className="text-xs text-gray-400 line-through mb-0.5">$65</p>
             <p className="text-3xl font-bold">
-              $35
+              $29
               <span className="text-base font-normal text-gray-400 ml-2">one-time</span>
             </p>
           </div>
@@ -320,7 +320,7 @@ export default function OrderClient() {
         disabled={loading}
         className="w-full py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-lg transition-colors"
       >
-        {loading ? "Redirecting to PayPal..." : "Pay $35 via PayPal →"}
+        {loading ? "Redirecting to PayPal..." : "Pay $29 via PayPal →"}
       </button>
 
       <p className="text-center text-gray-500 text-xs mt-4">

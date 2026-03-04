@@ -54,7 +54,7 @@ function UpsellCard({ queryString }: { queryString: string }) {
       <div className="text-center mb-6">
         <p className="text-gray-400 text-sm line-through mb-1">$65</p>
         <p className="text-4xl font-bold">
-          $35{" "}
+          $29{" "}
           <span className="text-lg text-gray-400 font-normal">one-time</span>
         </p>
       </div>
