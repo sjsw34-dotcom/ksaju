@@ -12,10 +12,11 @@ async function ensureTable() {
       created_at TIMESTAMPTZ NOT NULL DEFAULT NOW()
     )
   `;
-  // Seed from static array if table is empty
-  const { rows } = await sql`SELECT COUNT(*) AS count FROM blog_topics`;
-  if (Number(rows[0].count) === 0) {
-    for (const t of BLOG_TOPICS) {
+  // Sync: add any topics from BLOG_TOPICS that aren't already in DB
+  const { rows: existing } = await sql`SELECT topic FROM blog_topics`;
+  const existingSet = new Set(existing.map((r) => r.topic as string));
+  for (const t of BLOG_TOPICS) {
+    if (!existingSet.has(t.topic)) {
       await sql`
         INSERT INTO blog_topics (topic, category)
         VALUES (${t.topic}, ${t.category})
