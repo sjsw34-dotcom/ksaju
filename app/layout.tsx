@@ -15,6 +15,11 @@ const pretendard = localFont({
 export const metadata: Metadata = {
   title: "Sajumuse | Saju Reading for Global GenZ",
   description: "Discover your destiny through Korean Saju astrology. Free mini reading + premium report crafted by master readers.",
+  alternates: {
+    types: {
+      "application/rss+xml": "/feed.xml",
+    },
+  },
 };
 
 export default function RootLayout({
