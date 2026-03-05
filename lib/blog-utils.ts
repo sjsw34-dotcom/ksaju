@@ -39,6 +39,12 @@ export function calcReadTime(content: string): number {
   return Math.max(1, Math.round(words / 230));
 }
 
+/** Extract first image URL from markdown content for use as thumbnail */
+export function extractThumbnail(markdown: string): string | null {
+  const match = markdown.match(/!\[.*?\]\((.+?)\)/);
+  return match ? match[1] : null;
+}
+
 /** Extract H2 headings from markdown for TOC */
 export function extractHeadings(markdown: string): { id: string; text: string }[] {
   const headings: { id: string; text: string }[] = [];

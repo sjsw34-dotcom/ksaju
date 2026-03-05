@@ -8,6 +8,7 @@ import {
   CATEGORY_BAR_COLOR,
   formatDate,
   calcReadTime,
+  extractThumbnail,
 } from "@/lib/blog-utils";
 
 interface Post {
@@ -85,6 +86,7 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
             const barColor =
               CATEGORY_BAR_COLOR[post.category] ?? "bg-gray-600";
             const readTime = calcReadTime(post.content);
+            const thumbnail = extractThumbnail(post.content);
 
             return (
               <Link
@@ -92,8 +94,19 @@ export default function BlogListClient({ posts }: { posts: Post[] }) {
                 href={`/blog/${post.slug}`}
                 className="group flex flex-col bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden hover:border-[#7C3AED] hover:-translate-y-1 transition-all duration-300"
               >
-                {/* Color bar */}
-                <div className={`h-2 w-full ${barColor}`} />
+                {/* Thumbnail or Color bar */}
+                {thumbnail ? (
+                  <div className="h-40 w-full overflow-hidden">
+                    <img
+                      src={thumbnail}
+                      alt=""
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                      loading="lazy"
+                    />
+                  </div>
+                ) : (
+                  <div className={`h-2 w-full ${barColor}`} />
+                )}
 
                 <div className="p-6 flex flex-col flex-1">
                   {/* Badge + date + read time */}

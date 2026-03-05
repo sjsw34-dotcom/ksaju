@@ -22,6 +22,9 @@ Rules:
 - Include exactly ONE internal link to the free reading page
 - End the post with a CTA link to the order page
 - No disclaimer, no "as an AI" phrases
+- MUST include a "## Frequently Asked Questions" section near the end with 3-4 Q&A pairs using H3 for each question (this helps Google featured snippets)
+- Write a strong, keyword-rich opening paragraph (first 160 chars are critical for SERP)
+- Use short paragraphs (2-3 sentences max) for readability
 
 Respond in this EXACT format (no extra text before or after):
 TITLE: (50-60 characters, must include the primary keyword)
@@ -67,6 +70,61 @@ export function parseResponse(raw: string): {
     meta: metaMatch[1].trim(),
     content: contentMatch[1].trim(),
   };
+}
+
+/**
+ * Insert 1-2 random blog images into markdown content after H2 headings.
+ */
+const BLOG_IMAGES = [
+  1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,
+  21,22,23,24,25,26,27,28,29,30,32,33,34,35,36,37,38,39,40,41,42,43,44,45,
+];
+
+export function insertBlogImages(content: string, topic: string): string {
+  // Pick 1 or 2 random images (no duplicates)
+  const count = Math.random() < 0.5 ? 1 : 2;
+  const shuffled = [...BLOG_IMAGES].sort(() => Math.random() - 0.5);
+  const picks = shuffled.slice(0, count);
+
+  // SEO-friendly alt text variants using the topic keyword
+  const altTexts = [
+    `Korean Saju reading illustration for ${topic}`,
+    `Four Pillars of Destiny chart related to ${topic}`,
+    `Saju astrology visual guide - ${topic}`,
+    `Korean fortune telling concept - ${topic}`,
+  ].sort(() => Math.random() - 0.5);
+
+  // Find all H2 positions (lines starting with "## ")
+  const lines = content.split("\n");
+  const h2Indices: number[] = [];
+  for (let i = 0; i < lines.length; i++) {
+    if (lines[i].startsWith("## ")) h2Indices.push(i);
+  }
+
+  if (h2Indices.length < 2) {
+    // Fallback: insert after first H2 or at top
+    const pos = h2Indices[0] ?? 0;
+    const imgMarkdown = picks
+      .map((n, idx) => `\n![${altTexts[idx]}](/images/blog/ksaju${n}.jpg)\n`)
+      .join("");
+    lines.splice(pos + 1, 0, imgMarkdown);
+    return lines.join("\n");
+  }
+
+  // Insert images after different H2s (skip first H2, use later ones for variety)
+  const candidateIndices = h2Indices.slice(1); // skip first H2
+  const selectedPositions = candidateIndices
+    .sort(() => Math.random() - 0.5)
+    .slice(0, picks.length)
+    .sort((a, b) => b - a); // insert from bottom to top to preserve indices
+
+  for (let i = 0; i < selectedPositions.length; i++) {
+    const pos = selectedPositions[i];
+    const imgMarkdown = `\n![${altTexts[i]}](/images/blog/ksaju${picks[i]}.jpg)\n`;
+    lines.splice(pos + 1, 0, imgMarkdown);
+  }
+
+  return lines.join("\n");
 }
 
 /**

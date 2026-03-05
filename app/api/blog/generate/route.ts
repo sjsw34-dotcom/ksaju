@@ -9,6 +9,7 @@ import {
   toSlug,
   parseResponse,
   evaluateQuality,
+  insertBlogImages,
 } from "@/lib/blog-generate";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -71,6 +72,9 @@ export async function GET(req: NextRequest) {
         { status: 500 }
       );
     }
+
+    // ── Insert random blog images with SEO alt text ──
+    parsed.content = insertBlogImages(parsed.content, pick.topic);
 
     // ── AI Quality Gate ──
     const quality = await evaluateQuality(

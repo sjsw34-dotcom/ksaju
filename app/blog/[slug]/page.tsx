@@ -10,6 +10,7 @@ import {
   formatDate,
   calcReadTime,
   extractHeadings,
+  extractThumbnail,
 } from "@/lib/blog-utils";
 import ShareButtons from "@/components/blog/ShareButtons";
 
@@ -81,6 +82,15 @@ export async function generateMetadata({
 
   const ogImage = `${BASE_URL}/api/og?title=${encodeURIComponent(post.title)}&category=${post.category}`;
 
+  // Extract first content image for additional OG image
+  const firstImg = post.content.match(/!\[.*?\]\((.+?)\)/);
+  const ogImages: { url: string; width: number; height: number }[] = [
+    { url: ogImage, width: 1200, height: 630 },
+  ];
+  if (firstImg) {
+    ogImages.push({ url: `${BASE_URL}${firstImg[1]}`, width: 760, height: 507 });
+  }
+
   return {
     title: `${post.title} | Sajumuse`,
     description: post.meta,
@@ -90,13 +100,16 @@ export async function generateMetadata({
       type: "article",
       publishedTime: post.created_at,
       url: `${BASE_URL}/blog/${post.slug}`,
-      images: [{ url: ogImage, width: 1200, height: 630 }],
+      images: ogImages,
     },
     twitter: {
       card: "summary_large_image",
       title: post.title,
       description: post.meta,
       images: [ogImage],
+    },
+    alternates: {
+      canonical: `${BASE_URL}/blog/${post.slug}`,
     },
   };
 }
@@ -117,9 +130,19 @@ export default async function BlogPostPage({
   const readTime = calcReadTime(post.content);
   const headings = extractHeadings(post.content);
   const postUrl = `${BASE_URL}/blog/${post.slug}`;
+  const thumbnail = extractThumbnail(post.content);
   const catStyle =
     CATEGORY_STYLE[post.category] ??
     "bg-gray-900/40 text-gray-300 border-gray-700/30";
+
+  // Collect all images from content for structured data
+  const contentImages: string[] = [];
+  const imgRegex = /!\[.*?\]\((.+?)\)/g;
+  let imgMatch;
+  while ((imgMatch = imgRegex.exec(post.content)) !== null) {
+    contentImages.push(`${BASE_URL}${imgMatch[1]}`);
+  }
+  const ogImage = `${BASE_URL}/api/og?title=${encodeURIComponent(post.title)}&category=${post.category}`;
 
   const jsonLd = {
     "@context": "https://schema.org",
@@ -139,17 +162,62 @@ export default async function BlogPostPage({
       url: BASE_URL,
     },
     url: postUrl,
-    image: `${BASE_URL}/api/og?title=${encodeURIComponent(post.title)}&category=${post.category}`,
+    image: [ogImage, ...contentImages],
+    mainEntityOfPage: { "@type": "WebPage", "@id": postUrl },
   };
+
+  // Extract FAQ pairs for FAQPage schema
+  const faqPairs: { q: string; a: string }[] = [];
+  const faqSection = post.content.match(/## Frequently Asked Questions\n([\s\S]*?)(?=\n## |\n---|\Z)/i);
+  if (faqSection) {
+    const faqContent = faqSection[1];
+    const qRegex = /### (.+)\n\n([\s\S]*?)(?=\n### |\n## |$)/g;
+    let faqMatch;
+    while ((faqMatch = qRegex.exec(faqContent)) !== null) {
+      faqPairs.push({ q: faqMatch[1].trim(), a: faqMatch[2].trim() });
+    }
+  }
+
+  const breadcrumbLd = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      { "@type": "ListItem", position: 1, name: "Home", item: BASE_URL },
+      { "@type": "ListItem", position: 2, name: "Blog", item: `${BASE_URL}/blog` },
+      { "@type": "ListItem", position: 3, name: post.title, item: postUrl },
+    ],
+  };
+
+  const faqLd = faqPairs.length > 0 ? {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: faqPairs.map((f) => ({
+      "@type": "Question",
+      name: f.q,
+      acceptedAnswer: { "@type": "Answer", text: f.a },
+    })),
+  } : null;
 
   return (
     <div className="min-h-screen bg-[#FAF9F6] py-16 px-4 sm:px-6">
 
-      {/* JSON-LD */}
+      {/* JSON-LD: Article */}
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
+      {/* JSON-LD: Breadcrumb */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(breadcrumbLd) }}
+      />
+      {/* JSON-LD: FAQ (if present) */}
+      {faqLd && (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(faqLd) }}
+        />
+      )}
 
       <article className="max-w-3xl mx-auto">
         {/* Back */}
@@ -264,6 +332,25 @@ export default async function BlogPostPage({
                   {children}
                 </a>
               ),
+              img: ({ src, alt }) => (
+                <figure className="my-6">
+                  <img
+                    src={src}
+                    alt={alt || "Korean Saju astrology illustration"}
+                    title={alt || "Korean Saju astrology"}
+                    width={760}
+                    height={507}
+                    className="w-full max-w-lg mx-auto rounded-2xl shadow-md"
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  {alt && (
+                    <figcaption className="text-center text-xs text-gray-400 mt-2">
+                      {alt}
+                    </figcaption>
+                  )}
+                </figure>
+              ),
               blockquote: ({ children }) => (
                 <blockquote className="border-l-4 border-[#7C3AED] pl-4 my-4 text-gray-500 italic">
                   {children}
@@ -316,6 +403,7 @@ export default async function BlogPostPage({
                 const rBarColor =
                   CATEGORY_BAR_COLOR[r.category] ?? "bg-gray-600";
                 const rReadTime = calcReadTime(r.content);
+                const rThumbnail = extractThumbnail(r.content);
 
                 return (
                   <Link
@@ -323,7 +411,18 @@ export default async function BlogPostPage({
                     href={`/blog/${r.slug}`}
                     className="group flex flex-col bg-white shadow-sm border border-gray-200 rounded-2xl overflow-hidden hover:border-[#7C3AED] hover:-translate-y-1 transition-all duration-300"
                   >
-                    <div className={`h-2 w-full ${rBarColor}`} />
+                    {rThumbnail ? (
+                      <div className="h-32 w-full overflow-hidden">
+                        <img
+                          src={rThumbnail}
+                          alt=""
+                          className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
+                          loading="lazy"
+                        />
+                      </div>
+                    ) : (
+                      <div className={`h-2 w-full ${rBarColor}`} />
+                    )}
                     <div className="p-5 flex flex-col flex-1">
                       <div className="flex items-center gap-2 mb-2 flex-wrap">
                         <span

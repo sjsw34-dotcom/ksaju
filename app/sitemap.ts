@@ -43,17 +43,26 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   let blogRoutes: MetadataRoute.Sitemap = [];
   try {
     const { rows } = await sql`
-      SELECT slug, created_at
+      SELECT slug, content, created_at
       FROM blog_posts
       WHERE published = true
       ORDER BY created_at DESC
     `;
-    blogRoutes = rows.map((post) => ({
-      url: `${BASE_URL}/blog/${post.slug as string}`,
-      lastModified: new Date(post.created_at as string),
-      changeFrequency: "monthly" as const,
-      priority: 0.6,
-    }));
+    blogRoutes = rows.map((post) => {
+      const images: { loc: string }[] = [];
+      const imgRegex = /!\[.*?\]\((.+?)\)/g;
+      let match;
+      while ((match = imgRegex.exec(post.content as string)) !== null) {
+        images.push({ loc: `${BASE_URL}${match[1]}` });
+      }
+      return {
+        url: `${BASE_URL}/blog/${post.slug as string}`,
+        lastModified: new Date(post.created_at as string),
+        changeFrequency: "weekly" as const,
+        priority: 0.7,
+        ...(images.length > 0 ? { images: images.map((i) => i.loc) } : {}),
+      };
+    });
   } catch {
     // DB not ready — return static routes only
   }
