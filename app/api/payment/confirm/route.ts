@@ -42,13 +42,15 @@ export async function POST(req: NextRequest) {
     });
 
     const tossBody = await tossRes.text();
-    console.error("[payment] toss response status:", tossRes.status, "body:", tossBody);
+    console.log("[payment] toss confirm request:", JSON.stringify({ paymentKey, orderId, amount }));
+    console.log("[payment] toss response status:", tossRes.status, "body:", tossBody);
 
     if (!tossRes.ok) {
       let errMsg = "Payment confirmation failed";
       try {
         const err = JSON.parse(tossBody) as { code?: string; message?: string };
-        errMsg = `${err.code ?? ""}: ${err.message ?? errMsg}`;
+        errMsg = err.message ?? errMsg;
+        if (err.code) errMsg = `${err.code}: ${errMsg}`;
       } catch { /* not json */ }
       return NextResponse.json(
         { error: errMsg },
