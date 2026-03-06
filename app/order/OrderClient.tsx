@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 
@@ -40,14 +40,10 @@ export default function OrderClient() {
   const [hour, setHour]     = useState(paramHour);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState<string | null>(null);
-  const [widgetReady, setWidgetReady] = useState(false);
 
   const hasParams = !!(paramName && paramGender && paramYear && paramMonth && paramDay);
   const [showFullForm, setShowFullForm] = useState(false);
   const compactMode = hasParams && !showFullForm;
-
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const widgetsRef = useRef<any>(null);
 
   // Derived values
   const currentYear = new Date().getFullYear();
@@ -80,52 +76,6 @@ export default function OrderClient() {
       hasError ? "border-red-500" : "border-gray-200"
     }`;
 
-  // Initialize Toss Payments widgets
-  useEffect(() => {
-    let cancelled = false;
-
-    const initWidgets = async () => {
-      try {
-        const tossPayments = await loadTossPayments(
-          process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!
-        );
-        const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
-
-        await widgets.setAmount({ currency: "USD", value: 29 });
-
-        if (cancelled) return;
-
-        await Promise.all([
-          widgets.renderPaymentMethods({
-            selector: "#payment-method",
-          }),
-          widgets.renderAgreement({
-            selector: "#agreement",
-          }),
-        ]);
-
-        widgetsRef.current = widgets;
-        setWidgetReady(true);
-      } catch (err) {
-        if (cancelled) return;
-        console.error("[toss] widget init error:", err);
-        setError("Failed to load payment widget. Please refresh.");
-      }
-    };
-
-    initWidgets();
-
-    return () => {
-      cancelled = true;
-      const pmEl = document.getElementById("payment-method");
-      const agEl = document.getElementById("agreement");
-      if (pmEl) pmEl.innerHTML = "";
-      if (agEl) agEl.innerHTML = "";
-      widgetsRef.current = null;
-      setWidgetReady(false);
-    };
-  }, []);
-
   const handlePay = async () => {
     if (!name.trim()) {
       setError("Please enter your name.");
@@ -137,10 +87,6 @@ export default function OrderClient() {
     }
     if (!year || !month || !day) {
       setError("Please enter your date of birth.");
-      return;
-    }
-    if (!widgetsRef.current) {
-      setError("Payment widget not ready. Please refresh.");
       return;
     }
 
@@ -168,25 +114,25 @@ export default function OrderClient() {
 
       const { orderId } = (await orderRes.json()) as { orderId: string };
 
-      // 2. Request payment via widgets
-      await widgetsRef.current.requestPayment({
+      // 2. Load Toss SDK and request payment via payment API
+      const tossPayments = await loadTossPayments(
+        process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!
+      );
+      const payment = tossPayments.payment({ customerKey: ANONYMOUS });
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      await (payment as any).requestPayment({
+        method: "FOREIGN_EASY_PAY",
+        amount: { currency: "USD", value: 29 },
         orderId,
         orderName: "Sajumuse Premium Saju Report",
         successUrl: `${window.location.origin}/order/success`,
         failUrl: `${window.location.origin}/order/fail`,
-        customerEmail: email,
         customerName: name,
+        customerEmail: email,
         foreignEasyPay: {
+          provider: "PAYPAL",
           country: "KR",
-          products: [
-            {
-              name: "Sajumuse Premium Saju Report",
-              quantity: 1,
-              unitAmount: 29,
-              currency: "USD",
-              description: "Full Four Pillars destiny report",
-            },
-          ],
         },
       });
     } catch (err) {
@@ -411,14 +357,6 @@ export default function OrderClient() {
         </div>
       )}
 
-      {/* Toss Payment Widget UI */}
-      <div className="mb-4">
-        <div id="payment-method" />
-      </div>
-      <div className="mb-6">
-        <div id="agreement" />
-      </div>
-
       {/* Error */}
       {error && (
         <p className="text-red-400 text-sm text-center mb-4">{error}</p>
@@ -427,7 +365,7 @@ export default function OrderClient() {
       {/* Pay button */}
       <button
         onClick={handlePay}
-        disabled={loading || !widgetReady}
+        disabled={loading}
         className="w-full py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-lg transition-colors"
       >
         {loading ? "Redirecting to PayPal..." : "Pay $29 via PayPal →"}
