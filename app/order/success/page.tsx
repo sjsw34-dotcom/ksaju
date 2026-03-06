@@ -19,8 +19,14 @@ async function confirmPayment(paymentKey: string, orderId: string, amount: numbe
   });
 
   if (!res.ok) {
-    const err = (await res.json()) as { error?: string };
-    throw new Error(err.error ?? "Confirmation failed");
+    const text = await res.text();
+    console.error("[confirm] status:", res.status, "body:", text);
+    let errMsg = "Confirmation failed";
+    try {
+      const err = JSON.parse(text) as { error?: string };
+      errMsg = err.error ?? errMsg;
+    } catch { /* not json */ }
+    throw new Error(errMsg);
   }
 }
 
@@ -34,7 +40,7 @@ export default async function SuccessPage({ searchParams }: PageProps) {
     errorMessage = "Invalid payment parameters.";
   } else {
     try {
-      await confirmPayment(paymentKey, orderId, parseInt(amount));
+      await confirmPayment(paymentKey, orderId, parseFloat(amount));
     } catch (err) {
       errorMessage = err instanceof Error ? err.message : "Payment confirmation failed.";
     }

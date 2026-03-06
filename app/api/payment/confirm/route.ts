@@ -31,20 +31,27 @@ export async function POST(req: NextRequest) {
     }
 
     // Confirm payment with Toss API
+    const encKey = Buffer.from(`${process.env.TOSS_WIDGET_SECRET_KEY}:`).toString("base64");
     const tossRes = await fetch("https://api.tosspayments.com/v1/payments/confirm", {
       method: "POST",
       headers: {
-        Authorization: `Basic ${Buffer.from(`${process.env.TOSS_SECRET_KEY}:`).toString("base64")}`,
+        Authorization: `Basic ${encKey}`,
         "Content-Type": "application/json",
       },
       body: JSON.stringify({ paymentKey, orderId, amount }),
     });
 
+    const tossBody = await tossRes.text();
+    console.error("[payment] toss response status:", tossRes.status, "body:", tossBody);
+
     if (!tossRes.ok) {
-      const err = (await tossRes.json()) as { message?: string };
-      console.error("[payment] toss confirm error:", err);
+      let errMsg = "Payment confirmation failed";
+      try {
+        const err = JSON.parse(tossBody) as { code?: string; message?: string };
+        errMsg = `${err.code ?? ""}: ${err.message ?? errMsg}`;
+      } catch { /* not json */ }
       return NextResponse.json(
-        { error: err.message ?? "Payment confirmation failed" },
+        { error: errMsg },
         { status: 400 }
       );
     }
