@@ -121,8 +121,8 @@ export default function OrderClient() {
       );
       const payment = tossPayments.payment({ customerKey: ANONYMOUS });
 
-      await payment.requestPayment({
-        method: "PAYPAL" as "CARD",
+      await (payment as any).requestPayment({
+        method: "FOREIGN_EASY_PAY",
         amount: { currency: "USD", value: 29 },
         orderId,
         orderName: "Sajumuse Premium Saju Report",
@@ -130,6 +130,10 @@ export default function OrderClient() {
         failUrl: `${window.location.origin}/order/fail`,
         customerName: name,
         customerEmail: email,
+        foreignEasyPay: {
+          provider: "PAYPAL",
+          country: "KR",
+        },
       });
     } catch (err) {
       if (err instanceof Error && err.message.includes("PAY_PROCESS_CANCELED")) {
