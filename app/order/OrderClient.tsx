@@ -87,7 +87,7 @@ export default function OrderClient() {
     const initWidgets = async () => {
       try {
         const tossPayments = await loadTossPayments(
-          process.env.NEXT_PUBLIC_TOSS_WIDGET_CLIENT_KEY!
+          process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!
         );
         const widgets = tossPayments.widgets({ customerKey: ANONYMOUS });
 

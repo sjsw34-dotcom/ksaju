@@ -31,7 +31,7 @@ export async function POST(req: NextRequest) {
     }
 
     // Confirm payment with Toss API
-    const encKey = Buffer.from(`${process.env.TOSS_WIDGET_SECRET_KEY}:`).toString("base64");
+    const encKey = Buffer.from(`${process.env.TOSS_SECRET_KEY}:`).toString("base64");
     const tossRes = await fetch("https://api.tosspayments.com/v1/payments/confirm", {
       method: "POST",
       headers: {
