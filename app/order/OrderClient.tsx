@@ -98,11 +98,9 @@ export default function OrderClient() {
         await Promise.all([
           widgets.renderPaymentMethods({
             selector: "#payment-method",
-            variantKey: "paypal",
           }),
           widgets.renderAgreement({
             selector: "#agreement",
-            variantKey: "AGREEMENT",
           }),
         ]);
 
