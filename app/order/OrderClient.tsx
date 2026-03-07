@@ -423,7 +423,7 @@ export default function OrderClient() {
       </button>
 
       <p className="text-center text-gray-500 text-xs mt-4">
-        Secure payment via PayPal · SSL encrypted
+        Secure payment via PayPal · SSL encrypted · v3
       </p>
     </div>
   );
