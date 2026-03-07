@@ -1,8 +1,8 @@
 "use client";
 
-import { useState, useEffect, useRef } from "react";
+import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { loadTossPayments, TossPaymentsWidgets } from "@tosspayments/tosspayments-sdk";
+import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
 
 const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
 
@@ -42,10 +42,6 @@ export default function OrderClient() {
   const [hour, setHour]     = useState(paramHour);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState<string | null>(null);
-  const [widgetReady, setWidgetReady] = useState(false);
-
-  const widgetsRef = useRef<TossPaymentsWidgets | null>(null);
-
   const hasParams = !!(paramName && paramGender && paramYear && paramMonth && paramDay);
   const [showFullForm, setShowFullForm] = useState(false);
   const compactMode = hasParams && !showFullForm;
@@ -81,51 +77,6 @@ export default function OrderClient() {
       hasError ? "border-red-500" : "border-gray-200"
     }`;
 
-  // Initialize Toss Payments widget (no variantKey — shows all enabled methods including PayPal)
-  useEffect(() => {
-    let cancelled = false;
-
-    const initWidgets = async () => {
-      try {
-        const tossPayments = await loadTossPayments(clientKey);
-        const widgets = tossPayments.widgets({ customerKey: "ANONYMOUS" });
-
-        await widgets.setAmount({ currency: "USD", value: 29 });
-
-        if (cancelled) return;
-
-        await Promise.all([
-          widgets.renderPaymentMethods({
-            selector: "#payment-method",
-          }),
-          widgets.renderAgreement({
-            selector: "#agreement",
-            variantKey: "AGREEMENT",
-          }),
-        ]);
-
-        widgetsRef.current = widgets;
-        setWidgetReady(true);
-      } catch (err) {
-        if (cancelled) return;
-        console.error("[toss] widget init error:", err);
-        setError("Failed to load payment widget. Please refresh.");
-      }
-    };
-
-    initWidgets();
-
-    return () => {
-      cancelled = true;
-      const pmEl = document.getElementById("payment-method");
-      const agEl = document.getElementById("agreement");
-      if (pmEl) pmEl.innerHTML = "";
-      if (agEl) agEl.innerHTML = "";
-      widgetsRef.current = null;
-      setWidgetReady(false);
-    };
-  }, []);
-
   const handlePay = async () => {
     if (!name.trim()) {
       setError("Please enter your name.");
@@ -139,11 +90,6 @@ export default function OrderClient() {
       setError("Please enter your date of birth.");
       return;
     }
-    if (!widgetsRef.current) {
-      setError("Payment widget not ready. Please refresh.");
-      return;
-    }
-
     setLoading(true);
     setError(null);
 
@@ -168,14 +114,23 @@ export default function OrderClient() {
 
       const { orderId } = (await orderRes.json()) as { orderId: string };
 
-      // 2. Request payment via widget
-      await widgetsRef.current.requestPayment({
+      // 2. Request PayPal payment via Payment SDK
+      const tossPayments = await loadTossPayments(clientKey);
+      const payment = tossPayments.payment({ customerKey: "ANONYMOUS" });
+
+      await payment.requestPayment({
+        method: "FOREIGN_EASY_PAY",
+        amount: { currency: "USD", value: 29 },
         orderId,
         orderName: "Saju Premium Reading",
         successUrl: `${window.location.origin}/order/success`,
         failUrl: `${window.location.origin}/order/fail`,
         customerEmail: email,
         customerName: name,
+        foreignEasyPay: {
+          provider: "PAYPAL",
+          country: "KR",
+        },
       });
     } catch (err) {
       if (err instanceof Error && err.message.includes("PAY_PROCESS_CANCELED")) {
@@ -399,14 +354,6 @@ export default function OrderClient() {
         </div>
       )}
 
-      {/* Toss Payment Widget */}
-      <div className="mb-4">
-        <div id="payment-method" />
-      </div>
-      <div className="mb-6">
-        <div id="agreement" />
-      </div>
-
       {/* Error */}
       {error && (
         <p className="text-red-400 text-sm text-center mb-4">{error}</p>
@@ -415,7 +362,7 @@ export default function OrderClient() {
       {/* Pay button */}
       <button
         onClick={handlePay}
-        disabled={loading || !widgetReady}
+        disabled={loading}
         className="w-full py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-lg transition-colors"
       >
         {loading ? "Redirecting to PayPal..." : "Pay $29 via PayPal →"}
