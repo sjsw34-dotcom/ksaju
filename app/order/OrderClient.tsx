@@ -1,10 +1,13 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useSearchParams } from "next/navigation";
 import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 
 const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
+type TossPayment = any;
 
 const PREMIUM_FEATURES = [
   "Core personality & natural talents",
@@ -42,6 +45,22 @@ export default function OrderClient() {
   const [hour, setHour]     = useState(paramHour);
   const [loading, setLoading] = useState(false);
   const [error, setError]     = useState<string | null>(null);
+  const [payment, setPayment] = useState<TossPayment>(null);
+
+  // Initialize Toss Payment SDK on mount (as per official docs)
+  useEffect(() => {
+    async function initPayment() {
+      try {
+        const tossPayments = await loadTossPayments(clientKey);
+        const p = tossPayments.payment({ customerKey: ANONYMOUS });
+        setPayment(p);
+      } catch (err) {
+        console.error("[toss] init error:", err);
+      }
+    }
+    initPayment();
+  }, []);
+
   const hasParams = !!(paramName && paramGender && paramYear && paramMonth && paramDay);
   const [showFullForm, setShowFullForm] = useState(false);
   const compactMode = hasParams && !showFullForm;
@@ -91,6 +110,11 @@ export default function OrderClient() {
       return;
     }
 
+    if (!payment) {
+      setError("Payment SDK not ready. Please refresh.");
+      return;
+    }
+
     setLoading(true);
     setError(null);
 
@@ -115,13 +139,7 @@ export default function OrderClient() {
 
       const { orderId } = (await orderRes.json()) as { orderId: string };
 
-      // 2. Request PayPal payment via Payment SDK
-      console.log("[toss] clientKey prefix:", clientKey?.substring(0, 10));
-      const tossPayments = await loadTossPayments(clientKey);
-      console.log("[toss] SDK loaded, calling payment()");
-      const payment = tossPayments.payment({ customerKey: ANONYMOUS });
-      console.log("[toss] calling requestPayment with FOREIGN_EASY_PAY");
-
+      // 2. Request PayPal payment (official Toss docs pattern)
       await payment.requestPayment({
         method: "FOREIGN_EASY_PAY",
         amount: { currency: "USD", value: 29 },
@@ -131,14 +149,14 @@ export default function OrderClient() {
         failUrl: `${window.location.origin}/order/fail`,
         customerEmail: email,
         customerName: name,
+        customerMobilePhone: "00000000000",
         foreignEasyPay: {
           provider: "PAYPAL",
           country: "KR",
         },
       });
     } catch (err: unknown) {
-      console.error("[toss] full error:", err);
-      console.error("[toss] error JSON:", JSON.stringify(err, null, 2));
+      console.error("[toss] payment error:", err);
       if (err instanceof Error && err.message.includes("PAY_PROCESS_CANCELED")) {
         setError("Payment was cancelled.");
       } else {
@@ -367,7 +385,7 @@ export default function OrderClient() {
       {/* Pay button */}
       <button
         onClick={handlePay}
-        disabled={loading}
+        disabled={loading || !payment}
         className="w-full py-4 rounded-full bg-[#7C3AED] hover:bg-[#6D28D9] disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-lg transition-colors"
       >
         {loading ? "Redirecting to PayPal..." : "Pay $29 via PayPal →"}
