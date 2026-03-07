@@ -2,7 +2,7 @@
 
 import { useState } from "react";
 import { useSearchParams } from "next/navigation";
-import { loadTossPayments } from "@tosspayments/tosspayments-sdk";
+import { loadTossPayments, ANONYMOUS } from "@tosspayments/tosspayments-sdk";
 
 const clientKey = process.env.NEXT_PUBLIC_TOSS_CLIENT_KEY!;
 
@@ -119,7 +119,7 @@ export default function OrderClient() {
       console.log("[toss] clientKey prefix:", clientKey?.substring(0, 10));
       const tossPayments = await loadTossPayments(clientKey);
       console.log("[toss] SDK loaded, calling payment()");
-      const payment = tossPayments.payment({ customerKey: "ANONYMOUS" });
+      const payment = tossPayments.payment({ customerKey: ANONYMOUS });
       console.log("[toss] calling requestPayment with FOREIGN_EASY_PAY");
 
       await payment.requestPayment({
