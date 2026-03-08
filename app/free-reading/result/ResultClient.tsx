@@ -124,7 +124,7 @@ function UpsellSection({ queryString }: { queryString: string }) {
             This free reading was AI-generated in seconds. Your Premium Report is{" "}
             <span className="text-white font-semibold">personally analyzed by a human master</span> who
             examines every elemental interaction, every timing cycle, every hidden
-            pattern — the same care as a face-to-face consultation.
+            pattern. The same care as a face-to-face consultation.
           </p>
         </div>
       </div>

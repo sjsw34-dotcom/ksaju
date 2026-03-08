@@ -67,7 +67,7 @@ export default function Hero() {
         </h1>
 
         <p className="text-base sm:text-lg text-gray-600 mb-8 sm:mb-10 max-w-sm sm:max-w-xl mx-auto">
-          Over a thousand years of wisdom, now in your hands. Your birth data holds the blueprint of your life — analyzed by a certified Korean Saju master.
+          Over a thousand years of wisdom, now in your hands. Your birth data holds the blueprint of your life, analyzed by a certified Korean Saju master.
         </p>
 
         <div className="flex flex-col sm:flex-row gap-3 sm:gap-4 justify-center items-center">

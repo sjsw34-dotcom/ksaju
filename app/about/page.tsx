@@ -84,7 +84,7 @@ export default function AboutPage() {
                   src="/images/certificate.jpg"
                   fill
                   className="object-contain"
-                  alt="Official certification documents — Myeongri Psychology Counselor and Family Psychology Counselor"
+                  alt="Official certification documents - Myeongri Psychology Counselor and Family Psychology Counselor"
                 />
               </div>
               <p className="text-center text-xs text-gray-400 mt-2">
@@ -153,7 +153,7 @@ export default function AboutPage() {
           </h2>
           <p className="text-gray-500 text-center max-w-2xl mx-auto mb-4 text-sm leading-relaxed">
             Our master reader has provided hundreds of Saju consultations on
-            Danggeun Market — Korea&apos;s most trusted peer-to-peer platform where
+            Danggeun Market, Korea&apos;s most trusted peer-to-peer platform where
             reviews cannot be faked or deleted. Every screenshot below is an
             unedited, verified review from a real Korean client.
           </p>
@@ -238,7 +238,7 @@ export default function AboutPage() {
                 Saju Love Reading · $19
               </p>
               <p className="text-gray-500 text-sm">
-                Discover your romantic destiny — your love personality, ideal partner type, and when love will find you.
+                Discover your romantic destiny: your love personality, ideal partner type, and when love will find you.
               </p>
             </Link>
           </div>

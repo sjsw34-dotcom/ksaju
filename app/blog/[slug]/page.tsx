@@ -406,7 +406,7 @@ export default async function BlogPostPage({
               href="/order"
               className="px-6 py-3 border border-[#7C3AED] text-[#7C3AED] hover:bg-[#7C3AED]/10 rounded-full font-bold transition-colors"
             >
-              Full Report — $29
+              Full Report · $29
             </Link>
           </div>
         </div>

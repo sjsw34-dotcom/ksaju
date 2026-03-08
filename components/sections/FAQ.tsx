@@ -7,12 +7,12 @@ const FAQS = [
   {
     question: "What exactly is Saju?",
     answer:
-      "Saju (\uC0AC\uC8FC) means 'Four Pillars' in Korean. It's a traditional destiny analysis system that uses your birth year, month, day, and hour to map the cosmic energies present at your exact moment of birth. Unlike Western astrology which focuses primarily on your birth month, Saju creates a unique chart from all four time pillars \u2014 making it deeply personal to you.",
+      "Saju (\uC0AC\uC8FC) means 'Four Pillars' in Korean. It's a traditional destiny analysis system that uses your birth year, month, day, and hour to map the cosmic energies present at your exact moment of birth. Unlike Western astrology which focuses primarily on your birth month, Saju creates a unique chart from all four time pillars, making it deeply personal to you.",
   },
   {
     question: "Is this the same Saju from K-dramas and Korean movies?",
     answer:
-      "Yes \u2014 exactly the same tradition. In K-dramas like Demon Hunters and Korean films, you'll often see characters visiting a Saju master before big life decisions like marriage, career changes, or naming a child. That's not just a plot device \u2014 it's real Korean culture. Millions of Koreans still consult Saju readers every year. Now you can experience the same reading, in English, from a certified master.",
+      "Yes, exactly the same tradition. In K-dramas like Demon Hunters and Korean films, you'll often see characters visiting a Saju master before big life decisions like marriage, career changes, or naming a child. That's not just a plot device. It's real Korean culture. Millions of Koreans still consult Saju readers every year. Now you can experience the same reading, in English, from a certified master.",
   },
   {
     question: "How is Sajumuse different from other online Saju sites?",
@@ -22,12 +22,12 @@ const FAQS = [
   {
     question: "What information do I need to provide?",
     answer:
-      "You'll need your birth date (year, month, day), birth time (as exact as possible), and gender. If you don't know your exact birth time, we can still provide a reading based on your date alone \u2014 though having the time makes the analysis significantly more detailed.",
+      "You'll need your birth date (year, month, day), birth time (as exact as possible), and gender. If you don't know your exact birth time, we can still provide a reading based on your date alone, though having the time makes the analysis significantly more detailed.",
   },
   {
     question: "How long does the Premium Report take?",
     answer:
-      "Premium Reports are delivered within 48 hours. Because each report is personally analyzed \u2014 not auto-generated \u2014 we take the time to thoroughly examine every aspect of your chart. The result is a 60+ page PDF covering personality, career, love, wealth, health, and your 10-year fortune cycle.",
+      "Premium Reports are delivered within 48 hours. Because each report is personally analyzed (not auto-generated), we take the time to thoroughly examine every aspect of your chart. The result is a 60+ page PDF covering personality, career, love, wealth, health, and your 10-year fortune cycle.",
   },
 ];
 

@@ -414,7 +414,7 @@ export default function AdminDashboard() {
 
             <div>
               <label className="block text-xs text-gray-400 mb-1.5">
-                Image URL <span className="text-gray-600">(optional — shows at top of card)</span>
+                Image URL <span className="text-gray-600">(optional, shows at top of card)</span>
               </label>
               <input
                 type="url"

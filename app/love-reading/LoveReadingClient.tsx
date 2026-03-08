@@ -24,12 +24,12 @@ function getHourLabel(h: string) {
 }
 
 const LOVE_FEATURES = [
-  "Your Day Master love personality — how you naturally give & receive love",
-  "Peach Blossom Star analysis — your romantic magnetism score",
-  "Ideal partner element profile — who truly complements your chart",
-  "Romantic timing forecast — when love energy peaks in your life",
-  "Relationship pattern diagnosis — why past patterns keep repeating",
-  "Red Flame Star check — your hidden seductive energy",
+  "Your Day Master love personality: how you naturally give & receive love",
+  "Peach Blossom Star analysis: your romantic magnetism score",
+  "Ideal partner element profile: who truly complements your chart",
+  "Romantic timing forecast: when love energy peaks in your life",
+  "Relationship pattern diagnosis: why past patterns keep repeating",
+  "Red Flame Star check: your hidden seductive energy",
   "Personalized love advice based on your elemental balance",
 ];
 
@@ -185,7 +185,7 @@ export default function LoveReadingClient() {
             href="#order"
             className="inline-block px-8 py-4 bg-gradient-to-r from-[#E91E8C] to-[#7C3AED] rounded-full font-bold text-white text-lg shadow-lg hover:shadow-xl hover:scale-105 transition-all"
           >
-            Read My Love Chart — $19
+            Read My Love Chart · $19
           </a>
         </div>
       </section>
@@ -201,7 +201,7 @@ export default function LoveReadingClient() {
             </h2>
             <p className="text-gray-500 max-w-xl mx-auto">
               It&apos;s not bad luck. It&apos;s not your fault. Your Four Pillars birth chart
-              contains a pattern — a blueprint of how you love, who you attract,
+              contains a pattern, a blueprint of how you love, who you attract,
               and when the timing is actually right.
             </p>
           </div>
@@ -225,7 +225,7 @@ export default function LoveReadingClient() {
                 <h3 className="font-bold text-gray-900 mb-2">The Peach Blossom Star</h3>
                 <p className="text-gray-500 text-sm leading-relaxed">
                   Some people radiate romantic magnetism without trying. In Korean astrology,
-                  that&apos;s the Peach Blossom Star (Dohwasal) — a specific marker in your chart
+                  that&apos;s the Peach Blossom Star (Dohwasal), a specific marker in your chart
                   that scores your natural charm and attraction power.
                 </p>
               </div>
@@ -336,7 +336,7 @@ export default function LoveReadingClient() {
                   Korean families have checked Saju before marriage for centuries.
                 </p>
                 <p className="text-white/70 text-sm mt-1">
-                  Now you can see what your chart says about love — before it&apos;s too late.
+                  Now you can see what your chart says about love, before it&apos;s too late.
                 </p>
               </div>
             </div>
@@ -481,7 +481,7 @@ export default function LoveReadingClient() {
             disabled={loading || !widgetReady}
             className="w-full py-4 rounded-full bg-gradient-to-r from-[#E91E8C] to-[#7C3AED] hover:opacity-90 disabled:opacity-60 disabled:cursor-not-allowed text-white font-bold text-lg transition-all"
           >
-            {loading ? "Redirecting to PayPal..." : "Get My Love Reading — $19"}
+            {loading ? "Redirecting to PayPal..." : "Get My Love Reading · $19"}
           </button>
 
           <p className="text-center text-gray-500 text-xs mt-4">

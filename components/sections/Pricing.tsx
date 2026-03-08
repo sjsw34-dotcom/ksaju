@@ -76,7 +76,7 @@ export default function Pricing() {
             </ul>
 
             <p className="text-xs text-gray-400 text-center mb-3">
-              Personally analyzed by a certified master — not auto-generated
+              Personally analyzed by a certified master (not auto-generated)
             </p>
             <a
               href="/sample.pdf"
@@ -103,7 +103,7 @@ export default function Pricing() {
             </Link>
 
             <p className="text-center text-xs sm:text-sm text-gray-400 mt-3">
-              Delivered within 48 hours — because real analysis takes time
+              Delivered within 48 hours. Real analysis takes time.
             </p>
           </div>
         </div>

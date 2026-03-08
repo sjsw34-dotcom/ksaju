@@ -18,11 +18,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_BASE_URL ?? "https://www.sajumuse.com";
 export const metadata: Metadata = {
   metadataBase: new URL(BASE_URL),
   title: {
-    default: "Sajumuse — Korean Saju Astrology & Four Pillars Reading",
+    default: "Sajumuse | Korean Saju Astrology & Four Pillars Reading",
     template: "%s | Sajumuse",
   },
   description:
-    "Korean Saju (Four Pillars of Destiny) astrology — free mini reading in 30 seconds + premium 60-page report by a certified master. Personality, career, love & life timing.",
+    "Korean Saju (Four Pillars of Destiny) astrology. Free mini reading in 30 seconds + premium 60-page report by a certified master. Personality, career, love & life timing.",
   applicationName: "Sajumuse",
   keywords: [
     "saju",
@@ -41,7 +41,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: "website",
     siteName: "Sajumuse",
-    title: "Sajumuse — Korean Saju Astrology & Four Pillars Reading",
+    title: "Sajumuse | Korean Saju Astrology & Four Pillars Reading",
     description:
       "Free Saju mini reading + premium 60-page report by a certified Korean astrology master with 15+ years of experience.",
     url: BASE_URL,
@@ -50,14 +50,14 @@ export const metadata: Metadata = {
         url: `${BASE_URL}/api/og?title=Sajumuse%20-%20Korean%20Saju%20Reading&category=default`,
         width: 1200,
         height: 630,
-        alt: "Sajumuse — Korean Saju Four Pillars astrology reading service",
+        alt: "Sajumuse - Korean Saju Four Pillars astrology reading service",
       },
     ],
     locale: "en_US",
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sajumuse — Korean Saju Astrology & Four Pillars Reading",
+    title: "Sajumuse | Korean Saju Astrology & Four Pillars Reading",
     description:
       "Free Saju mini reading + premium 60-page report by a certified Korean astrology master.",
   },

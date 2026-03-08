@@ -238,7 +238,7 @@ export default function OrderClient() {
         </ul>
 
         <p className="text-xs text-gray-400 mt-4">
-          Personally analyzed by a certified master — not auto-generated
+          Personally analyzed by a certified master (not auto-generated)
         </p>
         <a
           href="/sample.pdf"
