@@ -1,0 +1,29 @@
+name: Blog Auto Generate
+
+on:
+  schedule:
+    # 07:00 KST (22:00 UTC previous day)
+    - cron: "0 22 * * *"
+    # 19:00 KST (10:00 UTC)
+    - cron: "0 10 * * *"
+  workflow_dispatch: # 수동 실행도 가능
+
+jobs:
+  generate:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Generate blog post
+        run: |
+          response=$(curl -s -w "\n%{http_code}" \
+            "${{ secrets.BASE_URL }}/api/blog/generate?secret=${{ secrets.CRON_SECRET }}")
+
+          http_code=$(echo "$response" | tail -1)
+          body=$(echo "$response" | head -n -1)
+
+          echo "Status: $http_code"
+          echo "Response: $body"
+
+          if [ "$http_code" != "200" ]; then
+            echo "::error::Blog generation failed with status $http_code"
+            exit 1
+          fi
