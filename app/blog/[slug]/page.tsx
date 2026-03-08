@@ -280,7 +280,7 @@ export default async function BlogPostPage({
             components={{
               table: ({ children }) => (
                 <div className="my-6 overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
-                  <table className="w-full text-sm text-left">{children}</table>
+                  <table className="w-full text-sm text-center">{children}</table>
                 </div>
               ),
               thead: ({ children }) => (
@@ -288,15 +288,15 @@ export default async function BlogPostPage({
                   {children}
                 </thead>
               ),
-              tbody: ({ children }) => <tbody className="divide-y divide-gray-100">{children}</tbody>,
+              tbody: ({ children }) => <tbody className="divide-y divide-gray-200">{children}</tbody>,
               tr: ({ children }) => (
                 <tr className="hover:bg-gray-50 transition-colors">{children}</tr>
               ),
               th: ({ children }) => (
-                <th className="px-4 py-3 font-semibold whitespace-nowrap">{children}</th>
+                <th className="px-4 py-3 font-semibold whitespace-nowrap text-center border-b border-gray-200">{children}</th>
               ),
               td: ({ children }) => (
-                <td className="px-4 py-3 text-gray-700">{children}</td>
+                <td className="px-4 py-3 text-gray-700 text-center">{children}</td>
               ),
               h2: ({ children }) => {
                 const text = String(children);
