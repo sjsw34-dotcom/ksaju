@@ -11,9 +11,6 @@ export default function Footer() {
           <Link href="/contact" className="hover:text-gray-300 transition-colors">Contact</Link>
         </div>
       </div>
-      <div className="border-t border-[#2A2A4A] text-center text-xs text-gray-500 py-4 px-4 leading-relaxed">
-        운명테라피 · 대표 김재관 · 경기도 화성시 경기대로 1014, 6층 603-120호 · 010.4539.1776
-      </div>
     </footer>
   );
 }
