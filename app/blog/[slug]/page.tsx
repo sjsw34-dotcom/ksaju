@@ -1,6 +1,7 @@
 import { notFound } from "next/navigation";
 import Link from "next/link";
 import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 import { sql } from "@/lib/db";
 import type { Metadata } from "next";
 import {
@@ -275,7 +276,28 @@ export default async function BlogPostPage({
         {/* Content */}
         <div>
           <ReactMarkdown
+            remarkPlugins={[remarkGfm]}
             components={{
+              table: ({ children }) => (
+                <div className="my-6 overflow-x-auto rounded-xl border border-gray-200 shadow-sm">
+                  <table className="w-full text-sm text-left">{children}</table>
+                </div>
+              ),
+              thead: ({ children }) => (
+                <thead className="bg-[#7C3AED]/10 text-[#7C3AED] text-xs uppercase tracking-wider">
+                  {children}
+                </thead>
+              ),
+              tbody: ({ children }) => <tbody className="divide-y divide-gray-100">{children}</tbody>,
+              tr: ({ children }) => (
+                <tr className="hover:bg-gray-50 transition-colors">{children}</tr>
+              ),
+              th: ({ children }) => (
+                <th className="px-4 py-3 font-semibold whitespace-nowrap">{children}</th>
+              ),
+              td: ({ children }) => (
+                <td className="px-4 py-3 text-gray-700">{children}</td>
+              ),
               h2: ({ children }) => {
                 const text = String(children);
                 const id = text
