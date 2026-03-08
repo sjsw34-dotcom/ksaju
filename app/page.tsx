@@ -12,22 +12,32 @@ import FAQ from "@/components/sections/FAQ";
 import FinalCTA from "@/components/sections/FinalCTA";
 
 export const metadata: Metadata = {
-  title: "Sajumuse | Korean Saju Reading for Global GenZ",
+  title: "Sajumuse — Korean Saju Reading | Free Birth Chart + Premium Report",
   description:
-    "Discover your destiny through ancient Korean Saju astrology. Free mini reading + premium 60-page report by a certified master with 15+ years of experience.",
+    "Try a free Korean Saju (Four Pillars) mini reading, then unlock a 60-page premium report by a certified master with 15+ years of experience. Personality, career, love & timing — all from your birth chart.",
+  keywords: [
+    "saju reading",
+    "korean astrology",
+    "four pillars of destiny",
+    "korean fortune telling",
+    "saju birth chart",
+    "free saju reading",
+    "sajumuse",
+    "korean horoscope",
+  ],
   openGraph: {
-    title: "Sajumuse | Korean Saju Reading for Global GenZ",
+    title: "Sajumuse — Free Korean Saju Reading & Premium Birth Chart Report",
     description:
-      "Discover your destiny through ancient Korean Saju astrology. Free mini reading + premium 60-page report by a certified master.",
+      "Free Saju mini reading in 30 seconds. Premium 60-page report by a 15-year certified master — personality, career, love, wealth & 10-year forecast.",
     type: "website",
     url: "/",
-    images: [{ url: "/api/og?title=Discover+Your+Destiny+Through+Ancient+Korean+Wisdom", width: 1200, height: 630 }],
+    images: [{ url: "/api/og?title=Discover+Your+Destiny+Through+Ancient+Korean+Wisdom", width: 1200, height: 630, alt: "Sajumuse — Korean Saju Four Pillars astrology reading" }],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Sajumuse | Korean Saju Reading for Global GenZ",
+    title: "Sajumuse — Free Korean Saju Reading & Premium Report",
     description:
-      "Discover your destiny through ancient Korean Saju astrology. Free mini reading + premium report by a certified master.",
+      "Try a free Saju mini reading, then get a 60-page premium report by a certified Korean astrology master. Personality, career, love & timing.",
     images: ["/api/og?title=Discover+Your+Destiny+Through+Ancient+Korean+Wisdom"],
   },
 };
