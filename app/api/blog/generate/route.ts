@@ -10,6 +10,7 @@ import {
   parseResponse,
   evaluateQuality,
   insertBlogImages,
+  generateNewTopic,
 } from "@/lib/blog-generate";
 
 const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY });
@@ -32,17 +33,35 @@ export async function GET(req: NextRequest) {
     const { rows: topicRows } = await sql`
       SELECT * FROM blog_topics WHERE status = 'pending' ORDER BY created_at ASC LIMIT 1
     `;
+
+    let pick: { id: number; topic: string; category: string };
+
     if (topicRows.length === 0) {
-      return NextResponse.json({
-        success: false,
-        message: "All topics already generated",
-      });
+      // ── Auto-generate a new topic ──
+      console.log("[blog/generate] No pending topics — auto-generating new topic");
+      const { rows: allTopics } = await sql`
+        SELECT topic FROM blog_topics ORDER BY created_at DESC
+      `;
+      const existingTopics = allTopics.map((r) => r.topic as string);
+      const newTopic = await generateNewTopic(existingTopics);
+
+      if (!newTopic) {
+        return NextResponse.json(
+          { error: "Failed to auto-generate topic" },
+          { status: 500 }
+        );
+      }
+
+      const { rows: inserted } = await sql`
+        INSERT INTO blog_topics (topic, category, status)
+        VALUES (${newTopic.topic}, ${newTopic.category}, 'pending')
+        RETURNING *
+      `;
+      pick = inserted[0] as { id: number; topic: string; category: string };
+      console.log(`[blog/generate] Auto-generated topic: ${pick.topic} [${pick.category}]`);
+    } else {
+      pick = topicRows[0] as { id: number; topic: string; category: string };
     }
-    const pick = topicRows[0] as {
-      id: number;
-      topic: string;
-      category: string;
-    };
 
     // ── Generate with Claude ──
     const model = pickModel();

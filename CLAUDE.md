@@ -1,7 +1,7 @@
 # K-Fortune
 
 English Saju (Korean fortune telling) service for global GenZ users.
-Free mini reading → Paid premium report ($35, manual delivery).
+Free mini reading → Paid premium report ($29, manual delivery).
 Auto SEO blog for organic traffic.
 
 # Bash commands
