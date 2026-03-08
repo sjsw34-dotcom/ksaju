@@ -70,18 +70,18 @@ const faqSchema = {
     },
     {
       "@type": "Question",
-      name: "How is Sajumuse different from other online Saju sites?",
+      name: "Is this the same Saju from K-dramas and Korean movies?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Most online Saju services generate reports automatically using algorithms. At Sajumuse, every Premium Report is personally analyzed by a certified Saju master with 15+ years of experience and credentials in both Myeongri Psychology and Family Psychology. This means your reading captures nuances that automated systems miss. It's also why our reports reach 60+ pages.",
+        text: "Yes -- exactly the same tradition. In K-dramas like Demon Hunters and Korean films, you'll often see characters visiting a Saju master before big life decisions like marriage, career changes, or naming a child. That's not just a plot device -- it's real Korean culture. Millions of Koreans still consult Saju readers every year. Now you can experience the same reading, in English, from a certified master.",
       },
     },
     {
       "@type": "Question",
-      name: "How accurate is a Saju reading?",
+      name: "How is Sajumuse different from other online Saju sites?",
       acceptedAnswer: {
         "@type": "Answer",
-        text: "Saju has been refined over centuries using the Manseryeok, Korea's astronomical calendar system. While no system can predict the future with certainty, Saju provides remarkably detailed insights into personality patterns, relationship dynamics, career timing, and life cycles.",
+        text: "Most online Saju services generate reports automatically using algorithms. At Sajumuse, every Premium Report is personally analyzed by a certified Saju master with 15+ years of experience and credentials in both Myeongri Psychology and Family Psychology. This means your reading captures nuances that automated systems miss. It's also why our reports reach 60+ pages.",
       },
     },
     {
@@ -98,22 +98,6 @@ const faqSchema = {
       acceptedAnswer: {
         "@type": "Answer",
         text: "Premium Reports are delivered within 48 hours. Because each report is personally analyzed -- not auto-generated -- we take the time to thoroughly examine every aspect of your chart. The result is a 60+ page PDF covering personality, career, love, wealth, health, and your 10-year fortune cycle.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Can I ask personal questions?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "Yes. The Premium Report includes 3 personal questions. You can ask about career timing, relationship compatibility, health, or anything else you'd like deeper insight on.",
-      },
-    },
-    {
-      "@type": "Question",
-      name: "Is Saju the same as Chinese BaZi?",
-      acceptedAnswer: {
-        "@type": "Answer",
-        text: "They share the same historical origin, but Korean masters have developed distinct interpretation methods refined over 500+ years. Korean Saju places particular emphasis on psychological patterns, relationship dynamics, and practical life guidance -- making it especially relevant for modern decisions.",
       },
     },
   ],

@@ -22,23 +22,12 @@
   <!-- Center dot -->
   <circle cx="20" cy="18" r="1.8" fill="#FAF9F6" opacity="0.95"/>
 
-  <!-- SAJU -->
+  <!-- SAJUMUSE -->
   <text
     x="46" y="27"
     font-family="Pretendard, Inter, -apple-system, sans-serif"
     font-size="18"
     font-weight="800"
-    fill="#FFFFFF"
     letter-spacing="1"
-  >SAJU</text>
-
-  <!-- MUSE -->
-  <text
-    x="112" y="27"
-    font-family="Pretendard, Inter, -apple-system, sans-serif"
-    font-size="18"
-    font-weight="800"
-    fill="#F59E0B"
-    letter-spacing="1"
-  >MUSE</text>
+  ><tspan fill="#FFFFFF">SAJU</tspan><tspan fill="#F59E0B">MUSE</tspan></text>
 </svg>
