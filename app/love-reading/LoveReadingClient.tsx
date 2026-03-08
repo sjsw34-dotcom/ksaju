@@ -353,11 +353,30 @@ export default function LoveReadingClient() {
         </div>
       </section>
 
+
       {/* ════════════════════════════════════════════
           SECTION 5 — Order Form
       ════════════════════════════════════════════ */}
       <section id="order" className="py-16 sm:py-24 px-4 sm:px-6 bg-gradient-to-b from-pink-50/30 to-[#FAF9F6]">
         <div className="max-w-lg mx-auto">
+          {/* Reviews strip */}
+          <div className="mb-8 bg-white border border-gray-200 rounded-2xl p-5 shadow-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <span className="text-[#F59E0B] text-sm">&#9733;&#9733;&#9733;&#9733;&#9733;</span>
+              <span className="text-gray-900 text-sm font-semibold">5.0</span>
+              <span className="text-gray-400 text-xs">· 138+ verified reviews</span>
+            </div>
+            <div className="flex gap-2 overflow-hidden rounded-lg">
+              <img src="/images/reviews/review2.jpg" alt="Client review" className="w-1/3 rounded-lg object-cover h-28 sm:h-36" loading="lazy" />
+              <img src="/images/reviews/review5.jpg" alt="Client review" className="w-1/3 rounded-lg object-cover h-28 sm:h-36" loading="lazy" />
+              <img src="/images/reviews/review6.jpg" alt="Client review" className="w-1/3 rounded-lg object-cover h-28 sm:h-36" loading="lazy" />
+            </div>
+            <p className="text-gray-400 text-xs mt-2">
+              Real reviews from Korean clients on Danggeun Market ·{" "}
+              <a href="/about" className="text-[#E91E8C] hover:underline">See all →</a>
+            </p>
+          </div>
+
           <div className="text-center mb-8">
             <p className="text-[#E91E8C] text-xs font-semibold tracking-widest uppercase mb-3">
               Love Reading

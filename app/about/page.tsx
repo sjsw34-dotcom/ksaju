@@ -143,7 +143,69 @@ export default function AboutPage() {
           </div>
         </section>
 
-        {/* ── Section 4: CTA ── */}
+        {/* ── Section 4: Client Reviews ── */}
+        <section className="py-16 px-4 sm:px-6 max-w-4xl mx-auto">
+          <p className="text-[#F59E0B] text-xs font-semibold tracking-widest uppercase mb-3 text-center">
+            Client Reviews
+          </p>
+          <h2 className="text-2xl sm:text-3xl font-bold text-center mb-4 text-gray-900">
+            138+ Verified Reviews · Perfect 5.0 Rating
+          </h2>
+          <p className="text-gray-500 text-center max-w-2xl mx-auto mb-4 text-sm leading-relaxed">
+            Our master reader has provided hundreds of Saju consultations on
+            Danggeun Market — Korea&apos;s most trusted peer-to-peer platform where
+            reviews cannot be faked or deleted. Every screenshot below is an
+            unedited, verified review from a real Korean client.
+          </p>
+          <p className="text-gray-500 text-center max-w-2xl mx-auto mb-10 text-sm leading-relaxed">
+            Clients consistently praise the depth of analysis (100–140+ page PDF reports),
+            the accuracy of personality readings, and the practical guidance on timing
+            for career moves, relationships, and major life decisions.
+            Many note that this is the most detailed Saju reading they&apos;ve ever received.
+          </p>
+
+          {/* Collage — overlapping mosaic */}
+          <div className="relative mx-auto max-w-3xl">
+            {/* Row 1 */}
+            <div className="flex justify-center mb-[-20px] relative z-10">
+              <div className="w-[35%] rotate-[-3deg] hover:rotate-0 hover:scale-105 transition-all duration-300 shadow-lg rounded-xl overflow-hidden border-2 border-white">
+                <img src="/images/reviews/review1.jpg" alt="Client review - 5 star, 141-page premium report" className="w-full" loading="lazy" />
+              </div>
+              <div className="w-[35%] rotate-[2deg] hover:rotate-0 hover:scale-105 transition-all duration-300 shadow-lg rounded-xl overflow-hidden border-2 border-white ml-[-12px] mt-4">
+                <img src="/images/reviews/review2.jpg" alt="Client review - 5 star, accurate fortune analysis" className="w-full" loading="lazy" />
+              </div>
+              <div className="w-[35%] rotate-[-1deg] hover:rotate-0 hover:scale-105 transition-all duration-300 shadow-lg rounded-xl overflow-hidden border-2 border-white ml-[-12px]">
+                <img src="/images/reviews/review3.jpg" alt="Client review - 5 star, detailed Saju reading" className="w-full" loading="lazy" />
+              </div>
+            </div>
+
+            {/* Row 2 */}
+            <div className="flex justify-center mb-[-16px] relative z-20">
+              <div className="w-[40%] rotate-[2deg] hover:rotate-0 hover:scale-105 transition-all duration-300 shadow-xl rounded-xl overflow-hidden border-2 border-white">
+                <img src="/images/reviews/review4.jpg" alt="Client review - 5 star, 130-page PDF" className="w-full" loading="lazy" />
+              </div>
+              <div className="w-[40%] rotate-[-2deg] hover:rotate-0 hover:scale-105 transition-all duration-300 shadow-xl rounded-xl overflow-hidden border-2 border-white ml-[-8px] mt-3">
+                <img src="/images/reviews/review7.jpg" alt="Client review - Five Elements analysis" className="w-full" loading="lazy" />
+              </div>
+            </div>
+
+            {/* Row 3 */}
+            <div className="flex justify-center relative z-30">
+              <div className="w-[45%] rotate-[1deg] hover:rotate-0 hover:scale-105 transition-all duration-300 shadow-lg rounded-xl overflow-hidden border-2 border-white">
+                <img src="/images/reviews/review5.jpg" alt="Client review - recommends before marriage" className="w-full" loading="lazy" />
+              </div>
+              <div className="w-[45%] rotate-[-1.5deg] hover:rotate-0 hover:scale-105 transition-all duration-300 shadow-lg rounded-xl overflow-hidden border-2 border-white ml-[-8px] mt-2">
+                <img src="/images/reviews/review6.jpg" alt="Client review - accurate timing analysis" className="w-full" loading="lazy" />
+              </div>
+            </div>
+          </div>
+
+          <p className="text-center text-gray-400 text-xs mt-6">
+            Screenshots from Danggeun Market &amp; Korean community platforms · All reviews in Korean (original, unedited)
+          </p>
+        </section>
+
+        {/* ── Section 5: CTA ── */}
         <section className="py-16 px-4 sm:px-6 text-center max-w-2xl mx-auto">
           <h2 className="text-2xl sm:text-3xl font-bold mb-8 text-gray-900">
             Ready to discover what your birth chart reveals?
@@ -160,6 +222,24 @@ export default function AboutPage() {
               className="w-full sm:w-auto inline-flex items-center justify-center px-7 sm:px-8 py-3.5 sm:py-4 rounded-full border-2 border-[#F59E0B] text-[#7C3AED] hover:bg-[#F59E0B]/10 font-semibold text-base sm:text-lg transition-colors"
             >
               Get Premium Report · $29
+            </Link>
+          </div>
+
+          {/* Love Reading box */}
+          <div className="mt-10">
+            <Link
+              href="/love-reading"
+              className="block max-w-md mx-auto bg-white border border-pink-200 hover:border-[#E91E8C] rounded-2xl p-6 shadow-sm hover:shadow-md transition-all group"
+            >
+              <p className="text-[#E91E8C] text-xs font-semibold tracking-widest uppercase mb-2">
+                New
+              </p>
+              <p className="text-lg font-bold text-gray-900 group-hover:text-[#E91E8C] transition-colors mb-1">
+                Saju Love Reading · $19
+              </p>
+              <p className="text-gray-500 text-sm">
+                Discover your romantic destiny — your love personality, ideal partner type, and when love will find you.
+              </p>
             </Link>
           </div>
         </section>
