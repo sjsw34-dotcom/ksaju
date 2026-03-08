@@ -70,23 +70,29 @@ export async function POST(req: NextRequest) {
       if (!process.env.RESEND_API_KEY) throw new Error("RESEND_API_KEY not set");
       const resend = new Resend(process.env.RESEND_API_KEY);
 
+      const isLove = (order.order_id as string).startsWith("lv_");
+      const productLabel = isLove ? "Love Reading" : "Premium Report";
+      const amountLabel = isLove ? "$19" : "$29";
+
       await Promise.all([
         // Customer confirmation
         resend.emails.send({
           from: "Sajumuse <noreply@sajumuse.com>",
           to: order.email as string,
-          subject: "Your Sajumuse Premium Report is Confirmed ✦",
+          subject: `Your Sajumuse ${productLabel} is Confirmed ✦`,
           html: customerEmailHtml({
             name: order.name as string,
             birthDate: order.birth_date as string,
             birthTime: order.birth_time as string,
+            productLabel,
+            amountLabel,
           }),
         }),
         // Admin notification
         resend.emails.send({
           from: "Sajumuse <noreply@sajumuse.com>",
           to: process.env.MASTER_EMAIL!,
-          subject: `✦ New Order — ${order.name}`,
+          subject: `✦ New ${productLabel} Order — ${order.name}`,
           html: adminEmailHtml({
             name: order.name as string,
             email: order.email as string,
@@ -95,6 +101,8 @@ export async function POST(req: NextRequest) {
             gender: order.gender as string,
             orderId,
             paymentKey,
+            productLabel,
+            amountLabel,
           }),
         }),
       ]);
@@ -113,10 +121,14 @@ function customerEmailHtml({
   name,
   birthDate,
   birthTime,
+  productLabel,
+  amountLabel,
 }: {
   name: string;
   birthDate: string;
   birthTime: string;
+  productLabel: string;
+  amountLabel: string;
 }) {
   return `
 <!DOCTYPE html>
@@ -129,17 +141,18 @@ function customerEmailHtml({
         <tr><td style="padding:40px;">
           <p style="color:#F59E0B;font-size:12px;font-weight:700;letter-spacing:4px;text-transform:uppercase;margin:0 0 12px;">Sajumuse</p>
           <h1 style="font-size:24px;font-weight:700;margin:0 0 8px;">Your order is confirmed ✦</h1>
-          <p style="color:#9CA3AF;margin:0 0 32px;">Hi ${name}, your premium Saju report is on its way.</p>
+          <p style="color:#9CA3AF;margin:0 0 32px;">Hi ${name}, your ${productLabel} is on its way.</p>
 
           <table width="100%" cellpadding="12" cellspacing="0" style="background:#0A0A0F;border-radius:12px;margin-bottom:32px;">
-            <tr><td style="color:#6B7280;font-size:13px;">Name</td><td style="text-align:right;font-weight:600;">${name}</td></tr>
+            <tr><td style="color:#6B7280;font-size:13px;">Product</td><td style="text-align:right;font-weight:600;">${productLabel}</td></tr>
+            <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Name</td><td style="text-align:right;font-weight:600;border-top:1px solid #2A2A4A;">${name}</td></tr>
             <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Birth Date</td><td style="text-align:right;font-weight:600;border-top:1px solid #2A2A4A;">${birthDate}</td></tr>
             <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Birth Time</td><td style="text-align:right;font-weight:600;border-top:1px solid #2A2A4A;">${birthTime}</td></tr>
-            <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Amount</td><td style="text-align:right;font-weight:600;color:#F59E0B;border-top:1px solid #2A2A4A;">$29</td></tr>
+            <tr><td style="color:#6B7280;font-size:13px;border-top:1px solid #2A2A4A;">Amount</td><td style="text-align:right;font-weight:600;color:#F59E0B;border-top:1px solid #2A2A4A;">${amountLabel}</td></tr>
           </table>
 
           <p style="color:#D1D5DB;font-size:14px;line-height:1.7;margin:0 0 24px;">
-            Our master readers are preparing your full Four Pillars analysis. Your personalized report will be delivered to this email address <strong style="color:#ffffff;">within 24 hours</strong>.
+            Our master readers are preparing your personalized analysis. Your report will be delivered to this email address <strong style="color:#ffffff;">within 24 hours</strong>.
           </p>
 
           <p style="color:#6B7280;font-size:12px;margin:0;">Questions? Reply to this email anytime.</p>
@@ -159,6 +172,8 @@ function adminEmailHtml({
   gender,
   orderId,
   paymentKey,
+  productLabel,
+  amountLabel,
 }: {
   name: string;
   email: string;
@@ -167,6 +182,8 @@ function adminEmailHtml({
   gender: string;
   orderId: string;
   paymentKey: string;
+  productLabel: string;
+  amountLabel: string;
 }) {
   return `
 <!DOCTYPE html>
@@ -176,7 +193,7 @@ function adminEmailHtml({
     <tr><td align="center" style="padding:40px 16px;">
       <table width="560" cellpadding="0" cellspacing="0" style="background:#ffffff;border-radius:16px;border:1px solid #e5e7eb;">
         <tr><td style="padding:32px;">
-          <h2 style="font-size:20px;font-weight:700;margin:0 0 24px;color:#7C3AED;">✦ New Premium Order</h2>
+          <h2 style="font-size:20px;font-weight:700;margin:0 0 24px;color:#7C3AED;">✦ New ${productLabel} Order (${amountLabel})</h2>
           <table width="100%" cellpadding="10" cellspacing="0" style="border:1px solid #e5e7eb;border-radius:8px;">
             <tr style="background:#f3f4f6;"><td style="font-weight:600;color:#6B7280;font-size:13px;width:40%;">Name</td><td style="font-weight:700;">${name}</td></tr>
             <tr><td style="font-weight:600;color:#6B7280;font-size:13px;border-top:1px solid #e5e7eb;">Email</td><td style="border-top:1px solid #e5e7eb;">${email}</td></tr>
