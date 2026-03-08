@@ -22,8 +22,8 @@ export default function Header() {
           <Image
             src="/logo.svg"
             alt="Sajumuse"
-            width={180}
-            height={37}
+            width={200}
+            height={40}
             priority
           />
         </Link>
